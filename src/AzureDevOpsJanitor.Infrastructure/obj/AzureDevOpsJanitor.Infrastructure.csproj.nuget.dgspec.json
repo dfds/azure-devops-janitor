@@ -1,0 +1,166 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\tobia\\Source\\Repos\\azure-devops-janitor\\src\\AzureDevOpsJanitor.Infrastructure\\AzureDevOpsJanitor.Infrastructure.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\tobia\\Source\\Repos\\azure-devops-janitor\\src\\AzureDevOpsJanitor.Domain\\AzureDevOpsJanitor.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\tobia\\Source\\Repos\\azure-devops-janitor\\src\\AzureDevOpsJanitor.Domain\\AzureDevOpsJanitor.Domain.csproj",
+        "projectName": "AzureDevOpsJanitor.Domain",
+        "projectPath": "C:\\Users\\tobia\\Source\\Repos\\azure-devops-janitor\\src\\AzureDevOpsJanitor.Domain\\AzureDevOpsJanitor.Domain.csproj",
+        "packagesPath": "C:\\Users\\tobia\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\tobia\\Source\\Repos\\azure-devops-janitor\\src\\AzureDevOpsJanitor.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\tobia\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://pkgs.dev.azure.com/dfds/_packaging/dfds-devex-shared/nuget/v3/index.json": {},
+          "https://www.myget.org/F/aspnet-contrib/api/v3/index.json": {},
+          "https://www.myget.org/F/aspnetvnext/api/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "MediatR": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "ResourceProvisioning.Abstractions": {
+              "target": "Package",
+              "version": "[1.0.0-CI-20201102-114736, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\tobia\\Source\\Repos\\azure-devops-janitor\\src\\AzureDevOpsJanitor.Infrastructure\\AzureDevOpsJanitor.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\tobia\\Source\\Repos\\azure-devops-janitor\\src\\AzureDevOpsJanitor.Infrastructure\\AzureDevOpsJanitor.Infrastructure.csproj",
+        "projectName": "AzureDevOpsJanitor.Infrastructure",
+        "projectPath": "C:\\Users\\tobia\\Source\\Repos\\azure-devops-janitor\\src\\AzureDevOpsJanitor.Infrastructure\\AzureDevOpsJanitor.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\tobia\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\tobia\\Source\\Repos\\azure-devops-janitor\\src\\AzureDevOpsJanitor.Infrastructure\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\tobia\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://pkgs.dev.azure.com/dfds/_packaging/dfds-devex-shared/nuget/v3/index.json": {},
+          "https://www.myget.org/F/aspnet-contrib/api/v3/index.json": {},
+          "https://www.myget.org/F/aspnetvnext/api/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "C:\\Users\\tobia\\Source\\Repos\\azure-devops-janitor\\src\\AzureDevOpsJanitor.Domain\\AzureDevOpsJanitor.Domain.csproj": {
+                "projectPath": "C:\\Users\\tobia\\Source\\Repos\\azure-devops-janitor\\src\\AzureDevOpsJanitor.Domain\\AzureDevOpsJanitor.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "Microsoft.ApplicationInsights": {
+              "target": "Package",
+              "version": "[2.14.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.3, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.3, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[3.1.3, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[3.1.3, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[3.1.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

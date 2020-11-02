@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>	
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.14.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.AzureAD.UI" Version="3.1.5" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.5" />
+      <PackageReference Include="Swashbuckle.AspNetCore" Version="5.3.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ResourceProvisioning.Broker.Application\ResourceProvisioning.Broker.Application.csproj" />
+    </ItemGroup>
+
+</Project>

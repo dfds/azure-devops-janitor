@@ -1,0 +1,8 @@
+C:\Users\tobia\Source\Repos\azure-devops-janitor\src\AzureDevOpsJanitor.Domain\bin\Debug\netcoreapp3.1\ResourceProvisioning.Broker.Domain.deps.json
+C:\Users\tobia\Source\Repos\azure-devops-janitor\src\AzureDevOpsJanitor.Domain\bin\Debug\netcoreapp3.1\ResourceProvisioning.Broker.Domain.dll
+C:\Users\tobia\Source\Repos\azure-devops-janitor\src\AzureDevOpsJanitor.Domain\obj\Debug\netcoreapp3.1\ResourceProvisioning.Broker.Domain.csprojAssemblyReference.cache
+C:\Users\tobia\Source\Repos\azure-devops-janitor\src\AzureDevOpsJanitor.Domain\obj\Debug\netcoreapp3.1\ResourceProvisioning.Broker.Domain.AssemblyInfoInputs.cache
+C:\Users\tobia\Source\Repos\azure-devops-janitor\src\AzureDevOpsJanitor.Domain\obj\Debug\netcoreapp3.1\ResourceProvisioning.Broker.Domain.AssemblyInfo.cs
+C:\Users\tobia\Source\Repos\azure-devops-janitor\src\AzureDevOpsJanitor.Domain\bin\Debug\netcoreapp3.1\ResourceProvisioning.Broker.Domain.pdb
+C:\Users\tobia\Source\Repos\azure-devops-janitor\src\AzureDevOpsJanitor.Domain\obj\Debug\netcoreapp3.1\ResourceProvisioning.Broker.Domain.dll
+C:\Users\tobia\Source\Repos\azure-devops-janitor\src\AzureDevOpsJanitor.Domain\obj\Debug\netcoreapp3.1\ResourceProvisioning.Broker.Domain.pdb

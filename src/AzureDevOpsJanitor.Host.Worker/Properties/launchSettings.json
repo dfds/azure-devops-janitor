@@ -1,0 +1,10 @@
+﻿{
+  "profiles": {
+    "ResourceProvisioning.Broker.Host.Worker": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
