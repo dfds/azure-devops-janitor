@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ResourceProvisioning.Broker.Application
+namespace AzureDevOpsJanitor.Application
 {
 	public sealed class ApplicationFacadeException : Exception
 	{

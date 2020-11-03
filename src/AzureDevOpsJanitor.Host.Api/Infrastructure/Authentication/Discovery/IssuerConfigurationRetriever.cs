@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Protocols;
 
-namespace ResourceProvisioning.Broker.Host.Api.Infrastructure.Authentication.Discovery
+namespace AzureDevOpsJanitor.Host.Api.Infrastructure.Authentication.Discovery
 {
 	/// <summary>
 	/// An implementation of IConfigurationRetriever geared towards Azure AD issuers metadata />

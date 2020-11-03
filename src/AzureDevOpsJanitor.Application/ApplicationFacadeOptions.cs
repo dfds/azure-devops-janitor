@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.Extensions.Configuration;
 
-namespace ResourceProvisioning.Broker.Application
+namespace AzureDevOpsJanitor.Application
 {
 	public sealed class ApplicationFacadeOptions
 	{

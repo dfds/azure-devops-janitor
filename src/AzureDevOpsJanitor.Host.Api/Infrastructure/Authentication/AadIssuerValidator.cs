@@ -6,12 +6,12 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using AzureDevOpsJanitor.Host.Api.Infrastructure.Authentication.Discovery;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Protocols;
 using Microsoft.IdentityModel.Tokens;
-using ResourceProvisioning.Broker.Host.Api.Infrastructure.Authentication.Discovery;
 
-namespace ResourceProvisioning.Broker.Host.Api.Infrastructure.Authentication
+namespace AzureDevOpsJanitor.Host.Api.Infrastructure.Authentication
 {
 	/// <summary>
 	/// Generic class that validates token issuer from the provided Azure AD authority. Use the <see cref="AadIssuerValidatorFactory"/> to create instances of this class.

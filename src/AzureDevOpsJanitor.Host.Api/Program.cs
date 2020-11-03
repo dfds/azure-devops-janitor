@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace ResourceProvisioning.Broker.Host.Api
+namespace AzureDevOpsJanitor.Host.Api
 {
 	public class Program
 	{

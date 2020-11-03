@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace ResourceProvisioning.Broker.Application.Mapping.Profiles
+namespace AzureDevOpsJanitor.Application.Mapping.Profiles
 {
 	public class DefaultProfile : Profile
 	{

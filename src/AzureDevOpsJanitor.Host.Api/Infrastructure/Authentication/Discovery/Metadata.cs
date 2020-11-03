@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace ResourceProvisioning.Broker.Host.Api.Infrastructure.Authentication.Discovery
+namespace AzureDevOpsJanitor.Host.Api.Infrastructure.Authentication.Discovery
 {
 	internal class Metadata
 	{

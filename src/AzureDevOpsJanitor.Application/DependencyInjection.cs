@@ -21,11 +21,11 @@ using ResourceProvisioning.Abstractions.Repositories;
 using System;
 using System.Reflection;
 
-namespace ResourceProvisioning.Broker.Application
+namespace AzureDevOpsJanitor.Application
 {
 	public static class DependencyInjection
 	{
-		public static void AddProvisioningBroker(this IServiceCollection services, Action<ApplicationFacadeOptions> configureOptions = default)
+		public static void AddApplication(this IServiceCollection services, Action<ApplicationFacadeOptions> configureOptions = default)
 		{
 			var options = new ApplicationFacadeOptions();
 
@@ -129,10 +129,10 @@ namespace ResourceProvisioning.Broker.Application
 
 		private static void AddServices(this IServiceCollection services)
 		{
-			services.AddTransient<IControlPlaneService, ControlPlaneService>();
+			services.AddTransient<IBuildService, BuildService>();
 		}
 
-		private static void AddBroker(this IServiceCollection services)
+		private static void AddFacade(this IServiceCollection services)
 		{
 			services.AddTransient<IProvisioningBroker, ApplicationFacade>();
 		}

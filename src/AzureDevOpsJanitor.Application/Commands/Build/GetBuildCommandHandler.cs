@@ -11,9 +11,9 @@ namespace AzureDevOpsJanitor.Application.Commands.Build
 {
 	public sealed class GetBuildCommandHandler : CommandHandler<GetBuildCommand, IProvisioningResponse>
 	{
-		private readonly IControlPlaneService _controlPlaneService;
+		private readonly IBuildService _controlPlaneService;
 
-		public GetBuildCommandHandler(IMediator mediator, IControlPlaneService controlPlaneService) : base(mediator)
+		public GetBuildCommandHandler(IMediator mediator, IBuildService controlPlaneService) : base(mediator)
 		{
 			_controlPlaneService = controlPlaneService ?? throw new ArgumentNullException(nameof(controlPlaneService));
 		}

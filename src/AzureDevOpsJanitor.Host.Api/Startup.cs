@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using AzureDevOpsJanitor.Application;
+using AzureDevOpsJanitor.Host.Api.Infrastructure.Authentication;
+using AzureDevOpsJanitor.Infrastructure.EntityFramework;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.AzureAD.UI;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -6,10 +9,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using ResourceProvisioning.Broker.Host.Api.Infrastructure.Authentication;
-using ResourceProvisioning.Broker.Infrastructure.EntityFramework;
 
-namespace ResourceProvisioning.Broker.Host.Api
+namespace AzureDevOpsJanitor.Host.Api
 {
 	public class Startup
 	{
@@ -45,9 +46,7 @@ namespace ResourceProvisioning.Broker.Host.Api
 				});
 			});
 
-			services.AddApplicationInsightsTelemetry("2ded7a03-d47a-4872-9886-08776ddfd311");
-
-			Application.DependencyInjection.AddProvisioningBroker(services, options =>
+			DependencyInjection.AddApplication(services, options =>
 			{
 				Configuration.Bind(options);
 

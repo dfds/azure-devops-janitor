@@ -1,4 +1,4 @@
-﻿namespace ResourceProvisioning.Broker.Host.Api.Infrastructure.Authentication
+﻿namespace AzureDevOpsJanitor.Host.Api.Infrastructure.Authentication
 { /// <summary>
   /// Constants for claim types.
   /// </summary>

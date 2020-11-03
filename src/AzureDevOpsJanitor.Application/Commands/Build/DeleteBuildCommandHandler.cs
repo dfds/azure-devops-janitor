@@ -12,9 +12,9 @@ namespace AzureDevOpsJanitor.Application.Commands.Build
 {
 	public sealed class DeleteBuildCommandHandler : CommandHandler<DeleteBuildCommand, IProvisioningResponse>
 	{
-		private readonly IControlPlaneService _controlPlaneService;
+		private readonly IBuildService _controlPlaneService;
 
-		public DeleteBuildCommandHandler(IMediator mediator, IControlPlaneService controlPlaneService) : base(mediator)
+		public DeleteBuildCommandHandler(IMediator mediator, IBuildService controlPlaneService) : base(mediator)
 		{
 			_controlPlaneService = controlPlaneService ?? throw new ArgumentNullException(nameof(controlPlaneService));
 		}

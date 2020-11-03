@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using ResourceProvisioning.Abstractions.Grid;
 using ResourceProvisioning.Abstractions.Grid.Provisioning;
 
-namespace ResourceProvisioning.Broker.Application
+namespace AzureDevOpsJanitor.Application
 {
 	public sealed class ApplicationFacade : IProvisioningBroker
 	{
