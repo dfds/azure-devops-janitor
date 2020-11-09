@@ -1,8 +1,0 @@
-C:\Users\tobia\Source\Repos\azure-devops-janitor\src\AzureDevOpsJanitor.Domain\bin\Debug\netcoreapp3.1\AzureDevOpsJanitor.Domain.deps.json
-C:\Users\tobia\Source\Repos\azure-devops-janitor\src\AzureDevOpsJanitor.Domain\bin\Debug\netcoreapp3.1\AzureDevOpsJanitor.Domain.dll
-C:\Users\tobia\Source\Repos\azure-devops-janitor\src\AzureDevOpsJanitor.Domain\bin\Debug\netcoreapp3.1\AzureDevOpsJanitor.Domain.pdb
-C:\Users\tobia\Source\Repos\azure-devops-janitor\src\AzureDevOpsJanitor.Domain\obj\Debug\netcoreapp3.1\AzureDevOpsJanitor.Domain.AssemblyInfoInputs.cache
-C:\Users\tobia\Source\Repos\azure-devops-janitor\src\AzureDevOpsJanitor.Domain\obj\Debug\netcoreapp3.1\AzureDevOpsJanitor.Domain.AssemblyInfo.cs
-C:\Users\tobia\Source\Repos\azure-devops-janitor\src\AzureDevOpsJanitor.Domain\obj\Debug\netcoreapp3.1\AzureDevOpsJanitor.Domain.dll
-C:\Users\tobia\Source\Repos\azure-devops-janitor\src\AzureDevOpsJanitor.Domain\obj\Debug\netcoreapp3.1\AzureDevOpsJanitor.Domain.pdb
-C:\Users\tobia\Source\Repos\azure-devops-janitor\src\AzureDevOpsJanitor.Domain\obj\Debug\netcoreapp3.1\AzureDevOpsJanitor.Domain.csprojAssemblyReference.cache
