@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace AzureDevOpsJanitor.Host.Api.Models.Ado
+namespace AzureDevOpsJanitor.Host.Api.Models.Vsts
 {
-    public class BuildCollection
+    public class ProjectCollection
     {
         [JsonPropertyName("count")]
         public int Count { get; set; }
 
         [JsonPropertyName("value")]
-        public IEnumerable<Build> Items { get; set; }
+        public IEnumerable<Project> Items { get; set; }
     }
 }

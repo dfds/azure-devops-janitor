@@ -3,7 +3,7 @@ using ResourceProvisioning.Abstractions.Events;
 
 namespace AzureDevOpsJanitor.Domain.Events.Build
 {
-	public sealed class BuildRequestedEvent : IPivotEvent
+	public sealed class BuildRequestedEvent : IDomainEvent
 	{
 		public BuildRoot Build { get; }
 

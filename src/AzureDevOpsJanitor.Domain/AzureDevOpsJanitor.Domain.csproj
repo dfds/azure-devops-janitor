@@ -11,7 +11,7 @@
 
     <ItemGroup>
       <PackageReference Include="MediatR" Version="9.0.0" />
-      <PackageReference Include="ResourceProvisioning.Abstractions" Version="1.0.0-CI-20201102-114736" />
+      <PackageReference Include="ResourceProvisioning.Abstractions" Version="1.0.0-CI-20201106-112137" />
     </ItemGroup>
 
 

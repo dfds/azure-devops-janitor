@@ -2,7 +2,7 @@
 
 namespace AzureDevOpsJanitor.Domain.Events.Build
 {
-	public sealed class BuildInitializedEvent : IPivotEvent
+	public sealed class BuildInitializedEvent : IDomainEvent
 	{
 		public ulong BuildId { get; }
 

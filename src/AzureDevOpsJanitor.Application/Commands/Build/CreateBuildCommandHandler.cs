@@ -1,28 +1,27 @@
-﻿using AzureDevOpsJanitor.Application.Protocols.Http;
+﻿using AzureDevOpsJanitor.Domain.Aggregates.Build;
 using AzureDevOpsJanitor.Domain.Services;
 using MediatR;
 using ResourceProvisioning.Abstractions.Commands;
-using ResourceProvisioning.Abstractions.Grid.Provisioning;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Application.Commands.Build
 {
-	public sealed class CreateBuildCommandHandler : CommandHandler<CreateBuildCommand, IProvisioningResponse>
+	public sealed class CreateBuildCommandHandler : CommandHandler<CreateBuildCommand, BuildRoot>
 	{
-		private readonly IBuildService _controlPlaneService;
+		private readonly IBuildService _buildService;
 
-		public CreateBuildCommandHandler(IMediator mediator, IBuildService controlPlaneService) : base(mediator)
+		public CreateBuildCommandHandler(IMediator mediator, IBuildService buildService) : base(mediator)
 		{
-			_controlPlaneService = controlPlaneService ?? throw new ArgumentNullException(nameof(controlPlaneService));
+			_buildService = buildService ?? throw new ArgumentNullException(nameof(buildService));
 		}
 
-		public override async Task<IProvisioningResponse> Handle(CreateBuildCommand command, CancellationToken cancellationToken = default)
+		public override async Task<BuildRoot> Handle(CreateBuildCommand command, CancellationToken cancellationToken = default)
 		{
-			var aggregate = await _controlPlaneService.AddBuildAsync(command.CapabilityId, cancellationToken);
+			var aggregate = await _buildService.AddBuildAsync(command.CapabilityId, cancellationToken);
 
-			return new ApplicationFacadeResponse(aggregate);
+			return aggregate;
 		}
 	}
 }

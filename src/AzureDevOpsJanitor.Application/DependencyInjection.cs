@@ -16,9 +16,10 @@ using Microsoft.Extensions.DependencyInjection;
 using ResourceProvisioning.Abstractions.Commands;
 using ResourceProvisioning.Abstractions.Data;
 using ResourceProvisioning.Abstractions.Events;
-using ResourceProvisioning.Abstractions.Grid.Provisioning;
+using ResourceProvisioning.Abstractions.Facade;
 using ResourceProvisioning.Abstractions.Repositories;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace AzureDevOpsJanitor.Application
@@ -51,9 +52,9 @@ namespace AzureDevOpsJanitor.Application
 			services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionBehaviour<,>));
 			services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
 
-			services.AddTransient<IRequestHandler<GetBuildCommand, IProvisioningResponse>, GetBuildCommandHandler>();
-			services.AddTransient<IRequestHandler<CreateBuildCommand, IProvisioningResponse>, CreateBuildCommandHandler>();
-			services.AddTransient<IRequestHandler<DeleteBuildCommand, IProvisioningResponse>, DeleteBuildCommandHandler>();
+			services.AddTransient<IRequestHandler<GetBuildCommand, IEnumerable<BuildRoot>>, GetBuildCommandHandler>();
+			services.AddTransient<IRequestHandler<CreateBuildCommand, BuildRoot>, CreateBuildCommandHandler>();
+			services.AddTransient<IRequestHandler<DeleteBuildCommand, bool>, DeleteBuildCommandHandler>();
 
 			services.AddTransient<INotificationHandler<BuildRequestedEvent>, BuildRequestedEventHandler>();
 			services.AddTransient<INotificationHandler<BuildInitializedEvent>, BuildInitializedEventHandler>();
@@ -62,10 +63,9 @@ namespace AzureDevOpsJanitor.Application
 
 		private static void AddCommandHandlers(this IServiceCollection services)
 		{
-			services.AddTransient<ICommandHandler<GetBuildCommand, IProvisioningResponse>, GetBuildCommandHandler>();
-			services.AddTransient<ICommandHandler<CreateBuildCommand, IProvisioningResponse>, CreateBuildCommandHandler>();
-			services.AddTransient<ICommandHandler<DeleteBuildCommand, IProvisioningResponse>, DeleteBuildCommandHandler>();
-			services.AddTransient<ICommandHandler<IProvisioningRequest, IProvisioningResponse>>(factory => factory.GetRequiredService<IProvisioningBroker>());
+			services.AddTransient<ICommandHandler<GetBuildCommand, IEnumerable<BuildRoot>>, GetBuildCommandHandler>();
+			services.AddTransient<ICommandHandler<CreateBuildCommand, BuildRoot>, CreateBuildCommandHandler>();
+			services.AddTransient<ICommandHandler<DeleteBuildCommand, bool>, DeleteBuildCommandHandler>();
 		}
 
 		private static void AddEventHandlers(this IServiceCollection services)
@@ -73,7 +73,6 @@ namespace AzureDevOpsJanitor.Application
 			services.AddTransient<IEventHandler<BuildRequestedEvent>, BuildRequestedEventHandler>();
 			services.AddTransient<IEventHandler<BuildInitializedEvent>, BuildInitializedEventHandler>();
 			services.AddTransient<IEventHandler<BuildCompletedEvent>, BuildCompletedEventHandler>();
-			services.AddTransient<IEventHandler<IProvisioningEvent>>(factory => factory.GetRequiredService<IProvisioningBroker>());
 		}
 
 		private static void AddPersistancy(this IServiceCollection services, ApplicationFacadeOptions brokerOptions = default)
@@ -134,7 +133,7 @@ namespace AzureDevOpsJanitor.Application
 
 		private static void AddFacade(this IServiceCollection services)
 		{
-			services.AddTransient<IProvisioningBroker, ApplicationFacade>();
+			services.AddTransient<IFacade, ApplicationFacade>();
 		}
 	}
 }

@@ -1,40 +1,37 @@
-﻿using AzureDevOpsJanitor.Application.Protocols.Http;
-using AzureDevOpsJanitor.Domain;
-using AzureDevOpsJanitor.Domain.Services;
+﻿using AzureDevOpsJanitor.Domain.Services;
 using MediatR;
 using ResourceProvisioning.Abstractions.Commands;
-using ResourceProvisioning.Abstractions.Grid.Provisioning;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Application.Commands.Build
 {
-	public sealed class DeleteBuildCommandHandler : CommandHandler<DeleteBuildCommand, IProvisioningResponse>
+	public sealed class DeleteBuildCommandHandler : CommandHandler<DeleteBuildCommand, bool>
 	{
-		private readonly IBuildService _controlPlaneService;
+		private readonly IBuildService _buildService;
 
-		public DeleteBuildCommandHandler(IMediator mediator, IBuildService controlPlaneService) : base(mediator)
+		public DeleteBuildCommandHandler(IMediator mediator, IBuildService buildService) : base(mediator)
 		{
-			_controlPlaneService = controlPlaneService ?? throw new ArgumentNullException(nameof(controlPlaneService));
+			_buildService = buildService ?? throw new ArgumentNullException(nameof(buildService));
 		}
 
-		public override async Task<IProvisioningResponse> Handle(DeleteBuildCommand command, CancellationToken cancellationToken = default)
+		public override async Task<bool> Handle(DeleteBuildCommand command, CancellationToken cancellationToken = default)
 		{
 			if (command.BuildId > 0)
 			{
 				try
 				{
-					await _controlPlaneService.DeleteBuildAsync(command.BuildId, cancellationToken);
+					await _buildService.DeleteBuildAsync(command.BuildId, cancellationToken);
 				}
-				catch(AzureDevOpsJanitorDomainException exp)
+				catch
 				{
-					return new ApplicationFacadeResponse(exp);
+					throw;
 				}
 				
 			}
-			
-			return new ApplicationFacadeResponse(true);
+
+			return true;
 		}
 	}
 }

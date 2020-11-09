@@ -3,7 +3,7 @@ using ResourceProvisioning.Abstractions.Events;
 
 namespace AzureDevOpsJanitor.Domain.Events.Build
 {
-	public sealed class BuildCompletedEvent : IPivotEvent
+	public sealed class BuildCompletedEvent : IDomainEvent
 	{
 		public ulong Id { get; }
 
