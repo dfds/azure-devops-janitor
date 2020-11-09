@@ -1,10 +1,11 @@
 ﻿using AzureDevOpsJanitor.Domain.Aggregates.Build;
 using AzureDevOpsJanitor.Domain.Repository;
+using AzureDevOpsJanitor.Domain.Services;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AzureDevOpsJanitor.Domain.Services
+namespace AzureDevOpsJanitor.Application.Services
 {
 	public sealed class BuildService : IBuildService
 	{

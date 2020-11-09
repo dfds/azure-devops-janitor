@@ -4,14 +4,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AzureDevOpsJanitor.Domain.ValueObjects
 {
-	public class Profile : ValueObject
+	public class UserProfile : ValueObject
 	{
 		[Required]
 		public string Name { get; protected set; }
 
-		protected Profile() { }
+		protected UserProfile() { }
 
-		public Profile(string name)
+		public UserProfile(string name)
 		{
 			Name = name;
 		}

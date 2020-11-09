@@ -1,15 +1,17 @@
-﻿using ResourceProvisioning.Abstractions.Commands;
-using System.IdentityModel.Tokens.Jwt;
+﻿using AzureDevOpsJanitor.Domain.ValueObjects;
+using ResourceProvisioning.Abstractions.Commands;
 using System.Runtime.Serialization;
 
 namespace AzureDevOpsJanitor.Application.Commands.Profile
 {
 	[DataContract]
-	public sealed class GetProfileCommand : VstsCommand, ICommand<Domain.ValueObjects.Profile>
+	public sealed class GetProfileCommand : ICommand<UserProfile>
 	{
-		public GetProfileCommand(JwtSecurityToken accessToken) : base(accessToken)
-		{
-	
+		public string ProfileId { get; }
+
+		public GetProfileCommand(string profileId = null)
+		{			
+			ProfileId = profileId ?? "me";
 		}
 	}
 }

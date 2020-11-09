@@ -2,7 +2,7 @@
 
 namespace AzureDevOpsJanitor.Host.Api.Models.Vsts
 {
-    public class StsPayload
+    internal sealed class VstsStsDto
     {
         [JsonPropertyName("access_token")]
         public string AccessToken { get; set; }

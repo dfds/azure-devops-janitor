@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.AzureAD.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
@@ -43,12 +42,16 @@ namespace AzureDevOpsJanitor.Host.Api
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
+			app.UseHttpsRedirection();
 			app.UseRouting();
 			app.UseCors("open");
-			app.UseMiddleware<VstsCallbackMiddleware>();
 			app.UseAuthentication();
-			app.UseAuthorization();	
-			app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+			app.UseAuthorization();
+			app.UseMiddleware<VstsCallbackMiddleware>();
+			app.UseEndpoints(endpoints => 
+			{ 
+				endpoints.MapControllers(); 
+			});
 			app.UseSwagger();
 			app.UseSwaggerUI(c =>
 			{
@@ -82,7 +85,6 @@ namespace AzureDevOpsJanitor.Host.Api
 			});
 
 			services.AddTransient<VstsCallbackMiddleware>();
-			services.AddSingleton<IMemoryCache, MemoryCache>();
 
 			AddHostAuthentication(services);
 		}

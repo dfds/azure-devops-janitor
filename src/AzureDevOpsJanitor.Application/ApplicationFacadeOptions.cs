@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
+using System.ComponentModel.DataAnnotations;
 
 namespace AzureDevOpsJanitor.Application
 {

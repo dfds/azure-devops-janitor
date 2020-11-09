@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace AzureDevOpsJanitor.Infrastructure.Migrations
+namespace AzureDevOpsJanitor.Infrastructure.EntityFramework.Migrations
 {
     public partial class baseline : Migration
     {

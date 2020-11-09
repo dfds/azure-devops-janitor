@@ -1,5 +1,6 @@
 ﻿using AzureDevOpsJanitor.Host.Api.Models.Vsts;
 using AzureDevOpsJanitor.Host.Api.Settings;
+using AzureDevOpsJanitor.Infrastructure.Vsts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Caching.Memory;
@@ -16,7 +17,6 @@ namespace AzureDevOpsJanitor.Host.Api.Infrastructure.Middleware
     //TODO: Remove middleware once a proper client authentication flow has been established. This will only work in local dev.
     public class VstsCallbackMiddleware : IMiddleware
     {
-        public const string VstsAccessTokenCacheKey = "vstsAccessToken";
         private readonly IMemoryCache _cache;
         private readonly VstsSettings _vstsSettings;
 
@@ -47,7 +47,7 @@ namespace AzureDevOpsJanitor.Host.Api.Infrastructure.Middleware
 
                 var stsResponse = await client.PostAsync(_vstsSettings.TokenService.AbsoluteUri, new FormUrlEncodedContent(formData));
                 var stsResponseData = await stsResponse.Content.ReadAsStringAsync();
-                var stsPayload = JsonSerializer.Deserialize<StsPayload>(stsResponseData);
+                var stsPayload = JsonSerializer.Deserialize<VstsStsDto>(stsResponseData);
                 var tokenHandler = new JwtSecurityTokenHandler();
 
                 if (tokenHandler.CanReadToken(stsPayload.AccessToken))
@@ -56,7 +56,7 @@ namespace AzureDevOpsJanitor.Host.Api.Infrastructure.Middleware
 
                     if (double.TryParse(stsPayload.ExpiresIn, out double expires))
                     {
-                        _cache.Set(VstsAccessTokenCacheKey, token.RawData, TimeSpan.FromSeconds(expires));
+                        _cache.Set(VstsRestClient.VstsAccessTokenCacheKey, token, TimeSpan.FromSeconds(expires));
                     }
                 }
             }

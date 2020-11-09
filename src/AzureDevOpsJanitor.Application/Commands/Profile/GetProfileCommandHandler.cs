@@ -1,4 +1,5 @@
 ﻿using AzureDevOpsJanitor.Domain.Services;
+using AzureDevOpsJanitor.Domain.ValueObjects;
 using MediatR;
 using ResourceProvisioning.Abstractions.Commands;
 using System.Threading;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Application.Commands.Profile
 {
-	public sealed class GetProfileCommandHandler : CommandHandler<GetProfileCommand, Domain.ValueObjects.Profile>
+	public sealed class GetProfileCommandHandler : CommandHandler<GetProfileCommand, UserProfile>
 	{
 		private readonly IProfileService _profileService;
 
@@ -15,9 +16,9 @@ namespace AzureDevOpsJanitor.Application.Commands.Profile
 			_profileService = profileService;
 		}
 
-		public override async Task<Domain.ValueObjects.Profile> Handle(GetProfileCommand command, CancellationToken cancellationToken = default)
+		public override async Task<UserProfile> Handle(GetProfileCommand command, CancellationToken cancellationToken = default)
 		{
-			return await _profileService.GetProfileAsync();
+			return await _profileService.GetProfileAsync(command.ProfileId);
 		}
 	}
 }

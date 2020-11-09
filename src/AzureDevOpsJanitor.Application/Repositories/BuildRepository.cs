@@ -9,7 +9,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace AzureDevOpsJanitor.Infrastructure.Repositories
+namespace AzureDevOpsJanitor.Application.Repositories
 {
 	public class BuildRepository : Repository<DomainContext, BuildRoot>, IBuildRepository
 	{

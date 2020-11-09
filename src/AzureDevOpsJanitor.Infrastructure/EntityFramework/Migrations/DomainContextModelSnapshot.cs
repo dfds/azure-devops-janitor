@@ -2,16 +2,14 @@
 using AzureDevOpsJanitor.Infrastructure.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace AzureDevOpsJanitor.Infrastructure.Migrations
+namespace AzureDevOpsJanitor.Infrastructure.EntityFramework.Migrations
 {
     [DbContext(typeof(DomainContext))]
-    [Migration("20201102130527_baseline")]
-    partial class baseline
+    partial class DomainContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
