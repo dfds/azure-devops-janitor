@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects
 {
-    public sealed class VstsProfile
+    public sealed class Profile
     {
         [JsonPropertyName("id")]
         public Guid Id { get; set; }

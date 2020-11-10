@@ -1,6 +1,7 @@
 ﻿using AzureDevOpsJanitor.Domain.Aggregates.Build;
 using AzureDevOpsJanitor.Domain.Repository;
 using AzureDevOpsJanitor.Domain.Services;
+using AzureDevOpsJanitor.Domain.ValueObjects;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,9 +27,9 @@ namespace AzureDevOpsJanitor.Application.Services
 			return await _buildRepository.GetByIdAsync(buildId);
 		}
 
-		public async Task<BuildRoot> AddBuildAsync(string capabilityId, CancellationToken cancellationToken = default)
+		public async Task<BuildRoot> AddBuildAsync(string capabilityId, BuildDefinition definition, CancellationToken cancellationToken = default)
 		{
-			var build = _buildRepository.Add(new BuildRoot(capabilityId));
+			var build = _buildRepository.Add(new BuildRoot(capabilityId, definition));
 
 			await _buildRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
 

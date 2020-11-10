@@ -1,4 +1,5 @@
 ﻿using AzureDevOpsJanitor.Domain.Aggregates.Build;
+using AzureDevOpsJanitor.Domain.ValueObjects;
 using ResourceProvisioning.Abstractions.Services;
 using System.Collections.Generic;
 using System.Threading;
@@ -12,7 +13,7 @@ namespace AzureDevOpsJanitor.Domain.Services
 
 		Task<BuildRoot> GetBuildByIdAsync(ulong buildId);
 
-		Task<BuildRoot> AddBuildAsync(string capabilityId, CancellationToken cancellationToken = default);
+		Task<BuildRoot> AddBuildAsync(string capabilityId, BuildDefinition definition, CancellationToken cancellationToken = default);
 
 		Task DeleteBuildAsync(ulong buildId, CancellationToken cancellationToken = default);
 	}

@@ -1,4 +1,5 @@
 ﻿using AzureDevOpsJanitor.Domain.Events.Build;
+using AzureDevOpsJanitor.Domain.ValueObjects;
 using ResourceProvisioning.Abstractions.Aggregates;
 using ResourceProvisioning.Abstractions.Entities;
 using System;
@@ -7,6 +8,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AzureDevOpsJanitor.Domain.Aggregates.Build
 {
+	//TODO: Finish aggregate
 	public sealed class BuildRoot : Entity<ulong>, IAggregateRoot
 	{
 		private BuildStatus _status;
@@ -14,6 +16,8 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Build
 		private int _statusId;
 		private readonly string _capabilityId;
 #pragma warning restore IDE0052 // Remove unread private members
+
+		public BuildDefinition Definition { get; private set; }
 
 		public BuildStatus Status { 
 			get 
@@ -34,9 +38,10 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Build
 			AddDomainEvent(new BuildRequestedEvent(this));
 		}
 
-		public BuildRoot(string capabilityId) : base()
+		public BuildRoot(string capabilityId, BuildDefinition definition) : base()
 		{
 			_capabilityId = capabilityId;
+			Definition = definition;
 		}
 
 		public void Initialized()

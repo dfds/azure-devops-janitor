@@ -1,14 +1,13 @@
-﻿using AutoMapper;
-using AzureDevOpsJanitor.Domain.ValueObjects;
-using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
+﻿using AzureDevOpsJanitor.Domain.ValueObjects;
+using Profile = AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects.Profile;
 
 namespace AzureDevOpsJanitor.Application.Mapping.Profiles
 {
-	public class DefaultProfile : Profile
+	public class DefaultProfile : AutoMapper.Profile
 	{
 		public DefaultProfile()
 		{
-			CreateMap<VstsProfile, UserProfile>();
+			CreateMap<Profile, UserProfile>();
 		}
 	}
 }

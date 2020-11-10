@@ -26,6 +26,7 @@ namespace AzureDevOpsJanitor.Application.Repositories
 							 .AsNoTracking()
 							 .Where(filter)
 							 .Include(i => i.Status)
+							 .Include(i => i.Definition)
 							 .AsEnumerable();
 			});
 		}

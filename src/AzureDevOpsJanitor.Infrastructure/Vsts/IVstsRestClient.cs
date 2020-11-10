@@ -5,6 +5,6 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
 {
     public interface IVstsRestClient
     {
-        Task<VstsProfile> GetProfile(string profileId);
+        Task<Profile> GetProfile(string profileId);
     }
 }

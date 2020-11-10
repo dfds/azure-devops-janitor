@@ -1,5 +1,6 @@
 ﻿using AzureDevOpsJanitor.Application.Commands.Build;
 using AzureDevOpsJanitor.Domain.Aggregates.Build;
+using AzureDevOpsJanitor.Host.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using ResourceProvisioning.Abstractions.Facade;
 using System;
@@ -23,6 +24,13 @@ namespace AzureDevOpsJanitor.Host.Api.Controllers.V1
         public async Task<IEnumerable<BuildRoot>> Get()
         {
             return await _applicationFacade.Execute(new GetBuildCommand());
+        }
+
+
+        [HttpPost]
+        public async Task<BuildRoot> Post(CreateBuildModel model)
+        {
+            return await _applicationFacade.Execute(new CreateBuildCommand(model.CapabilityId, model.Definition));
         }
     }
 }

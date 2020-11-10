@@ -1,4 +1,5 @@
 ﻿using AzureDevOpsJanitor.Domain.Aggregates.Build;
+using AzureDevOpsJanitor.Domain.ValueObjects;
 using AzureDevOpsJanitor.Infrastructure.EntityFramework.Configurations;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +23,8 @@ namespace AzureDevOpsJanitor.Infrastructure.EntityFramework
 		
 		public virtual DbSet<BuildStatus> Status { get; set; }
 
+		public virtual DbSet<BuildDefinition> Definition { get; set; }
+
 		public IDbContextTransaction GetCurrentTransaction { get; private set; }
 
 		public DomainContext() : this(new DbContextOptions<DomainContext>() { }, new FakeMediator()) { }
@@ -35,6 +38,7 @@ namespace AzureDevOpsJanitor.Infrastructure.EntityFramework
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
+			modelBuilder.ApplyConfiguration(new BuildDefinitionEntityTypeConfiguration());
 			modelBuilder.ApplyConfiguration(new BuildRootEntityTypeConfiguration());
 			modelBuilder.ApplyConfiguration(new BuildStatusEntityTypeConfiguration());
 		}

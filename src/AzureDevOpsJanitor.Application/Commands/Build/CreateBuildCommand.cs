@@ -1,4 +1,5 @@
 ﻿using AzureDevOpsJanitor.Domain.Aggregates.Build;
+using AzureDevOpsJanitor.Domain.ValueObjects;
 using ResourceProvisioning.Abstractions.Commands;
 using System.Runtime.Serialization;
 
@@ -10,9 +11,13 @@ namespace AzureDevOpsJanitor.Application.Commands.Build
 		[DataMember]
 		public string CapabilityId { get; private set; }
 
-		public CreateBuildCommand(string capabilityId)
+		[DataMember]
+		public BuildDefinition Definition { get; private set; }
+
+		public CreateBuildCommand(string capabilityId, BuildDefinition definition)
 		{
 			CapabilityId = capabilityId;
+			Definition = definition;
 		}
 	}
 }
