@@ -27,6 +27,7 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureDevOpsJanitor.Application.UnitTest", "test\AzureDevOpsJanitor.Application.UnitTest\AzureDevOpsJanitor.Application.UnitTest.csproj", "{C7321375-2144-412F-B9C7-CD44766BAACF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureDevOpsJanitor.Infrastructure.IntegrationTest", "test\AzureDevOpsJanitor.Infrastructure.IntegrationTest\AzureDevOpsJanitor.Infrastructure.IntegrationTest.csproj", "{25C50FAF-E6B0-4426-8D31-44A4FC4C841F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureDevOpsJanitor.Host.EventForwarder", "src\AzureDevOpsJanitor.Host.EventForwarder\AzureDevOpsJanitor.Host.EventForwarder.csproj", "{64B10739-8897-42D5-BC74-E8773EDA1063}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -70,6 +71,10 @@ Global
 		{25C50FAF-E6B0-4426-8D31-44A4FC4C841F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25C50FAF-E6B0-4426-8D31-44A4FC4C841F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{25C50FAF-E6B0-4426-8D31-44A4FC4C841F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64B10739-8897-42D5-BC74-E8773EDA1063}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64B10739-8897-42D5-BC74-E8773EDA1063}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64B10739-8897-42D5-BC74-E8773EDA1063}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64B10739-8897-42D5-BC74-E8773EDA1063}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
