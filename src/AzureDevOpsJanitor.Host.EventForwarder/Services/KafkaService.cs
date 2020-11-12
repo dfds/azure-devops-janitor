@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
@@ -12,6 +13,7 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Services
         private Task _executingTask;
         private readonly IServiceProvider _serviceProvider;
         private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+        private readonly ConcurrentQueue<string> _queue;
 
         public KafkaService(
             ILogger<KafkaService> logger,
@@ -20,6 +22,7 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Services
             Console.WriteLine("Starting KafkaService");
             _logger = logger;
             _serviceProvider = serviceProvider;
+            _queue = new ConcurrentQueue<string>();
         }
 
         void Emit(string topic, string payload)
@@ -27,11 +30,25 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Services
             throw new System.NotImplementedException();
         }
 
+        public void Queue(string val)
+        {
+            _queue.Enqueue(val);
+        }
+
         public Task StartAsync(CancellationToken cancellationToken)
         {
             _executingTask = Task.Factory.StartNew(async () =>
                 {
-
+                    while (!_cancellationTokenSource.IsCancellationRequested)
+                    {
+                        string val;
+                        while (_queue.TryDequeue(out val))
+                        {
+                            Console.WriteLine(val);
+                        }
+                        
+                        Thread.Sleep(500);
+                    }
                 }, _cancellationTokenSource.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default)
                 .ContinueWith(task =>
                 {
@@ -44,9 +61,20 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Services
             return Task.CompletedTask;
         }
 
-        public Task StopAsync(CancellationToken cancellationToken)
+        public async Task StopAsync(CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                _cancellationTokenSource.Cancel();
+            }
+            finally
+            {
+                await Task.WhenAny(_executingTask, Task.Delay(-1, cancellationToken));
+            }
+            
+            Console.WriteLine("Stopping KafkaService");
+
+            _cancellationTokenSource.Dispose();
         }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using AzureDevOpsJanitor.Host.EventForwarder.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -12,10 +13,12 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Controllers
     public class ForwarderController : Controller
     {
         private readonly ILogger<ForwarderController> _logger;
+        private readonly KafkaService _kafkaService;
 
-        public ForwarderController(ILogger<ForwarderController> logger)
+        public ForwarderController(ILogger<ForwarderController> logger, KafkaService kafkaService)
         {
             _logger = logger;
+            _kafkaService = kafkaService;
         }
         
         [HttpPost]
@@ -28,7 +31,7 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Controllers
             using (StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8))
             {
                 var content = await reader.ReadToEndAsync();
-                Console.WriteLine(content);
+                _kafkaService.Queue(content);
             }
             
             return new OkResult();
