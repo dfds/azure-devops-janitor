@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "AzureDevOpsJanitor.Host.KafkaWorker": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

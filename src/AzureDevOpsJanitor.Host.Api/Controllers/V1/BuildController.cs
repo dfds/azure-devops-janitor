@@ -26,11 +26,22 @@ namespace AzureDevOpsJanitor.Host.Api.Controllers.V1
             return await _applicationFacade.Execute(new GetBuildCommand());
         }
 
+        [HttpGet("{id}")]
+        public async Task<IEnumerable<BuildRoot>> Get(ulong buildId)
+        {
+            return await _applicationFacade.Execute(new GetBuildCommand(buildId));
+        }
 
         [HttpPost]
         public async Task<BuildRoot> Post(CreateBuildModel model)
         {
             return await _applicationFacade.Execute(new CreateBuildCommand(model.CapabilityId, model.Definition));
+        }
+
+        [HttpDelete]
+        public async Task<bool> Delete(ulong buildId)
+        {
+            return await _applicationFacade.Execute(new DeleteBuildCommand(buildId));
         }
     }
 }
