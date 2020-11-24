@@ -3,10 +3,10 @@ using System.Text.Json.Serialization;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects
 {
-    public sealed class Definition
+    public sealed class DefinitionReference
     {
         [JsonPropertyName("id")]
-        public ulong Id { get; set; }
+        public int Id { get; set; }
 
         [JsonPropertyName("name")]
         public string Name { get; set; }
@@ -16,6 +16,9 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects
 
         [JsonPropertyName("revision")]
         public string Revision { get; set; }
+
+        [JsonPropertyName("type")]
+        public string Type { get; set; }
 
         [JsonPropertyName("uri")]
         public Uri Uri { get; set; }

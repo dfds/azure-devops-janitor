@@ -9,6 +9,8 @@ namespace AzureDevOpsJanitor.Application.Events.Build
 	{
 		public Task Handle(BuildCompletedEvent @event, CancellationToken cancellationToken)
 		{
+			//TODO: Post update to ADO REST API
+
 			return Task.CompletedTask;
 		}
 	}

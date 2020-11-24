@@ -11,10 +11,10 @@ namespace AzureDevOpsJanitor.Domain.Services
 	{
 		Task<IEnumerable<BuildRoot>> GetBuildsAsync();
 
-		Task<BuildRoot> GetBuildByIdAsync(ulong buildId);
+		Task<BuildRoot> GetBuildByIdAsync(int buildId);
 
 		Task<BuildRoot> AddBuildAsync(string capabilityId, BuildDefinition definition, CancellationToken cancellationToken = default);
 
-		Task DeleteBuildAsync(ulong buildId, CancellationToken cancellationToken = default);
+		Task DeleteBuildAsync(int buildId, CancellationToken cancellationToken = default);
 	}
 }

@@ -8,7 +8,7 @@ namespace AzureDevOpsJanitor.Infrastructure.EntityFramework.Configurations
 	{
 		public void Configure(EntityTypeBuilder<BuildDefinition> configuration)
 		{
-			configuration.ToTable("Definition");
+			configuration.ToTable("BuildDefinition");
 			configuration.HasKey(o => o.Name);
 			configuration.Property(o => o.Name).ValueGeneratedNever();
 		}

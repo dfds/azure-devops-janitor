@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations;
 namespace AzureDevOpsJanitor.Domain.Aggregates.Build
 {
 	//TODO: Finish aggregate
-	public sealed class BuildRoot : Entity<ulong>, IAggregateRoot
+	public sealed class BuildRoot : Entity<int>, IAggregateRoot
 	{
 		private BuildStatus _status;
 #pragma warning disable IDE0052 // Remove unread private members
@@ -44,21 +44,21 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Build
 			Definition = definition;
 		}
 
-		public void Initialized()
+		public void Created()
 		{
 			if (Status != BuildStatus.Requested)
 			{
 				return;
 			}
 
-			Status = BuildStatus.Initialized;
+			Status = BuildStatus.Created;
 
-			AddDomainEvent(new BuildInitializedEvent(Id));
+			AddDomainEvent(new BuildCreatedEvent(Id));
 		}
 
 		public void Succeeded()
 		{
-			if (Status != BuildStatus.Initialized)
+			if (Status != BuildStatus.Created)
 			{
 				return;
 			}
@@ -70,7 +70,7 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Build
 
 		public void Failed()
 		{
-			if (Status != BuildStatus.Initialized)
+			if (Status != BuildStatus.Created)
 			{
 				return;
 			}
@@ -82,7 +82,7 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Build
 
 		public void Stopped()
 		{
-			if (Status != BuildStatus.Initialized)
+			if (Status != BuildStatus.Created)
 			{
 				return;
 			}
@@ -94,7 +94,7 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Build
 
 		public void Partial()
 		{
-			if (Status != BuildStatus.Initialized)
+			if (Status != BuildStatus.Created)
 			{
 				return;
 			}

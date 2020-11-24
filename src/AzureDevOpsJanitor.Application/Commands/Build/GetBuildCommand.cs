@@ -9,9 +9,9 @@ namespace AzureDevOpsJanitor.Application.Commands.Build
 	public sealed class GetBuildCommand : ICommand<IEnumerable<BuildRoot>>
 	{
 		[DataMember]
-		public ulong? BuildId { get; private set; }
+		public int? BuildId { get; private set; }
 
-		public GetBuildCommand(ulong? buildId = null)
+		public GetBuildCommand(int? buildId = default)
 		{
 			BuildId = buildId;
 		}

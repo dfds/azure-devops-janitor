@@ -31,7 +31,7 @@ namespace AzureDevOpsJanitor.Application.Repositories
 			});
 		}
 
-		public async Task<BuildRoot> GetByIdAsync(ulong buildId)
+		public async Task<BuildRoot> GetByIdAsync(int buildId)
 		{
 			var build = await _context.Build.FindAsync(buildId);
 

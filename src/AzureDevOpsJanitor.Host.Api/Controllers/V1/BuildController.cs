@@ -27,7 +27,7 @@ namespace AzureDevOpsJanitor.Host.Api.Controllers.V1
         }
 
         [HttpGet("{id}")]
-        public async Task<IEnumerable<BuildRoot>> Get(ulong buildId)
+        public async Task<IEnumerable<BuildRoot>> Get(int buildId)
         {
             return await _applicationFacade.Execute(new GetBuildCommand(buildId));
         }
@@ -39,7 +39,7 @@ namespace AzureDevOpsJanitor.Host.Api.Controllers.V1
         }
 
         [HttpDelete]
-        public async Task<bool> Delete(ulong buildId)
+        public async Task<bool> Delete(int buildId)
         {
             return await _applicationFacade.Execute(new DeleteBuildCommand(buildId));
         }

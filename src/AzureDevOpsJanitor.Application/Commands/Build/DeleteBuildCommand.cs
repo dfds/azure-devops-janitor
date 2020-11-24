@@ -7,9 +7,9 @@ namespace AzureDevOpsJanitor.Application.Commands.Build
 	public sealed class DeleteBuildCommand : ICommand<bool>
 	{
 		[DataMember]
-		public ulong BuildId { get; private set; }
+		public int BuildId { get; private set; }
 
-		public DeleteBuildCommand(ulong buildId)
+		public DeleteBuildCommand(int buildId)
 		{
 			BuildId = buildId;
 		}

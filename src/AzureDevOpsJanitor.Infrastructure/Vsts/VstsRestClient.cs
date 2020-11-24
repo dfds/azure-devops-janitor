@@ -1,6 +1,7 @@
 ﻿using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
 using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Build.Definition;
 using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Profile;
+using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http;
@@ -28,20 +29,20 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             return profileDto;
         }
 
-        public async Task<Definition> CreateDefinition(string organization, string project, Definition definition)
+        public async Task<DefinitionReference> CreateDefinition(string organization, string project, DefinitionReference definition)
         {
             var response = await SendAsync(new CreateDefinitionRequest(organization, project, definition));
             var responseData = await response.Content.ReadAsStringAsync();
-            var definitionDto = JsonSerializer.Deserialize<Definition>(responseData);
+            var definitionDto = JsonSerializer.Deserialize<DefinitionReference>(responseData);
 
             return definitionDto;
         }
 
-        public async Task<IEnumerable<Definition>> GetDefinition(string organization, string project, string definitionId = default)
+        public async Task<IEnumerable<DefinitionReference>> GetDefinition(string organization, string project, string definitionId = default)
         {
             var response = await SendAsync(new GetDefinitionRequest(organization, project, definitionId));
             var responseData = await response.Content.ReadAsStringAsync();
-            var definitionDtos = JsonSerializer.Deserialize<IEnumerable<Definition>>(responseData);
+            var definitionDtos = JsonSerializer.Deserialize<IEnumerable<DefinitionReference>>(responseData);
 
             return definitionDtos;
         }

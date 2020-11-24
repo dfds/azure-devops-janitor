@@ -7,7 +7,7 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Build
 	public sealed class BuildStatus : EntityEnumeration
 	{
 		public static BuildStatus Requested = new BuildStatus(1, nameof(Requested).ToLowerInvariant());
-		public static BuildStatus Initialized = new BuildStatus(2, nameof(Initialized).ToLowerInvariant());
+		public static BuildStatus Created = new BuildStatus(2, nameof(Created).ToLowerInvariant());
 		public static BuildStatus Succeeded = new BuildStatus(4, nameof(Succeeded).ToLowerInvariant());
 		public static BuildStatus Failed = new BuildStatus(8, nameof(Failed).ToLowerInvariant());
 		public static BuildStatus Stopped = new BuildStatus(16, nameof(Stopped).ToLowerInvariant());
@@ -22,7 +22,7 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Build
 			var result = new List<BuildStatus>
 			{
 				Requested,
-				Initialized,
+				Created,
 				Succeeded,
 				Failed,
 				Stopped,

@@ -5,11 +5,11 @@ namespace AzureDevOpsJanitor.Domain.Events.Build
 {
 	public sealed class BuildCompletedEvent : IDomainEvent
 	{
-		public ulong Id { get; }
+		public int Id { get; }
 
 		public BuildStatus Status { get; }
 
-		public BuildCompletedEvent(ulong buildId, BuildStatus status)
+		public BuildCompletedEvent(int buildId, BuildStatus status)
 		{
 			Id = buildId;
 			Status = status;

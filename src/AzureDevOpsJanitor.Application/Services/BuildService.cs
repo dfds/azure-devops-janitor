@@ -22,7 +22,7 @@ namespace AzureDevOpsJanitor.Application.Services
 			return await _buildRepository.GetAsync((build) => true);
 		}
 
-		public async Task<BuildRoot> GetBuildByIdAsync(ulong buildId)
+		public async Task<BuildRoot> GetBuildByIdAsync(int buildId)
 		{
 			return await _buildRepository.GetByIdAsync(buildId);
 		}
@@ -36,7 +36,7 @@ namespace AzureDevOpsJanitor.Application.Services
 			return build;
 		}
 
-		public async Task DeleteBuildAsync(ulong buildId, CancellationToken cancellationToken = default)
+		public async Task DeleteBuildAsync(int buildId, CancellationToken cancellationToken = default)
 		{
 			var build = await GetBuildByIdAsync(buildId);
 

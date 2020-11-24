@@ -2,11 +2,11 @@
 
 namespace AzureDevOpsJanitor.Domain.Events.Build
 {
-	public sealed class BuildInitializedEvent : IDomainEvent
+	public sealed class BuildCreatedEvent : IDomainEvent
 	{
-		public ulong BuildId { get; }
+		public int BuildId { get; }
 
-		public BuildInitializedEvent(ulong buildId)
+		public BuildCreatedEvent(int buildId)
 		{
 			BuildId = buildId;
 		}

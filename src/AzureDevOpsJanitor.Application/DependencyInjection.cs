@@ -88,11 +88,11 @@ namespace AzureDevOpsJanitor.Application
 		private static void AddEventHandlers(this IServiceCollection services)
 		{
 			services.AddTransient<INotificationHandler<BuildRequestedEvent>, BuildRequestedEventHandler>();
-			services.AddTransient<INotificationHandler<BuildInitializedEvent>, BuildInitializedEventHandler>();
+			services.AddTransient<INotificationHandler<BuildCreatedEvent>, BuildCreatedEventHandler>();
 			services.AddTransient<INotificationHandler<BuildCompletedEvent>, BuildCompletedEventHandler>();
 
 			services.AddTransient<IEventHandler<BuildRequestedEvent>, BuildRequestedEventHandler>();
-			services.AddTransient<IEventHandler<BuildInitializedEvent>, BuildInitializedEventHandler>();
+			services.AddTransient<IEventHandler<BuildCreatedEvent>, BuildCreatedEventHandler>();
 			services.AddTransient<IEventHandler<BuildCompletedEvent>, BuildCompletedEventHandler>();
 		}
 

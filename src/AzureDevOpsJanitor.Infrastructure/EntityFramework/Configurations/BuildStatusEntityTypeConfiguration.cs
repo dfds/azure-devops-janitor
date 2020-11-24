@@ -8,7 +8,7 @@ namespace AzureDevOpsJanitor.Infrastructure.EntityFramework.Configurations
 	{
 		public void Configure(EntityTypeBuilder<BuildStatus> configuration)
 		{
-			configuration.ToTable("Status");
+			configuration.ToTable("BuildStatus");
 			configuration.HasKey(o => o.Id);
 
 			configuration.Property(o => o.Id)
