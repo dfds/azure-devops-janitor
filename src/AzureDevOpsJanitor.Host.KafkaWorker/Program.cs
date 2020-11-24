@@ -1,9 +1,10 @@
+using AzureDevOpsJanitor.Host.KafkaWorker.Handlers;
 using Dafda.Configuration;
 using Microsoft.Extensions.Hosting;
 
 namespace AzureDevOpsJanitor.Host.KafkaWorker
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {
@@ -14,13 +15,11 @@ namespace AzureDevOpsJanitor.Host.KafkaWorker
             Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder(args)
             .ConfigureServices((hostContext, services) =>
             {                    
-                // configure messaging: consumer
                 services.AddConsumer(options =>
                 {
-                    // configuration settings
                     options.WithConfigurationSource(hostContext.Configuration);
 
-                    //TODO: Create message handler
+                    options.RegisterMessageHandler<SampleMessage, SampleMessageHandler>("TOPIC", "MESSAGE_TYPE");
                 });
             });
     }
