@@ -2,6 +2,8 @@ using System;
 using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
+using AzureDevOpsJanitor.Host.EventForwarder.Enablers.Kafka;
+using Confluent.Kafka;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -14,15 +16,18 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Services
         private readonly IServiceProvider _serviceProvider;
         private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private readonly ConcurrentQueue<string> _queue;
+        private readonly KafkaProducerFactory _producerFactory;
 
         public KafkaService(
             ILogger<KafkaService> logger,
-            IServiceProvider serviceProvider)
+            IServiceProvider serviceProvider,
+            KafkaProducerFactory kafkaProducerFactory)
         {
             Console.WriteLine("Starting KafkaService");
             _logger = logger;
             _serviceProvider = serviceProvider;
             _queue = new ConcurrentQueue<string>();
+            _producerFactory = kafkaProducerFactory;
         }
 
         void Emit(string topic, string payload)
@@ -42,9 +47,15 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Services
                     while (!_cancellationTokenSource.IsCancellationRequested)
                     {
                         string val;
+                        var producer = _producerFactory.Create();
                         while (_queue.TryDequeue(out val))
                         {
                             Console.WriteLine(val);
+                            await producer.ProduceAsync(topic: "REPLACE-ME", message: new Message<string, string>()
+                            {
+                                Key = Guid.NewGuid().ToString(),
+                                Value = "PAYLOAD-HERE"
+                            });
                         }
                         
                         Thread.Sleep(500);
