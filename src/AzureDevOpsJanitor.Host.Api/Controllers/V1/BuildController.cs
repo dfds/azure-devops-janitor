@@ -35,7 +35,7 @@ namespace AzureDevOpsJanitor.Host.Api.Controllers.V1
         [HttpPost]
         public async Task<BuildRoot> Post(CreateBuildModel model)
         {
-            return await _applicationFacade.Execute(new CreateBuildCommand(model.CapabilityId, model.Definition));
+            return await _applicationFacade.Execute(new CreateBuildCommand(model.ProjectId, model.CapabilityIdentifier, model.Definition));
         }
 
         [HttpDelete]

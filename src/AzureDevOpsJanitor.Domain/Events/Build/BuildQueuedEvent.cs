@@ -2,9 +2,9 @@
 
 namespace AzureDevOpsJanitor.Domain.Events.Build
 {
-	public sealed class BuildCreatedEvent : BuildEvent
+	public sealed class BuildQueuedEvent : BuildEvent
 	{
-		public BuildCreatedEvent(BuildRoot build)
+		public BuildQueuedEvent(BuildRoot build)
 		{
 			Build = build;
 		}

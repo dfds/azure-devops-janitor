@@ -7,11 +7,11 @@ namespace AzureDevOpsJanitor.Application.Commands.Profile
 	[DataContract]
 	public sealed class GetProfileCommand : ICommand<UserProfile>
 	{
-		public string ProfileId { get; }
+		public string ProfileIdentifier { get; }
 
-		public GetProfileCommand(string profileId = null)
-		{			
-			ProfileId = profileId ?? "me";
+		public GetProfileCommand(string profileIdentifier = null)
+		{
+			ProfileIdentifier = profileIdentifier ?? "me";
 		}
 	}
 }

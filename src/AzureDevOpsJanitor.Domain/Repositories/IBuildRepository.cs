@@ -6,6 +6,6 @@ namespace AzureDevOpsJanitor.Domain.Repository
 {
 	public interface IBuildRepository : IRepository<BuildRoot>
 	{
-		Task<BuildRoot> GetByIdAsync(int buildId);
+		Task<BuildRoot> GetAsync(int buildId);
 	}
 }

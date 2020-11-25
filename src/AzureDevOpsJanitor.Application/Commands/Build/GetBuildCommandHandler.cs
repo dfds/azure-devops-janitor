@@ -24,11 +24,11 @@ namespace AzureDevOpsJanitor.Application.Commands.Build
 
 			if (command.BuildId.HasValue)
 			{
-				result = new List<BuildRoot>() { await _buildService.GetBuildByIdAsync(command.BuildId.Value) };
+				result = new List<BuildRoot>() { await _buildService.GetAsync(command.BuildId.Value) };
 			}
 			else
 			{
-				result = await _buildService.GetBuildsAsync();
+				result = await _buildService.GetAsync();
 			}
 			
 			return result;

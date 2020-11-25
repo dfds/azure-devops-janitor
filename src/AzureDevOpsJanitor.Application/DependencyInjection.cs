@@ -7,6 +7,7 @@ using AzureDevOpsJanitor.Application.Events.Build;
 using AzureDevOpsJanitor.Application.Repositories;
 using AzureDevOpsJanitor.Application.Services;
 using AzureDevOpsJanitor.Domain.Aggregates.Build;
+using AzureDevOpsJanitor.Domain.Aggregates.Project;
 using AzureDevOpsJanitor.Domain.Events.Build;
 using AzureDevOpsJanitor.Domain.Repository;
 using AzureDevOpsJanitor.Domain.Services;
@@ -87,12 +88,12 @@ namespace AzureDevOpsJanitor.Application
 
 		private static void AddEventHandlers(this IServiceCollection services)
 		{
-			services.AddTransient<INotificationHandler<BuildRequestedEvent>, BuildRequestedEventHandler>();
 			services.AddTransient<INotificationHandler<BuildCreatedEvent>, BuildCreatedEventHandler>();
+			services.AddTransient<INotificationHandler<BuildQueuedEvent>, BuildQueuedEventHandler>();
 			services.AddTransient<INotificationHandler<BuildCompletedEvent>, BuildCompletedEventHandler>();
 
-			services.AddTransient<IEventHandler<BuildRequestedEvent>, BuildRequestedEventHandler>();
 			services.AddTransient<IEventHandler<BuildCreatedEvent>, BuildCreatedEventHandler>();
+			services.AddTransient<IEventHandler<BuildQueuedEvent>, BuildQueuedEventHandler>();
 			services.AddTransient<IEventHandler<BuildCompletedEvent>, BuildCompletedEventHandler>();
 		}
 
@@ -100,11 +101,15 @@ namespace AzureDevOpsJanitor.Application
 		{
 			services.AddTransient<IRepository<BuildRoot>, BuildRepository>();
 			services.AddTransient<IBuildRepository, BuildRepository>();
+
+			services.AddTransient<IRepository<ProjectRoot>, ProjectRepository>();
+			services.AddTransient<IProjectRepository, ProjectRepository>();
 		}
 
 		private static void AddServices(this IServiceCollection services)
 		{
 			services.AddTransient<IBuildService, BuildService>();
+			services.AddTransient<IProjectService, ProjectService>();
 			services.AddTransient<IProfileService, ProfileService>();
 		}
 

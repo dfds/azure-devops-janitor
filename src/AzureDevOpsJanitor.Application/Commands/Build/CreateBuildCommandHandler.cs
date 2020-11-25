@@ -19,7 +19,7 @@ namespace AzureDevOpsJanitor.Application.Commands.Build
 
 		public override async Task<BuildRoot> Handle(CreateBuildCommand command, CancellationToken cancellationToken = default)
 		{
-			return await _buildService.AddBuildAsync(command.CapabilityId, command.Definition, cancellationToken);
+			return await _buildService.AddAsync(command.ProjectId, command.CapabilityId, command.Definition, cancellationToken);
 		}
 	}
 }

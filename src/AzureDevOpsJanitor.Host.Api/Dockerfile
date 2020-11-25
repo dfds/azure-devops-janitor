@@ -11,7 +11,7 @@ COPY ./ ./src/
 WORKDIR /build/src
 
 #Restore csproj packages.
-#TODO: https://medium.com/@somakdas/private-nuget-package-restore-in-docker-build-azure-devops-431fdfeae557
+#TODO: Fix problems with private nuget feeds in containers @ https://medium.com/@somakdas/private-nuget-package-restore-in-docker-build-azure-devops-431fdfeae557
 RUN dotnet restore
 
 #Compile source code using standard Release profile

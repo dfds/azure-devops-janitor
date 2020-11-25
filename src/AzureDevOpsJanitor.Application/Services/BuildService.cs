@@ -2,6 +2,7 @@
 using AzureDevOpsJanitor.Domain.Repository;
 using AzureDevOpsJanitor.Domain.Services;
 using AzureDevOpsJanitor.Domain.ValueObjects;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,28 +18,28 @@ namespace AzureDevOpsJanitor.Application.Services
 			_buildRepository = buildRepository;
 		}
 
-		public async Task<IEnumerable<BuildRoot>> GetBuildsAsync()
+		public async Task<IEnumerable<BuildRoot>> GetAsync()
 		{
 			return await _buildRepository.GetAsync((build) => true);
 		}
 
-		public async Task<BuildRoot> GetBuildByIdAsync(int buildId)
+		public async Task<BuildRoot> GetAsync(int buildId)
 		{
-			return await _buildRepository.GetByIdAsync(buildId);
+			return await _buildRepository.GetAsync(buildId);
 		}
 
-		public async Task<BuildRoot> AddBuildAsync(string capabilityId, BuildDefinition definition, CancellationToken cancellationToken = default)
+		public async Task<BuildRoot> AddAsync(Guid projectId, string capabilityId, BuildDefinition definition, CancellationToken cancellationToken = default)
 		{
-			var build = _buildRepository.Add(new BuildRoot(capabilityId, definition));
+			var build = _buildRepository.Add(new BuildRoot(projectId, capabilityId, definition));
 
 			await _buildRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
 
 			return build;
 		}
 
-		public async Task DeleteBuildAsync(int buildId, CancellationToken cancellationToken = default)
+		public async Task DeleteAsync(int buildId, CancellationToken cancellationToken = default)
 		{
-			var build = await GetBuildByIdAsync(buildId);
+			var build = await GetAsync(buildId);
 
 			if (build != null)
 			{

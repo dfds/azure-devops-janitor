@@ -1,6 +1,7 @@
 ﻿using AzureDevOpsJanitor.Domain.Aggregates.Build;
 using AzureDevOpsJanitor.Domain.ValueObjects;
 using ResourceProvisioning.Abstractions.Services;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,12 +10,12 @@ namespace AzureDevOpsJanitor.Domain.Services
 {
 	public interface IBuildService : IDomainService
 	{
-		Task<IEnumerable<BuildRoot>> GetBuildsAsync();
+		Task<IEnumerable<BuildRoot>> GetAsync();
 
-		Task<BuildRoot> GetBuildByIdAsync(int buildId);
+		Task<BuildRoot> GetAsync(int buildId);
 
-		Task<BuildRoot> AddBuildAsync(string capabilityId, BuildDefinition definition, CancellationToken cancellationToken = default);
+		Task<BuildRoot> AddAsync(Guid projectId, string capabilityIdentifier, BuildDefinition definition, CancellationToken cancellationToken = default);
 
-		Task DeleteBuildAsync(int buildId, CancellationToken cancellationToken = default);
+		Task DeleteAsync(int buildId, CancellationToken cancellationToken = default);
 	}
 }

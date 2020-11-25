@@ -1,4 +1,5 @@
 ﻿using AzureDevOpsJanitor.Domain.Aggregates.Build;
+using AzureDevOpsJanitor.Domain.Aggregates.Project;
 using AzureDevOpsJanitor.Domain.ValueObjects;
 using AzureDevOpsJanitor.Infrastructure.EntityFramework.Configurations;
 using MediatR;
@@ -19,11 +20,13 @@ namespace AzureDevOpsJanitor.Infrastructure.EntityFramework
 		public const string DEFAULT_SCHEMA = nameof(DomainContext);
 		private readonly IMediator _mediator;
 
+		public virtual DbSet<ProjectRoot> Project { get; set; }
+
 		public virtual DbSet<BuildRoot> Build { get; set; }
 		
-		public virtual DbSet<BuildStatus> Status { get; set; }
+		public virtual DbSet<BuildStatus> BuildStatus { get; set; }
 
-		public virtual DbSet<BuildDefinition> Definition { get; set; }
+		public virtual DbSet<BuildDefinition> BuildDefinition { get; set; }
 
 		public IDbContextTransaction GetCurrentTransaction { get; private set; }
 
@@ -38,6 +41,7 @@ namespace AzureDevOpsJanitor.Infrastructure.EntityFramework
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
+			modelBuilder.ApplyConfiguration(new ProjectEntityTypeConfiguration());
 			modelBuilder.ApplyConfiguration(new BuildDefinitionEntityTypeConfiguration());
 			modelBuilder.ApplyConfiguration(new BuildRootEntityTypeConfiguration());
 			modelBuilder.ApplyConfiguration(new BuildStatusEntityTypeConfiguration());

@@ -2,7 +2,6 @@
 using AzureDevOpsJanitor.Domain.Services;
 using AzureDevOpsJanitor.Domain.ValueObjects;
 using AzureDevOpsJanitor.Infrastructure.Vsts;
-using System;
 using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Application.Services
@@ -18,9 +17,9 @@ namespace AzureDevOpsJanitor.Application.Services
 			_client = client;
 		}
 
-		public async Task<UserProfile> GetProfileAsync(string profileId)
+		public async Task<UserProfile> GetAsync(string profileIdentifier)
 		{
-			var profileData = await _client.GetProfile(profileId);
+			var profileData = await _client.GetProfile(profileIdentifier);
 
 			return _mapper.Map<UserProfile>(profileData);
 		}

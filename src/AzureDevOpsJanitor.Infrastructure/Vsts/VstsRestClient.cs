@@ -1,8 +1,7 @@
 ﻿using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
+using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Build;
 using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Build.Definition;
 using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Profile;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -29,6 +28,23 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             return profileDto;
         }
 
+        public async Task<DefinitionReference> GetDefinition(string organization, string project, int definitionId)
+        {
+            var response = await SendAsync(new GetDefinitionRequest(organization, project, definitionId));
+            var responseData = await response.Content.ReadAsStringAsync();
+            var definitionDtos = JsonSerializer.Deserialize<DefinitionReference>(responseData);
+
+            return definitionDtos;
+        }
+
+        public async Task<string> GetDefinitionYaml(string organization, string project, int definitionId)
+        {
+            var response = await SendAsync(new GetDefinitionYamlRequest(organization, project, definitionId));
+            var responseData = await response.Content.ReadAsStringAsync();
+
+            return responseData;
+        }
+
         public async Task<DefinitionReference> CreateDefinition(string organization, string project, DefinitionReference definition)
         {
             var response = await SendAsync(new CreateDefinitionRequest(organization, project, definition));
@@ -38,21 +54,22 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             return definitionDto;
         }
 
-        public async Task<IEnumerable<DefinitionReference>> GetDefinition(string organization, string project, string definitionId = default)
+        public async Task<BuildReference> QueueBuild(string organization, string project, DefinitionReference definition)
         {
-            var response = await SendAsync(new GetDefinitionRequest(organization, project, definitionId));
+            var response = await SendAsync(new QueueBuildRequest(organization, project, definition));
             var responseData = await response.Content.ReadAsStringAsync();
-            var definitionDtos = JsonSerializer.Deserialize<IEnumerable<DefinitionReference>>(responseData);
+            var definitionDto = JsonSerializer.Deserialize<BuildReference>(responseData);
 
-            return definitionDtos;
+            return definitionDto;
         }
 
-        public async Task<string> GetDefinitionYaml(string organization, string project, string definitionId = default)
+        public async Task<BuildReference> QueueBuild(string organization, string project, int definitionId)
         {
-            var response = await SendAsync(new GetDefinitionYamlRequest(organization, project, definitionId));
+            var response = await SendAsync(new QueueBuildRequest(organization, project, definitionId));
             var responseData = await response.Content.ReadAsStringAsync();
+            var definitionDto = JsonSerializer.Deserialize<BuildReference>(responseData);
 
-            return responseData;
+            return definitionDto;
         }
     }
 }

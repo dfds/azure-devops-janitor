@@ -18,7 +18,7 @@ namespace AzureDevOpsJanitor.Application.Commands.Profile
 
 		public override async Task<UserProfile> Handle(GetProfileCommand command, CancellationToken cancellationToken = default)
 		{
-			return await _profileService.GetProfileAsync(command.ProfileId);
+			return await _profileService.GetAsync(command.ProfileIdentifier);
 		}
 	}
 }

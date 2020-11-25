@@ -22,13 +22,12 @@ namespace AzureDevOpsJanitor.Application.Commands.Build
 			{
 				try
 				{
-					await _buildService.DeleteBuildAsync(command.BuildId, cancellationToken);
+					await _buildService.DeleteAsync(command.BuildId, cancellationToken);
 				}
 				catch
 				{
 					throw;
-				}
-				
+				}				
 			}
 
 			return true;

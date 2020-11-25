@@ -6,6 +6,6 @@ namespace AzureDevOpsJanitor.Domain.Services
 {
 	public interface IProfileService : IDomainService
 	{
-		Task<UserProfile> GetProfileAsync(string profileId);
+		Task<UserProfile> GetAsync(string profileIdentifier);
 	}
 }

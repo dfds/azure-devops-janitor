@@ -1,20 +1,20 @@
 ﻿using AzureDevOpsJanitor.Domain.Events.Build;
 using AzureDevOpsJanitor.Domain.ValueObjects;
-using ResourceProvisioning.Abstractions.Aggregates;
-using ResourceProvisioning.Abstractions.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace AzureDevOpsJanitor.Domain.Aggregates.Build
 {
-	//TODO: Finish aggregate
-	public sealed class BuildRoot : Entity<int>, IAggregateRoot
+	//TODO: Finalize aggregate
+	public sealed class BuildRoot : AbstractRoot<int>
 	{
 		private BuildStatus _status;
 #pragma warning disable IDE0052 // Remove unread private members
 		private int _statusId;
-		private readonly string _capabilityId;
+		private readonly string _capabilityIdentifier;
+		private readonly Guid _projectId;
 #pragma warning restore IDE0052 // Remove unread private members
 
 		public BuildDefinition Definition { get; private set; }
@@ -33,27 +33,28 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Build
 
 		private BuildRoot()
 		{
-			Status = BuildStatus.Requested;
+			Status = BuildStatus.Created;
 
-			AddDomainEvent(new BuildRequestedEvent(this));
+			AddDomainEvent(new BuildCreatedEvent(this));
 		}
 
-		public BuildRoot(string capabilityId, BuildDefinition definition) : base()
+		public BuildRoot(Guid projectId, string capabilityIdentifier, BuildDefinition definition) : base()
 		{
-			_capabilityId = capabilityId;
+			_projectId = projectId;
+			_capabilityIdentifier = capabilityIdentifier;
 			Definition = definition;
 		}
 
-		public void Created()
+		public void Queue()
 		{
-			if (Status != BuildStatus.Requested)
+			if (Status != BuildStatus.Created)
 			{
 				return;
 			}
 
-			Status = BuildStatus.Created;
+			Status = BuildStatus.Queued;
 
-			AddDomainEvent(new BuildCreatedEvent(Id));
+			AddDomainEvent(new BuildQueuedEvent(this));
 		}
 
 		public void Succeeded()
@@ -65,7 +66,7 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Build
 
 			Status = BuildStatus.Succeeded;
 
-			AddDomainEvent(new BuildCompletedEvent(Id, Status));
+			AddDomainEvent(new BuildCompletedEvent(this));
 		}
 
 		public void Failed()
@@ -77,7 +78,7 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Build
 
 			Status = BuildStatus.Failed;
 
-			AddDomainEvent(new BuildCompletedEvent(Id, Status));
+			AddDomainEvent(new BuildCompletedEvent(this));
 		}
 
 		public void Stopped()
@@ -89,7 +90,7 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Build
 
 			Status = BuildStatus.Stopped;
 
-			AddDomainEvent(new BuildCompletedEvent(Id, Status));
+			AddDomainEvent(new BuildCompletedEvent(this));
 		}
 
 		public void Partial()
@@ -101,14 +102,24 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Build
 
 			Status = BuildStatus.Partial;
 
-			AddDomainEvent(new BuildCompletedEvent(Id, Status));
+			AddDomainEvent(new BuildCompletedEvent(this));
+		}
+
+		public void SetId(int id)
+		{
+			Id = id;
 		}
 
 		public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
 		{
-			if (!Guid.TryParse(_capabilityId, out _) || !string.IsNullOrEmpty(_capabilityId))
+			if (_projectId == Guid.Empty)
 			{
-				yield return new ValidationResult(nameof(_capabilityId));
+				yield return new ValidationResult(nameof(_projectId));
+			}
+
+			if (!Guid.TryParse(_capabilityIdentifier, out _) || string.IsNullOrEmpty(_capabilityIdentifier))
+			{
+				yield return new ValidationResult(nameof(_capabilityIdentifier));
 			}
 		}
 	}

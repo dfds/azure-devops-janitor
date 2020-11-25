@@ -1,8 +1,8 @@
 ﻿using AzureDevOpsJanitor.Domain.Aggregates.Build;
 using AzureDevOpsJanitor.Domain.Repository;
 using AzureDevOpsJanitor.Infrastructure.EntityFramework;
+using AzureDevOpsJanitor.Infrastructure.EntityFramework.Repositories;
 using Microsoft.EntityFrameworkCore;
-using ResourceProvisioning.Abstractions.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Application.Repositories
 {
-	public class BuildRepository : Repository<DomainContext, BuildRoot>, IBuildRepository
+	public class BuildRepository : EntityFrameworkRepository<BuildRoot>, IBuildRepository
 	{
 		public BuildRepository(DomainContext context) : base(context)
 		{
@@ -31,7 +31,7 @@ namespace AzureDevOpsJanitor.Application.Repositories
 			});
 		}
 
-		public async Task<BuildRoot> GetByIdAsync(int buildId)
+		public async Task<BuildRoot> GetAsync(int buildId)
 		{
 			var build = await _context.Build.FindAsync(buildId);
 
@@ -46,25 +46,6 @@ namespace AzureDevOpsJanitor.Application.Repositories
 			}
 
 			return build;
-		}
-
-		public override BuildRoot Add(BuildRoot aggregate)
-		{
-			return _context.Add(aggregate).Entity;
-		}
-
-		public override BuildRoot Update(BuildRoot aggregate)
-		{
-			var changeTracker = _context.Entry(aggregate);
-
-			changeTracker.State = EntityState.Modified;
-
-			return changeTracker.Entity;
-		}
-
-		public override void Delete(BuildRoot aggregate)
-		{
-			_context.Entry(aggregate).State = EntityState.Deleted;
 		}
 	}
 }
