@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using AzureDevOpsJanitor.Host.EventForwarder.Models;
 using AzureDevOpsJanitor.Host.EventForwarder.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -31,7 +32,11 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Controllers
             using (StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8))
             {
                 var content = await reader.ReadToEndAsync();
-                _kafkaService.Queue(content);
+                _kafkaService.Queue(new ForwardContent()
+                {
+                    Topic = topic,
+                    Payload = content
+                });
             }
             
             return new OkResult();

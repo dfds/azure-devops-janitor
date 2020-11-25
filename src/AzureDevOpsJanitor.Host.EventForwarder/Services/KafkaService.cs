@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
 using AzureDevOpsJanitor.Host.EventForwarder.Enablers.Kafka;
+using AzureDevOpsJanitor.Host.EventForwarder.Models;
 using Confluent.Kafka;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -15,7 +16,7 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Services
         private Task _executingTask;
         private readonly IServiceProvider _serviceProvider;
         private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
-        private readonly ConcurrentQueue<string> _queue;
+        private readonly ConcurrentQueue<ForwardContent> _queue;
         private readonly KafkaProducerFactory _producerFactory;
 
         public KafkaService(
@@ -26,7 +27,7 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Services
             Console.WriteLine("Starting KafkaService");
             _logger = logger;
             _serviceProvider = serviceProvider;
-            _queue = new ConcurrentQueue<string>();
+            _queue = new ConcurrentQueue<ForwardContent>();
             _producerFactory = kafkaProducerFactory;
         }
 
@@ -35,7 +36,7 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Services
             throw new System.NotImplementedException();
         }
 
-        public void Queue(string val)
+        public void Queue(ForwardContent val)
         {
             _queue.Enqueue(val);
         }
@@ -44,17 +45,16 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Services
         {
             _executingTask = Task.Factory.StartNew(async () =>
                 {
+                    var producer = _producerFactory.Create();
                     while (!_cancellationTokenSource.IsCancellationRequested)
                     {
-                        string val;
-                        var producer = _producerFactory.Create();
+                        ForwardContent val;
                         while (_queue.TryDequeue(out val))
                         {
-                            Console.WriteLine(val);
-                            await producer.ProduceAsync(topic: "REPLACE-ME", message: new Message<string, string>()
+                            await producer.ProduceAsync(topic: val.Topic, message: new Message<string, string>()
                             {
                                 Key = Guid.NewGuid().ToString(),
-                                Value = "PAYLOAD-HERE"
+                                Value = val.Payload
                             });
                         }
                         
