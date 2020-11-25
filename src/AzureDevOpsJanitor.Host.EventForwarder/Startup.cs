@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AzureDevOpsJanitor.Host.EventForwarder.Enablers.Kafka;
 using AzureDevOpsJanitor.Host.EventForwarder.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,6 +27,9 @@ namespace AzureDevOpsJanitor.Host.EventForwarder
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<KafkaConfiguration>();
+            services.AddTransient<KafkaProducerFactory>();
+            
             services.AddSingleton<KafkaService>();
             services.AddSingleton<IHostedService>(p => p.GetService<KafkaService>());
             
