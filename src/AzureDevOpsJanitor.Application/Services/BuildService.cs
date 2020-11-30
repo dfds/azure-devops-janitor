@@ -12,7 +12,7 @@ namespace AzureDevOpsJanitor.Application.Services
 	public sealed class BuildService : IBuildService
 	{
 		private readonly IBuildRepository _buildRepository;
-
+		
 		public BuildService(IBuildRepository buildRepository)
 		{
 			_buildRepository = buildRepository;
@@ -44,6 +44,18 @@ namespace AzureDevOpsJanitor.Application.Services
 			if (build != null)
 			{
 				_buildRepository.Delete(build);
+
+				await _buildRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
+			}
+		}
+
+		public async Task QueueAsync(int buildId, CancellationToken cancellationToken = default) 
+		{
+			var build = await GetAsync(buildId);
+
+			if(build != null)
+			{ 
+				build.Queue();
 
 				await _buildRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
 			}
