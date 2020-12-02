@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AzureDevOpsJanitor.Host.EventForwarder.Enablers.ApiKey;
 using AzureDevOpsJanitor.Host.EventForwarder.Enablers.Kafka;
 using AzureDevOpsJanitor.Host.EventForwarder.Services;
 using Microsoft.AspNetCore.Builder;
@@ -32,6 +33,8 @@ namespace AzureDevOpsJanitor.Host.EventForwarder
             
             services.AddSingleton<KafkaService>();
             services.AddSingleton<IHostedService>(p => p.GetService<KafkaService>());
+
+            services.AddScoped<IApiKeyService, FileApiKeyService>();
             
             services.AddControllers();
         }
