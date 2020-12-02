@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using AzureDevOpsJanitor.Host.EventForwarder.Attributes;
 using AzureDevOpsJanitor.Host.EventForwarder.Models;
 using AzureDevOpsJanitor.Host.EventForwarder.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,7 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Controllers
 {
     [ApiController]
     [Route("/api/forwarder")]
+    [ApiKeyAuthorize]
     public class ForwarderController : Controller
     {
         private readonly ILogger<ForwarderController> _logger;

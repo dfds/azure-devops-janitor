@@ -10,8 +10,8 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Filters
 {
     public class ApiKeyAuthorizeAsyncFilter : IAsyncAuthorizationFilter
     {
-        public static string ApiKeyHeaderName = "ApiKey";
-        public static string ClientIdHeaderName = "ClientId";
+        public static string ApiKeyHeaderName = "x-apiKey";
+        public static string ClientIdHeaderName = "x-clientId";
  
         private readonly ILogger<ApiKeyAuthorizeAsyncFilter> _logger;
         private readonly IApiKeyService _apiKeyService;
@@ -35,7 +35,7 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Filters
                 {
                     if (request.Headers.TryGetValue(ClientIdHeaderName, out var clientIdValue) && clientIdValue.Count != 0 && !string.IsNullOrWhiteSpace(clientIdValue))
                     {
-                        if (await _apiKeyService.IsAuthorized(apiKeyValue, clientIdValue))
+                        if (await _apiKeyService.IsAuthorized(clientIdValue, apiKeyValue))
                         {
                             _logger.LogDebug("Client {ClientId} successfully logged in with key {ApiKey}", clientIdValue, apiKeyValue);
  
