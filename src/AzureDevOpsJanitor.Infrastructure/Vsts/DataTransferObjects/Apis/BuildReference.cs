@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects
+namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects.Apis
 {
     public sealed class BuildReference
     {

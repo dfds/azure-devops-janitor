@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AzureDevOpsJanitor.Domain.Aggregates.Project
 {
-	//TODO: Finalize aggregate
 	public sealed class ProjectRoot : AbstractRoot<Guid>
 	{
 		public string Name { get; private set; }

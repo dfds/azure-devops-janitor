@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.Json.Serialization;
 
-namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects
+namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects.Apis
 {
     public sealed class DefinitionReference
     {

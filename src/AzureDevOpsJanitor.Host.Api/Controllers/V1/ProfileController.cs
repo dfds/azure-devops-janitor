@@ -9,7 +9,7 @@ namespace AzureDevOpsJanitor.Host.Api.Controllers.V1
 {
     [ApiController]
 	[Route("[controller]")]
-	public class ProfileController : ControllerBase
+	public sealed class ProfileController : ControllerBase
 	{
 		private readonly IFacade _applicationFacade;
 

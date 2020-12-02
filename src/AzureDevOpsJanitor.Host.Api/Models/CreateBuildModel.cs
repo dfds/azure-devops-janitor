@@ -3,7 +3,7 @@ using System;
 
 namespace AzureDevOpsJanitor.Host.Api.Models
 {
-    public class CreateBuildModel
+    public sealed class CreateBuildModel
     {
         public Guid ProjectId { get; set; }
 

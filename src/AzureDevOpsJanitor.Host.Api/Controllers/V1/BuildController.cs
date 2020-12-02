@@ -11,7 +11,7 @@ namespace AzureDevOpsJanitor.Host.Api.Controllers.V1
 {
     [ApiController]
 	[Route("[controller]")]
-	public class BuildController : ControllerBase
+	public sealed class BuildController : ControllerBase
 	{
 		private readonly IFacade _applicationFacade;
 

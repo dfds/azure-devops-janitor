@@ -5,7 +5,7 @@ using MediatR;
 
 namespace AzureDevOpsJanitor.Infrastructure.EntityFramework
 {
-	public class FakeMediator : IMediator
+	public sealed class FakeMediator : IMediator
 	{
 		public Task Publish<TNotification>(TNotification notification, CancellationToken cancellationToken = default) where TNotification : INotification
 		{

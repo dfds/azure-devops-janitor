@@ -15,18 +15,18 @@ using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Infrastructure.EntityFramework
 {
-	public class DomainContext : DbContext, IUnitOfWork
+	public sealed class DomainContext : DbContext, IUnitOfWork
 	{
 		public const string DEFAULT_SCHEMA = nameof(DomainContext);
 		private readonly IMediator _mediator;
 
-		public virtual DbSet<ProjectRoot> Project { get; set; }
+		public DbSet<ProjectRoot> Project { get; set; }
 
-		public virtual DbSet<BuildRoot> Build { get; set; }
+		public DbSet<BuildRoot> Build { get; set; }
 		
-		public virtual DbSet<BuildStatus> BuildStatus { get; set; }
+		public DbSet<BuildStatus> BuildStatus { get; set; }
 
-		public virtual DbSet<BuildDefinition> BuildDefinition { get; set; }
+		public DbSet<BuildDefinition> BuildDefinition { get; set; }
 
 		public IDbContextTransaction GetCurrentTransaction { get; private set; }
 

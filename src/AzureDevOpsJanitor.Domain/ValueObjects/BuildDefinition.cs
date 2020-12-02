@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AzureDevOpsJanitor.Domain.ValueObjects
 {
-	public class BuildDefinition : ValueObject
+	public sealed class BuildDefinition : ValueObject
 	{
 		[Required]
 		public int DefinitionId { get; protected set; }

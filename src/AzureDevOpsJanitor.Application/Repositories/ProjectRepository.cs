@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Application.Repositories
 {
-	public class ProjectRepository : EntityFrameworkRepository<ProjectRoot>, IProjectRepository
+	public sealed class ProjectRepository : EntityFrameworkRepository<ProjectRoot>, IProjectRepository
 	{
 		public ProjectRepository(DomainContext context) : base(context)
 		{

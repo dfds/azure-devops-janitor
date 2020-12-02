@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Design;
 
 namespace AzureDevOpsJanitor.Infrastructure.EntityFramework
 {
-	public class DomainDesignFactory : IDesignTimeDbContextFactory<DomainContext>
+	public sealed class DomainDesignFactory : IDesignTimeDbContextFactory<DomainContext>
 	{
 		public DomainContext CreateDbContext(string[] args)
 		{

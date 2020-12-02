@@ -1,4 +1,4 @@
-﻿using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
+﻿using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects.Apis;
 using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Build;
 using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Build.Definition;
 using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Profile;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts
 {
-    public class VstsRestClient : HttpClient, IVstsRestClient
+    public sealed class VstsRestClient : HttpClient, IVstsRestClient
     {
         public const string VstsAccessTokenCacheKey = "vstsAccessToken";
 

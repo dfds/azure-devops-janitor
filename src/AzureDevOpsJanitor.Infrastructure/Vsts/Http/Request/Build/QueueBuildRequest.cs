@@ -1,7 +1,8 @@
-﻿using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
+﻿using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects.Apis;
 using System;
 using System.Net.Http;
 using System.Text.Json;
+using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects.Apis;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Build
 {

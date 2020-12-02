@@ -1,4 +1,4 @@
-﻿using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
+﻿using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects.Apis;
 using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts

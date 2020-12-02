@@ -1,9 +1,9 @@
 ﻿using AzureDevOpsJanitor.Domain.ValueObjects;
-using Profile = AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects.Profile;
+using Profile = AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects.Apis.Profile;
 
 namespace AzureDevOpsJanitor.Application.Mapping.Profiles
 {
-	public class DefaultProfile : AutoMapper.Profile
+	public sealed class DefaultProfile : AutoMapper.Profile
 	{
 		public DefaultProfile()
 		{

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AzureDevOpsJanitor.Domain.ValueObjects
 {
-	public class UserProfile : ValueObject
+	public sealed class UserProfile : ValueObject
 	{
 		[Required]
 		public string Name { get; protected set; }

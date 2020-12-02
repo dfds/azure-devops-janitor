@@ -2,7 +2,7 @@
 
 namespace AzureDevOpsJanitor.Host.Api.Settings
 {
-    public class VstsSettings
+    public sealed class VstsSettings
     {
         public Uri Issuer { get; set; }
 

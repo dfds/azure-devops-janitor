@@ -4,7 +4,7 @@ using ResourceProvisioning.Abstractions.Events;
 using AzureDevOpsJanitor.Domain.Events.Build;
 using AzureDevOpsJanitor.Infrastructure.Vsts;
 using AutoMapper;
-using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
+using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects.Apis;
 
 namespace AzureDevOpsJanitor.Application.Events.Build
 {

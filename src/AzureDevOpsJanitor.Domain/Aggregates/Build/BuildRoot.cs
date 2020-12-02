@@ -3,11 +3,9 @@ using AzureDevOpsJanitor.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 
 namespace AzureDevOpsJanitor.Domain.Aggregates.Build
 {
-	//TODO: Finalize aggregate
 	public sealed class BuildRoot : AbstractRoot<int>
 	{
 		private BuildStatus _status;
