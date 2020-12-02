@@ -60,8 +60,10 @@ namespace AzureDevOpsJanitor.Host.KafkaWorker
 
                             continue;
                         }
-
+                        
                         Console.WriteLine($"Received message at {consumeResult.TopicPartitionOffset}: {consumeResult.Message.Value}");
+
+                        //TODO: Process message
 
                         if (consumeResult.Offset % commitPeriod == 0)
                         {
