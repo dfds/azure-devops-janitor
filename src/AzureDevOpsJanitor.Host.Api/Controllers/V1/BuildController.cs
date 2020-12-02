@@ -32,6 +32,13 @@ namespace AzureDevOpsJanitor.Host.Api.Controllers.V1
             return await _applicationFacade.Execute(new GetBuildCommand(buildId));
         }
 
+        //TODO: Test if ApiController can share routes based on diff action signatures.
+        [HttpGet("{id}")]
+        public async Task<IEnumerable<BuildRoot>> Get(Guid projectId)
+        {
+            return await _applicationFacade.Execute(new GetBuildCommand(projectId: projectId));
+        }
+
         [HttpPost]
         public async Task<BuildRoot> Post(CreateBuildModel model)
         {

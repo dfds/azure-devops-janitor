@@ -12,10 +12,11 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Build
 #pragma warning disable IDE0052 // Remove unread private members
 		private int _statusId;
 		private readonly string _capabilityIdentifier;
-		private readonly Guid _projectId;
 #pragma warning restore IDE0052 // Remove unread private members
 
-		public BuildDefinition Definition { get; private set; }
+        public Guid ProjectId { get; private set; }
+
+        public BuildDefinition Definition { get; private set; }
 
 		public BuildStatus Status { 
 			get 
@@ -38,8 +39,8 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Build
 
 		public BuildRoot(Guid projectId, string capabilityIdentifier, BuildDefinition definition) : base()
 		{
-			_projectId = projectId;
 			_capabilityIdentifier = capabilityIdentifier;
+			ProjectId = projectId;
 			Definition = definition;
 		}
 
@@ -103,16 +104,11 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Build
 			AddDomainEvent(new BuildCompletedEvent(this));
 		}
 
-		public void SetId(int id)
-		{
-			Id = id;
-		}
-
 		public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
 		{
-			if (_projectId == Guid.Empty)
+			if (ProjectId == Guid.Empty)
 			{
-				yield return new ValidationResult(nameof(_projectId));
+				yield return new ValidationResult(nameof(ProjectId));
 			}
 
 			if (!Guid.TryParse(_capabilityIdentifier, out _) || string.IsNullOrEmpty(_capabilityIdentifier))

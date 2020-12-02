@@ -3,6 +3,7 @@ using AzureDevOpsJanitor.Application.Behaviors;
 using AzureDevOpsJanitor.Application.Cache;
 using AzureDevOpsJanitor.Application.Commands.Build;
 using AzureDevOpsJanitor.Application.Commands.Profile;
+using AzureDevOpsJanitor.Application.Commands.Project;
 using AzureDevOpsJanitor.Application.Events.Build;
 using AzureDevOpsJanitor.Application.Repositories;
 using AzureDevOpsJanitor.Application.Services;
@@ -79,11 +80,13 @@ namespace AzureDevOpsJanitor.Application
 			services.AddTransient<IRequestHandler<CreateBuildCommand, BuildRoot>, CreateBuildCommandHandler>();
 			services.AddTransient<IRequestHandler<DeleteBuildCommand, bool>, DeleteBuildCommandHandler>();
 			services.AddTransient<IRequestHandler<GetProfileCommand, UserProfile>, GetProfileCommandHandler>();
+			services.AddTransient<IRequestHandler<GetProjectCommand, IEnumerable<ProjectRoot>>, GetProjectCommandHandler>();
 
 			services.AddTransient<ICommandHandler<GetBuildCommand, IEnumerable<BuildRoot>>, GetBuildCommandHandler>();
 			services.AddTransient<ICommandHandler<CreateBuildCommand, BuildRoot>, CreateBuildCommandHandler>();
 			services.AddTransient<ICommandHandler<DeleteBuildCommand, bool>, DeleteBuildCommandHandler>();
 			services.AddTransient<ICommandHandler<GetProfileCommand, UserProfile>, GetProfileCommandHandler>();
+			services.AddTransient<ICommandHandler<GetProjectCommand, IEnumerable<ProjectRoot>>, GetProjectCommandHandler>();
 		}
 
 		private static void AddEventHandlers(this IServiceCollection services)

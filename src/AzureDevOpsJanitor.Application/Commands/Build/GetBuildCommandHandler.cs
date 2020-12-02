@@ -4,6 +4,7 @@ using MediatR;
 using ResourceProvisioning.Abstractions.Commands;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,16 +14,25 @@ namespace AzureDevOpsJanitor.Application.Commands.Build
 	{
 		private readonly IBuildService _buildService;
 
-		public GetBuildCommandHandler(IMediator mediator, IBuildService controlPlaneService) : base(mediator)
+		public GetBuildCommandHandler(IMediator mediator, IBuildService buildService) : base(mediator)
 		{
-			_buildService = controlPlaneService ?? throw new ArgumentNullException(nameof(controlPlaneService));
+			_buildService = buildService ?? throw new ArgumentNullException(nameof(buildService));
 		}
 
 		public override async Task<IEnumerable<BuildRoot>> Handle(GetBuildCommand command, CancellationToken cancellationToken = default)
 		{
 			IEnumerable<BuildRoot> result;
 
-			if (command.BuildId.HasValue)
+			if (command.ProjectId.HasValue)
+			{
+				result = await _buildService.GetAsync(command.ProjectId.Value);
+				
+				if (command.BuildId.HasValue)
+				{
+					result = result.Where(b => b.Id == command.BuildId.Value);
+				}
+			}
+			else if (command.BuildId.HasValue)
 			{
 				result = new List<BuildRoot>() { await _buildService.GetAsync(command.BuildId.Value) };
 			}

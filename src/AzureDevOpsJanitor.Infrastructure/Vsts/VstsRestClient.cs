@@ -71,5 +71,14 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
 
             return definitionDto;
         }
+
+        public async Task<TeamProjectReference> GetProject(string organization)
+        {
+            var response = await SendAsync(new GetProjectRequest(organization));
+            var responseData = await response.Content.ReadAsStringAsync();
+            var definitionDto = JsonSerializer.Deserialize<TeamProjectReference>(responseData);
+
+            return definitionDto;
+        }
     }
 }

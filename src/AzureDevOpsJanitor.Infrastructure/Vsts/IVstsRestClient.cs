@@ -5,6 +5,8 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
 {
     public interface IVstsRestClient
     {
+        Task<TeamProjectReference> GetProject(string organization);
+
         Task<Profile> GetProfile(string profileId);
 
         Task<DefinitionReference> GetDefinition(string organization, string project, int definitionId);

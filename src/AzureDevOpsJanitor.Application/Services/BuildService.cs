@@ -28,6 +28,11 @@ namespace AzureDevOpsJanitor.Application.Services
 			return await _buildRepository.GetAsync(buildId);
 		}
 
+		public async Task<IEnumerable<BuildRoot>> GetAsync(Guid projectId)
+		{
+			return await _buildRepository.GetAsync(projectId);
+		}
+
 		public async Task<BuildRoot> AddAsync(Guid projectId, string capabilityId, BuildDefinition definition, CancellationToken cancellationToken = default)
 		{
 			var build = _buildRepository.Add(new BuildRoot(projectId, capabilityId, definition));

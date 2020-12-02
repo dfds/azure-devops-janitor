@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Host.Api.Infrastructure.Middleware
 {
-    //TODO: Remove middleware once a proper client authentication flow has been established. This will only work in local dev.
+    //TODO: Remove middleware once a proper client authentication flow has been established in UI.
     public sealed class VstsCallbackMiddleware : IMiddleware
     {
         private readonly IMemoryCache _cache;

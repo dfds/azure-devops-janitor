@@ -47,5 +47,18 @@ namespace AzureDevOpsJanitor.Application.Repositories
 
 			return build;
 		}
+
+		public async Task<IEnumerable<BuildRoot>> GetAsync(Guid projectId)
+		{
+			return await Task.Factory.StartNew(() =>
+			{
+				return _context.Build
+							 .AsNoTracking()
+							 .Where(b => b.ProjectId == projectId)
+							 .Include(i => i.Status)
+							 .Include(i => i.Definition)
+							 .AsEnumerable();
+			});
+		}
 	}
 }
