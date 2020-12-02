@@ -11,7 +11,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureDevOpsJanitor.Applicat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureDevOpsJanitor.Host.Api", "src\AzureDevOpsJanitor.Host.Api\AzureDevOpsJanitor.Host.Api.csproj", "{F1A1619E-D962-48CA-B4F9-AB0E6F51E6C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureDevOpsJanitor.Host.KafkaWorker", "src\AzureDevOpsJanitor.Host.KafkaWorker\AzureDevOpsJanitor.Host.KafkaWorker.csproj", "{40C1B7E5-C483-4C4E-9AE0-A158524892DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureDevOpsJanitor.Host.KafkaWorker", "src\AzureDevOpsJanitor.Host.KafkaWorker\AzureDevOpsJanitor.Host.KafkaWorker.csproj", "{40C1B7E5-C483-4C4E-9AE0-A158524892DA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{E529C2A0-7A49-4F78-B61E-A6DE1FAFC35B}"
+	ProjectSection(SolutionItems) = preProject
+		nuget.config = nuget.config
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

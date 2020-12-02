@@ -16,4 +16,10 @@
   <ItemGroup>
     <ProjectReference Include="..\AzureDevOpsJanitor.Infrastructure\AzureDevOpsJanitor.Infrastructure.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="nuget.config">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+  </ItemGroup>
 </Project>
