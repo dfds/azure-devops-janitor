@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Text.Json.Serialization;
 
-namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects.Apis
+namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects
 {
-    public sealed class DefinitionReference
+    public sealed class DefinitionReferenceDto
     {
         [JsonPropertyName("id")]
         public int Id { get; set; }
@@ -19,8 +19,11 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects.Apis
 
         [JsonPropertyName("type")]
         public string Type { get; set; }
-
+        
         [JsonPropertyName("uri")]
         public Uri Uri { get; set; }
+
+        [JsonPropertyName("queueStatus")]
+        public string QueueStatus { get; set; }
     }
 }

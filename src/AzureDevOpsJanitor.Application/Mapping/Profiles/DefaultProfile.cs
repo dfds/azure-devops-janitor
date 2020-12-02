@@ -1,5 +1,5 @@
 ﻿using AzureDevOpsJanitor.Domain.ValueObjects;
-using Profile = AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects.Apis.Profile;
+using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
 
 namespace AzureDevOpsJanitor.Application.Mapping.Profiles
 {
@@ -7,7 +7,7 @@ namespace AzureDevOpsJanitor.Application.Mapping.Profiles
 	{
 		public DefaultProfile()
 		{
-			CreateMap<Profile, UserProfile>();
+			CreateMap<ProfileDto, UserProfile>();
 		}
 	}
 }

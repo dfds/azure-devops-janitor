@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Text.Json.Serialization;
 
-namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects.Apis
+namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects
 {
-    public class TeamProjectReference
+    public class TeamProjectDto
     {
         [JsonPropertyName("id")]
         public int Id { get; set; }

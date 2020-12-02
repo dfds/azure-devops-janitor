@@ -2,7 +2,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects.Events
+namespace AzureDevOpsJanitor.Infrastructure.Vsts.Events
 {
     public abstract class VstsEvent
     {

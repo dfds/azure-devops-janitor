@@ -4,7 +4,7 @@ using ResourceProvisioning.Abstractions.Events;
 using AzureDevOpsJanitor.Domain.Events.Build;
 using AzureDevOpsJanitor.Infrastructure.Vsts;
 using AutoMapper;
-using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects.Apis;
+using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
 
 namespace AzureDevOpsJanitor.Application.Events.Build
 {
@@ -21,7 +21,7 @@ namespace AzureDevOpsJanitor.Application.Events.Build
 
 		public async Task Handle(BuildCreatedEvent @event, CancellationToken cancellationToken)
 		{
-			await _restClient.CreateDefinition("dfds", "CloudEngineering", _mapper.Map<DefinitionReference>(@event.Build.Definition));
+			await _restClient.CreateDefinition("dfds", "CloudEngineering", _mapper.Map<DefinitionReferenceDto>(@event.Build.Definition));
 		}
 	}
 }

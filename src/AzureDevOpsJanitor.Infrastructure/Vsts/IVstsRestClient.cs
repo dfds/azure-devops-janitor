@@ -1,22 +1,22 @@
-﻿using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects.Apis;
+﻿using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
 using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts
 {
     public interface IVstsRestClient
     {
-        Task<TeamProjectReference> GetProject(string organization);
+        Task<TeamProjectDto> GetProject(string organization);
 
-        Task<Profile> GetProfile(string profileId);
+        Task<ProfileDto> GetProfile(string profileId);
 
-        Task<DefinitionReference> GetDefinition(string organization, string project, int definitionId);
+        Task<DefinitionReferenceDto> GetDefinition(string organization, string project, int definitionId);
 
         Task<string> GetDefinitionYaml(string organization, string project, int definitionId);
 
-        Task<DefinitionReference> CreateDefinition(string organization, string project, DefinitionReference definition);
+        Task<DefinitionReferenceDto> CreateDefinition(string organization, string project, DefinitionReferenceDto definition);
 
-        Task<BuildReference> QueueBuild(string organization, string project, int definitionId);
+        Task<BuildDto> QueueBuild(string organization, string project, int definitionId);
 
-        Task<BuildReference> QueueBuild(string organization, string project, DefinitionReference definition);
+        Task<BuildDto> QueueBuild(string organization, string project, DefinitionReferenceDto definition);
     }
 }

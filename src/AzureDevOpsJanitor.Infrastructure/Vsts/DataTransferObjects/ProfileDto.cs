@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Text.Json.Serialization;
 
-namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects.Apis
+namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects
 {
-    public sealed class Profile
+    public sealed class ProfileDto
     {
         [JsonPropertyName("id")]
         public Guid Id { get; set; }

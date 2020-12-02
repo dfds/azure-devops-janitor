@@ -16,7 +16,7 @@ namespace AzureDevOpsJanitor.Host.KafkaWorker
 			_logger = logger;
 		}
 
-		protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+		protected override Task ExecuteAsync(CancellationToken stoppingToken)
 		{
 			var config = new ConsumerConfig
 			{
@@ -32,15 +32,15 @@ namespace AzureDevOpsJanitor.Host.KafkaWorker
             const int commitPeriod = 5;
 
             using var consumer = new ConsumerBuilder<Ignore, string>(config)
-                .SetErrorHandler((_, e) => Console.WriteLine($"Error: {e.Reason}"))
-                .SetStatisticsHandler((_, json) => Console.WriteLine($"Statistics: {json}"))
+                .SetErrorHandler((_, e) => _logger.LogError($"Error: {e.Reason}", e))
+                .SetStatisticsHandler((_, json) => _logger.LogDebug($"Statistics: {json}"))
                 .SetPartitionsAssignedHandler((c, partitions) =>
                 {
-                    Console.WriteLine($"Assigned partitions: [{string.Join(", ", partitions)}]");
+                    _logger.LogInformation($"Assigned partitions: [{string.Join(", ", partitions)}]");
                 })
                 .SetPartitionsRevokedHandler((c, partitions) =>
                 {
-                    Console.WriteLine($"Revoking assignment: [{string.Join(", ", partitions)}]");
+                    _logger.LogInformation($"Revoking assignment: [{string.Join(", ", partitions)}]");
                 })
                 .Build();
 
@@ -56,12 +56,12 @@ namespace AzureDevOpsJanitor.Host.KafkaWorker
 
                         if (consumeResult.IsPartitionEOF)
                         {
-                            Console.WriteLine($"Reached end of topic {consumeResult.Topic}, partition {consumeResult.Partition}, offset {consumeResult.Offset}.");
+                            _logger.LogInformation($"Reached end of topic {consumeResult.Topic}, partition {consumeResult.Partition}, offset {consumeResult.Offset}.");
 
                             continue;
                         }
-                        
-                        Console.WriteLine($"Received message at {consumeResult.TopicPartitionOffset}: {consumeResult.Message.Value}");
+
+                        _logger.LogInformation($"Received message at {consumeResult.TopicPartitionOffset}: {consumeResult.Message.Value}");
 
                         //TODO: Process message
 
@@ -79,22 +79,24 @@ namespace AzureDevOpsJanitor.Host.KafkaWorker
                             }
                             catch (KafkaException e)
                             {
-                                Console.WriteLine($"Commit error: {e.Error.Reason}");
+                                _logger.LogError($"Commit error: {e.Error.Reason}", e);
                             }
                         }
                     }
                     catch (ConsumeException e)
                     {
-                        Console.WriteLine($"Consume error: {e.Error.Reason}");
+                        _logger.LogError($"Consume error: {e.Error.Reason}", e);
                     }
                 }
             }
-            catch (OperationCanceledException)
+            catch (OperationCanceledException e)
             {
-                Console.WriteLine("Closing consumer.");
+                _logger.LogInformation("Closing consumer.", e);
 
                 consumer.Close();
             }
+
+            return Task.CompletedTask;
         }
 	}
 }

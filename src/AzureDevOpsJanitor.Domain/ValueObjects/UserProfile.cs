@@ -7,9 +7,9 @@ namespace AzureDevOpsJanitor.Domain.ValueObjects
 	public sealed class UserProfile : ValueObject
 	{
 		[Required]
-		public string Name { get; protected set; }
+		public string Name { get; private set; }
 
-		protected UserProfile() { }
+		private UserProfile() { }
 
 		public UserProfile(string name)
 		{

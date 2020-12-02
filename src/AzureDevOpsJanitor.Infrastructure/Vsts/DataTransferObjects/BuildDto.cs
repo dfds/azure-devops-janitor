@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects.Apis
+namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects
 {
-    public sealed class BuildReference
+    public sealed class BuildDto
     {
         [JsonPropertyName("id")]
         public int Id { get; set; }
@@ -19,7 +19,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects.Apis
         public Uri Uri { get; set; }
 
         [JsonPropertyName("definition")]
-        public DefinitionReference Definition { get; set; }
+        public DefinitionReferenceDto Definition { get; set; }
 
         [JsonPropertyName("tags")]
         public IEnumerable<string> Tags { get; set; }

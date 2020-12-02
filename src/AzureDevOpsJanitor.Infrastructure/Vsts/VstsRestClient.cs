@@ -1,4 +1,4 @@
-﻿using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects.Apis;
+﻿using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
 using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Build;
 using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Build.Definition;
 using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Profile;
@@ -19,20 +19,20 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", accessToken.RawData);
         }
 
-        public async Task<Profile> GetProfile(string profileId)
+        public async Task<ProfileDto> GetProfile(string profileId)
         {
             var response = await SendAsync(new GetProfileRequest(profileId));
             var responseData = await response.Content.ReadAsStringAsync();
-            var profileDto = JsonSerializer.Deserialize<Profile>(responseData);
+            var profileDto = JsonSerializer.Deserialize<ProfileDto>(responseData);
 
             return profileDto;
         }
 
-        public async Task<DefinitionReference> GetDefinition(string organization, string project, int definitionId)
+        public async Task<DefinitionReferenceDto> GetDefinition(string organization, string project, int definitionId)
         {
             var response = await SendAsync(new GetDefinitionRequest(organization, project, definitionId));
             var responseData = await response.Content.ReadAsStringAsync();
-            var definitionDtos = JsonSerializer.Deserialize<DefinitionReference>(responseData);
+            var definitionDtos = JsonSerializer.Deserialize<DefinitionReferenceDto>(responseData);
 
             return definitionDtos;
         }
@@ -45,38 +45,38 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             return responseData;
         }
 
-        public async Task<DefinitionReference> CreateDefinition(string organization, string project, DefinitionReference definition)
+        public async Task<DefinitionReferenceDto> CreateDefinition(string organization, string project, DefinitionReferenceDto definition)
         {
             var response = await SendAsync(new CreateDefinitionRequest(organization, project, definition));
             var responseData = await response.Content.ReadAsStringAsync();
-            var definitionDto = JsonSerializer.Deserialize<DefinitionReference>(responseData);
+            var definitionDto = JsonSerializer.Deserialize<DefinitionReferenceDto>(responseData);
 
             return definitionDto;
         }
 
-        public async Task<BuildReference> QueueBuild(string organization, string project, DefinitionReference definition)
+        public async Task<BuildDto> QueueBuild(string organization, string project, DefinitionReferenceDto definition)
         {
             var response = await SendAsync(new QueueBuildRequest(organization, project, definition));
             var responseData = await response.Content.ReadAsStringAsync();
-            var definitionDto = JsonSerializer.Deserialize<BuildReference>(responseData);
+            var definitionDto = JsonSerializer.Deserialize<BuildDto>(responseData);
 
             return definitionDto;
         }
 
-        public async Task<BuildReference> QueueBuild(string organization, string project, int definitionId)
+        public async Task<BuildDto> QueueBuild(string organization, string project, int definitionId)
         {
             var response = await SendAsync(new QueueBuildRequest(organization, project, definitionId));
             var responseData = await response.Content.ReadAsStringAsync();
-            var definitionDto = JsonSerializer.Deserialize<BuildReference>(responseData);
+            var definitionDto = JsonSerializer.Deserialize<BuildDto>(responseData);
 
             return definitionDto;
         }
 
-        public async Task<TeamProjectReference> GetProject(string organization)
+        public async Task<TeamProjectDto> GetProject(string organization)
         {
             var response = await SendAsync(new GetProjectRequest(organization));
             var responseData = await response.Content.ReadAsStringAsync();
-            var definitionDto = JsonSerializer.Deserialize<TeamProjectReference>(responseData);
+            var definitionDto = JsonSerializer.Deserialize<TeamProjectDto>(responseData);
 
             return definitionDto;
         }

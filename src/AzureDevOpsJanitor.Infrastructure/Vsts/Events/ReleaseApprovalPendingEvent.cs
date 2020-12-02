@@ -1,4 +1,4 @@
-﻿namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects.Events
+﻿namespace AzureDevOpsJanitor.Infrastructure.Vsts.Events
 {
     public sealed class ReleaseApprovalPendingEvent : VstsEvent
     {
