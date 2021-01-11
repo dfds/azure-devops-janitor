@@ -30,14 +30,14 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Build
 			}
 		}
 
-		private BuildRoot()
+		private BuildRoot() : base()
 		{
 			Status = BuildStatus.Created;
 
 			AddDomainEvent(new BuildCreatedEvent(this));
 		}
 
-		public BuildRoot(Guid projectId, string capabilityIdentifier, BuildDefinition definition) : base()
+		public BuildRoot(Guid projectId, string capabilityIdentifier, BuildDefinition definition) : this()
 		{
 			_capabilityIdentifier = capabilityIdentifier;
 			ProjectId = projectId;

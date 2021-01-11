@@ -28,7 +28,6 @@
 
     <ItemGroup>
       <Folder Include="Aggregates\" />
-      <Folder Include="Events\" />
       <Folder Include="ValueObjects\" />
     </ItemGroup>
 
