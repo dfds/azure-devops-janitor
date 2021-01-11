@@ -24,8 +24,9 @@ namespace AzureDevOpsJanitor.Host.KafkaWorker
         }
 
 		protected override Task ExecuteAsync(CancellationToken stoppingToken)
-		{
-			var config = new ConsumerConfig
+        {
+            //TODO: Map this configurable via options
+            var config = new ConsumerConfig
 			{
 				BootstrapServers = "pkc-e8wrm.eu-central-1.aws.confluent.cloud:9092",
 				GroupId = "azure-devsop-janitor-worker",
@@ -51,6 +52,7 @@ namespace AzureDevOpsJanitor.Host.KafkaWorker
                 })
                 .Build();
 
+            //TODO: Map this configurable via options
             consumer.Subscribe("pub.segment-ui-beorp.default");
 
             try
