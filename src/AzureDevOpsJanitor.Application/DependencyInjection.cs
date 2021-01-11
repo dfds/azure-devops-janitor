@@ -93,11 +93,9 @@ namespace AzureDevOpsJanitor.Application
 		{
 			services.AddTransient<INotificationHandler<BuildCreatedEvent>, BuildCreatedEventHandler>();
 			services.AddTransient<INotificationHandler<BuildQueuedEvent>, BuildQueuedEventHandler>();
-			services.AddTransient<INotificationHandler<BuildCompletedEvent>, BuildCompletedEventHandler>();
 
 			services.AddTransient<IEventHandler<BuildCreatedEvent>, BuildCreatedEventHandler>();
 			services.AddTransient<IEventHandler<BuildQueuedEvent>, BuildQueuedEventHandler>();
-			services.AddTransient<IEventHandler<BuildCompletedEvent>, BuildCompletedEventHandler>();
 		}
 
 		private static void AddRepositories(this IServiceCollection services)
