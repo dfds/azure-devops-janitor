@@ -1,7 +1,10 @@
-﻿using Confluent.Kafka;
+﻿using AutoMapper;
+using Confluent.Kafka;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using ResourceProvisioning.Abstractions.Facade;
 using System;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -10,11 +13,15 @@ namespace AzureDevOpsJanitor.Host.KafkaWorker
 	public class Worker : BackgroundService
 	{
 		private readonly ILogger<Worker> _logger;
+        private readonly IMapper _mapper;
+        private readonly IFacade _applicationFacade;
 
-		public Worker(ILogger<Worker> logger)
+        public Worker(ILogger<Worker> logger, IMapper mapper, IFacade applicationFacade)
 		{
-			_logger = logger;
-		}
+            _logger = logger;
+            _mapper = mapper;
+            _applicationFacade = applicationFacade;
+        }
 
 		protected override Task ExecuteAsync(CancellationToken stoppingToken)
 		{
@@ -63,7 +70,15 @@ namespace AzureDevOpsJanitor.Host.KafkaWorker
 
                         _logger.LogInformation($"Received message at {consumeResult.TopicPartitionOffset}: {consumeResult.Message.Value}");
 
-                        //TODO: Process message
+                        if (!string.IsNullOrEmpty(consumeResult.Message.Value))
+                        {
+                            var messagePayload = JsonSerializer.Deserialize<dynamic>(consumeResult.Message.Value);
+
+                            //TODO: Implement maps.
+                            var mappedObject = _mapper.Map(messagePayload);
+                            
+                            //TODO: Perform neccessary updates via application facade.
+                        }
 
                         if (consumeResult.Offset % commitPeriod == 0)
                         {
