@@ -31,7 +31,7 @@ namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Events
                 QueueStatus = "MyQueueStatus",
                 Revision = "MyRevision",
                 Type = "MyType",
-                Uri = new Uri("https://foo.bar")
+                Uri = new Uri("https://foo.bar/")
             };
             
             //Act
@@ -58,7 +58,7 @@ namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Events
             Assert.Equal("MyQueueStatus", sut.QueueStatus);
             Assert.Equal("MyRevision", sut.Revision);
             Assert.Equal("MyType", sut.Type);
-            Assert.Equal("https://foo.bar", sut.Uri.AbsoluteUri);
+            Assert.Equal("https://foo.bar/", sut.Uri.AbsoluteUri);
         }
     }
 }

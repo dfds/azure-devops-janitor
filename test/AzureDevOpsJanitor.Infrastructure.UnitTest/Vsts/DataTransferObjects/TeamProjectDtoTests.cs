@@ -29,7 +29,7 @@ namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Events
                 Name = "MyName",
                 Description = "MyDescription",
                 State = "MyState",
-                Url = new Uri("https://my-team-project-url")
+                Url = new Uri("https://my-team-project-url/")
             };
             
             //Act
@@ -54,7 +54,7 @@ namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Events
             Assert.Equal("MyName", sut.Name);
             Assert.Equal("MyDescription", sut.Description);
             Assert.Equal("MyState", sut.State);
-            Assert.Equal("https://my-team-project-ur", sut.Url.AbsoluteUri);
+            Assert.Equal("https://my-team-project-url/", sut.Url.AbsoluteUri);
         }
     }
 }
