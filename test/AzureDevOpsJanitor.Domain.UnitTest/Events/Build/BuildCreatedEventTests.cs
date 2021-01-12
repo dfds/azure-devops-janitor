@@ -3,10 +3,24 @@ using AzureDevOpsJanitor.Domain.Events.Build;
 using System;
 using Xunit;
 
-namespace AzureDevOpsJanitor.Domain.UnitTest.Events
+namespace AzureDevOpsJanitor.Domain.UnitTest.Events.Build
 {
     public class BuildCreatedEventTests
     {
+        [Fact]
+        public void CanBeConstructed()
+        {
+            //Arrange
+            BuildCreatedEvent sut;
+
+            //Act
+            sut = new BuildCreatedEvent(null);
+
+            //Assert
+            Assert.NotNull(sut);
+            Assert.True(sut.Build == null);
+        }
+
         [Fact]
         public void AreNotEqual() 
         {

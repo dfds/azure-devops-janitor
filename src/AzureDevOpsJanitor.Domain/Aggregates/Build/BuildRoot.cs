@@ -58,7 +58,7 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Build
 
 		public void Succeeded()
 		{
-			if (Status != BuildStatus.Created)
+			if (Status != BuildStatus.Queued)
 			{
 				return;
 			}
@@ -70,7 +70,7 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Build
 
 		public void Failed()
 		{
-			if (Status != BuildStatus.Created)
+			if (Status != BuildStatus.Queued)
 			{
 				return;
 			}
@@ -82,7 +82,7 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Build
 
 		public void Stopped()
 		{
-			if (Status != BuildStatus.Created)
+			if (Status != BuildStatus.Queued)
 			{
 				return;
 			}
@@ -94,7 +94,7 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Build
 
 		public void Partial()
 		{
-			if (Status != BuildStatus.Created)
+			if (Status != BuildStatus.Queued)
 			{
 				return;
 			}
