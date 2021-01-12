@@ -19,9 +19,9 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.Events
         public string Scope { get; set; }
 
         [JsonPropertyName("message")]
-        public JsonElement Message { get; set; }
+        public JsonElement? Message { get; set; }
 
         [JsonPropertyName("resource")]
-        public JsonElement Resource { get; set; }
+        public JsonElement? Resource { get; set; }
     }
 }

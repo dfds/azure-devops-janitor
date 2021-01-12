@@ -2,9 +2,11 @@
 using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Build;
 using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Build.Definition;
 using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Profile;
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -14,7 +16,12 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
     {
         public const string VstsAccessTokenCacheKey = "vstsAccessToken";
 
-        public VstsRestClient(JwtSecurityToken accessToken)
+        public VstsRestClient(string pat) : base()
+        {
+            DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("basic", Convert.ToBase64String(Encoding.ASCII.GetBytes(pat)));
+        }
+
+        public VstsRestClient(JwtSecurityToken accessToken) : base()
         {
             DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", accessToken.RawData);
         }

@@ -7,6 +7,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="Vsts\VstsRestClientTests.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
         <PackageReference Include="Moq" Version="4.15.2" />
@@ -27,12 +31,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="EntityFramework\Transactions\" />
-      <Folder Include="Vsts\DataTransferObjects\" />
-      <Folder Include="Vsts\Events\" />
-      <Folder Include="EntityFramework\Repositories\" />
-      <Folder Include="EntityFramework\Configurations\" />
-      <Folder Include="Vsts\Http\Request\" />
+      <None Include="Vsts\VstsRestClientTests.cs" />
     </ItemGroup>
 
 </Project>
