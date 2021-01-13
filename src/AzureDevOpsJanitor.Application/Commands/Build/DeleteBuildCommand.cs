@@ -8,6 +8,7 @@ namespace AzureDevOpsJanitor.Application.Commands.Build
 		[JsonPropertyName("buildId")]
 		public int BuildId { get; private set; }
 
+		[JsonConstructor]
 		public DeleteBuildCommand(int buildId)
 		{
 			BuildId = buildId;

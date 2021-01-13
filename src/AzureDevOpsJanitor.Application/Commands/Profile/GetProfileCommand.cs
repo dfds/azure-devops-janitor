@@ -9,6 +9,7 @@ namespace AzureDevOpsJanitor.Application.Commands.Profile
 		[JsonPropertyName("profileIdentifier")]
 		public string ProfileIdentifier { get; private set; }
 
+		[JsonConstructor]
 		public GetProfileCommand(string profileIdentifier = null)
 		{
 			ProfileIdentifier = profileIdentifier ?? "me";

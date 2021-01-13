@@ -13,6 +13,7 @@ namespace AzureDevOpsJanitor.Domain.ValueObjects
 
 		private UserProfile() { }
 
+		[JsonConstructor]
 		public UserProfile(string name)
 		{
 			Name = name;

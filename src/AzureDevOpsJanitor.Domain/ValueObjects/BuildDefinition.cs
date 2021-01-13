@@ -19,6 +19,8 @@ namespace AzureDevOpsJanitor.Domain.ValueObjects
 		[JsonPropertyName("yaml")]
 		public string Yaml { get; init; }
 
+		private BuildDefinition() { }
+
 		[JsonConstructor]
 		public BuildDefinition(string name, string yaml, int id)
 		{

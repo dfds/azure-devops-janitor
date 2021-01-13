@@ -11,6 +11,7 @@ namespace AzureDevOpsJanitor.Application.Commands.Project
 		[JsonPropertyName("projectId")]
 		public Guid? ProjectId { get; private set; }
 
+		[JsonConstructor]
 		public GetProjectCommand(Guid? projectId = default)
 		{
 			ProjectId = projectId;
