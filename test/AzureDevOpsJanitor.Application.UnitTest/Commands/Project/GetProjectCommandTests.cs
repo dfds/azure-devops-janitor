@@ -1,5 +1,4 @@
-﻿using AzureDevOpsJanitor.Application.Commands.Profile;
-using AzureDevOpsJanitor.Application.Commands.Project;
+﻿using AzureDevOpsJanitor.Application.Commands.Project;
 using System;
 using System.Text.Json;
 using Xunit;
