@@ -10,18 +10,18 @@ using Xunit;
 
 namespace AzureDevOpsJanitor.Application.UnitTest.Events.Build
 {
-    public class BuildCreatedEventHandlerTests
+    public class BuildQueuedEventHandlerTests
     {
         [Fact]
         public void CanBeConstructed()
         {
             //Arrange
-            BuildCreatedEventHandler sut;
+            BuildQueuedEventHandler sut;
             var mockMapper = new Mock<IMapper>();
             var mockVstsRestClient = new Mock<IVstsRestClient>();
 
             //Act
-            sut = new BuildCreatedEventHandler(mockMapper.Object, mockVstsRestClient.Object);
+            sut = new BuildQueuedEventHandler(mockMapper.Object, mockVstsRestClient.Object);
 
             //Assert
             Assert.NotNull(sut);
@@ -42,13 +42,13 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Events.Build
                 Revision = "my-revision"
             };
 
-            var sut = new BuildCreatedEventHandler(mockMapper.Object, mockVstsRestClient.Object);
+            var sut = new BuildQueuedEventHandler(mockMapper.Object, mockVstsRestClient.Object);
 
             mockMapper.Setup(m => m.Map<DefinitionReferenceDto>(It.IsAny<BuildDefinition>())).Returns(fakeVstsPayload);
-            mockVstsRestClient.Setup(m => m.CreateDefinition(It.IsAny<string>(), It.IsAny<string>(), fakeVstsPayload));
+            mockVstsRestClient.Setup(m => m.QueueBuild(It.IsAny<string>(), It.IsAny<string>(), fakeVstsPayload));
 
             //Act
-            await sut.Handle(new Domain.Events.Build.BuildCreatedEvent(new Domain.Aggregates.Build.BuildRoot(Guid.NewGuid(), "my-capability-identifier", new BuildDefinition("name", "yaml", 1))));
+            await sut.Handle(new Domain.Events.Build.BuildQueuedEvent(new Domain.Aggregates.Build.BuildRoot(Guid.NewGuid(), "my-capability-identifier", new BuildDefinition("name", "yaml", 1))));
 
             //Assert
             mockMapper.VerifyAll();
