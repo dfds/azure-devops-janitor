@@ -1,34 +1,37 @@
 ﻿using ResourceProvisioning.Abstractions.Entities;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace AzureDevOpsJanitor.Domain.ValueObjects
 {
 	public sealed class BuildDefinition : ValueObject
 	{
 		[Required]
-		public int DefinitionId { get; private set; }
+		[JsonPropertyName("id")]
+		public int Id { get; init; }
 
 		[Required]
-		public string Name { get; private set; }
+		[JsonPropertyName("name")]
+		public string Name { get; init; }
 
 		[Required]
-		public string Yaml { get; private set; }
+		[JsonPropertyName("yaml")]
+		public string Yaml { get; init; }
 
-		private BuildDefinition() { }
-
-		public BuildDefinition(string name, string yaml, int definitionId)
+		[JsonConstructor]
+		public BuildDefinition(string name, string yaml, int id)
 		{
 			Name = name;
 			Yaml = yaml;
-			DefinitionId = definitionId;
+			Id = id;
 		}
 
 		protected override IEnumerable<object> GetAtomicValues()
 		{
 			yield return Name;
 			yield return Yaml;
-			yield return DefinitionId;
+			yield return Id;
 		}
 	}
 }

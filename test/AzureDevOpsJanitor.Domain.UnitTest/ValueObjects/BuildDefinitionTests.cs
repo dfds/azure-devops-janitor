@@ -19,7 +19,7 @@ namespace AzureDevOpsJanitor.Domain.UnitTest.ValueObjects
             Assert.NotNull(sut);
             Assert.True(sut.Name == "my_name");
             Assert.True(sut.Yaml == "my_yaml");
-            Assert.True(sut.DefinitionId == 0);
+            Assert.True(sut.Id == 0);
         }
 
         [Fact]

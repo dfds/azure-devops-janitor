@@ -1,13 +1,13 @@
 ﻿using AzureDevOpsJanitor.Domain.ValueObjects;
 using ResourceProvisioning.Abstractions.Commands;
-using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace AzureDevOpsJanitor.Application.Commands.Profile
 {
-	[DataContract]
 	public sealed class GetProfileCommand : ICommand<UserProfile>
 	{
-		public string ProfileIdentifier { get; }
+		[JsonPropertyName("profileIdentifier")]
+		public string ProfileIdentifier { get; private set; }
 
 		public GetProfileCommand(string profileIdentifier = null)
 		{

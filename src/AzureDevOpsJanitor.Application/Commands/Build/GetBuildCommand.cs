@@ -2,17 +2,16 @@
 using ResourceProvisioning.Abstractions.Commands;
 using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace AzureDevOpsJanitor.Application.Commands.Build
 {
-	[DataContract]
 	public sealed class GetBuildCommand : ICommand<IEnumerable<BuildRoot>>
 	{
-		[DataMember]
+		[JsonPropertyName("buildId")]
 		public int? BuildId { get; private set; }
 
-		[DataMember]
+		[JsonPropertyName("projectId")]
 		public Guid? ProjectId { get; private set; }
 
 		public GetBuildCommand(int? buildId = default, Guid? projectId = default)

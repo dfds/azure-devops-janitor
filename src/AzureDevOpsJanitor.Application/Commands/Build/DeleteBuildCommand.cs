@@ -1,12 +1,11 @@
 ﻿using ResourceProvisioning.Abstractions.Commands;
-using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace AzureDevOpsJanitor.Application.Commands.Build
 {
-	[DataContract]
 	public sealed class DeleteBuildCommand : ICommand<bool>
 	{
-		[DataMember]
+		[JsonPropertyName("buildId")]
 		public int BuildId { get; private set; }
 
 		public DeleteBuildCommand(int buildId)

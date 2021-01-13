@@ -2,27 +2,27 @@
 using AzureDevOpsJanitor.Domain.ValueObjects;
 using ResourceProvisioning.Abstractions.Commands;
 using System;
-using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace AzureDevOpsJanitor.Application.Commands.Build
 {
-	[DataContract]
 	public sealed class CreateBuildCommand : ICommand<BuildRoot>
 	{
-		[DataMember]
-		public Guid ProjectId { get; private set; }
+		[JsonPropertyName("projectId")]
+		public Guid ProjectId { get; init; }
 
-		[DataMember]
-		public string CapabilityId { get; private set; }
+		[JsonPropertyName("capabilityId")]
+		public string CapabilityId { get; init; }
 
-		[DataMember]
-		public BuildDefinition Definition { get; private set; }
+		[JsonPropertyName("buildDefinition")]
+		public BuildDefinition BuildDefinition { get; init; }
 
-		public CreateBuildCommand(Guid projectId, string capabilityId, BuildDefinition definition)
+		[JsonConstructor]
+		public CreateBuildCommand(Guid projectId, string capabilityId, BuildDefinition buildDefinition)
 		{
 			ProjectId = projectId;
 			CapabilityId = capabilityId;
-			Definition = definition;
+			BuildDefinition = buildDefinition;
 		}
 	}
 }
