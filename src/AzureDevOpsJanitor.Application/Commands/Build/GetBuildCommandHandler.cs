@@ -10,16 +10,16 @@ using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Application.Commands.Build
 {
-	public sealed class GetBuildCommandHandler : CommandHandler<GetBuildCommand, IEnumerable<BuildRoot>>
+	public sealed class GetBuildCommandHandler : ICommandHandler<GetBuildCommand, IEnumerable<BuildRoot>>
 	{
 		private readonly IBuildService _buildService;
 
-		public GetBuildCommandHandler(IMediator mediator, IBuildService buildService) : base(mediator)
+		public GetBuildCommandHandler(IBuildService buildService)
 		{
 			_buildService = buildService ?? throw new ArgumentNullException(nameof(buildService));
 		}
 
-		public override async Task<IEnumerable<BuildRoot>> Handle(GetBuildCommand command, CancellationToken cancellationToken = default)
+		public async Task<IEnumerable<BuildRoot>> Handle(GetBuildCommand command, CancellationToken cancellationToken = default)
 		{
 			IEnumerable<BuildRoot> result;
 

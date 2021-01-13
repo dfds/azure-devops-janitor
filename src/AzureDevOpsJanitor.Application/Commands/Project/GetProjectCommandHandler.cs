@@ -1,6 +1,5 @@
 ﻿using AzureDevOpsJanitor.Domain.Aggregates.Project;
 using AzureDevOpsJanitor.Domain.Services;
-using MediatR;
 using ResourceProvisioning.Abstractions.Commands;
 using System;
 using System.Collections.Generic;
@@ -9,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Application.Commands.Project
 {
-	public sealed class GetProjectCommandHandler : CommandHandler<GetProjectCommand, IEnumerable<ProjectRoot>>
+    public sealed class GetProjectCommandHandler : ICommandHandler<GetProjectCommand, IEnumerable<ProjectRoot>>
 	{
 		private readonly IProjectService _projectService;
 
-		public GetProjectCommandHandler(IMediator mediator, IProjectService projectService) : base(mediator)
+		public GetProjectCommandHandler(IProjectService projectService)
 		{
 			_projectService = projectService ?? throw new ArgumentNullException(nameof(projectService));
 		}
 
-		public override async Task<IEnumerable<ProjectRoot>> Handle(GetProjectCommand command, CancellationToken cancellationToken = default)
+		public async Task<IEnumerable<ProjectRoot>> Handle(GetProjectCommand command, CancellationToken cancellationToken = default)
 		{
 			IEnumerable<ProjectRoot> result;
 
