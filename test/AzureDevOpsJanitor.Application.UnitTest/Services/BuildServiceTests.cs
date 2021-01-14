@@ -1,5 +1,6 @@
 ﻿using AzureDevOpsJanitor.Application.Services;
 using AzureDevOpsJanitor.Domain.Aggregates.Build;
+using AzureDevOpsJanitor.Domain.Events.Build;
 using AzureDevOpsJanitor.Domain.Repository;
 using AzureDevOpsJanitor.Domain.ValueObjects;
 using Moq;
@@ -54,21 +55,49 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Services
         public async Task CanDelete()
         {
             //Arrange
+            var buildId = 1;
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             var mockBuildRepository = new Mock<IBuildRepository>();
-            var buildId = 1;
-            var buildRoot = new BuildRoot(Guid.NewGuid(), "my-capability-identifier-or-guid", new BuildDefinition("name", "yaml", buildId));
-            var sut = new BuildService(mockBuildRepository.Object);
+            var mockBuildDefinition = new BuildDefinition("name", "yaml", buildId);
+            var mockBuildRoot = new BuildRoot(Guid.NewGuid(), "my-capability-identifier-or-guid", mockBuildDefinition);
 
             mockUnitOfWork.Setup(m => m.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(1));
             mockBuildRepository.SetupGet(m => m.UnitOfWork).Returns(mockUnitOfWork.Object);
-            mockBuildRepository.Setup(m => m.GetAsync(It.IsAny<int>())).Returns(Task.FromResult(buildRoot));
+            mockBuildRepository.Setup(m => m.GetAsync(It.IsAny<int>())).Returns(Task.FromResult(mockBuildRoot));
             mockBuildRepository.Setup(m => m.Delete(It.IsAny<BuildRoot>()));
+
+            var sut = new BuildService(mockBuildRepository.Object);
 
             //Act
             await sut.DeleteAsync(buildId);
 
             //Assert
+            mockBuildRepository.VerifyAll();
+        }
+
+        [Fact]
+        public async Task CanQueue()
+        {
+            //Arrange
+            var buildId = 1;
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            var mockBuildRepository = new Mock<IBuildRepository>();
+            var mockBuildDefinition = new BuildDefinition("name", "yaml", buildId);
+            var mockBuildRoot = new BuildRoot(Guid.NewGuid(), "my-capability-identifier-or-guid", mockBuildDefinition);
+
+            mockUnitOfWork.Setup(m => m.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(1));
+            mockBuildRepository.SetupGet(m => m.UnitOfWork).Returns(mockUnitOfWork.Object);
+            mockBuildRepository.Setup(m => m.GetAsync(It.IsAny<int>())).Returns(Task.FromResult(mockBuildRoot));
+
+            var sut = new BuildService(mockBuildRepository.Object);
+            
+            //Act
+            await sut.QueueAsync(buildId);
+
+            //Assert
+            Assert.Equal(2, mockBuildRoot.DomainEvents.Count);
+            Assert.Contains(mockBuildRoot.DomainEvents, evt => evt is BuildQueuedEvent);
+
             mockBuildRepository.VerifyAll();
         }
     }

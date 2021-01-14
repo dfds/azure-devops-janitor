@@ -32,7 +32,7 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Commands.Build
             var mockBuildService = new Mock<IBuildService>();
             var sut = new GetBuildCommandHandler(mockBuildService.Object);
 
-            mockBuildService.Setup(m => m.GetAsync()).Returns(Task.FromResult(Enumerable.Empty<BuildRoot>()));
+            mockBuildService.Setup(m => m.GetAsync(It.IsAny<Guid>())).Returns(Task.FromResult(Enumerable.Empty<BuildRoot>()));
 
             //Act
             var result = await sut.Handle(new GetBuildCommand(1, Guid.NewGuid()));

@@ -48,6 +48,8 @@ namespace AzureDevOpsJanitor.Application.Services
 
 			if (build != null)
 			{
+				build.Stopped();
+
 				_buildRepository.Delete(build);
 
 				await _buildRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
