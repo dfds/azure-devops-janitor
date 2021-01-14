@@ -11,7 +11,6 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Project
 
 		public ProjectRoot(string name)
 		{
-			Id = Guid.NewGuid();
 			Name = name;
 
 			AddDomainEvent(new ProjectCreatedEvent(this));

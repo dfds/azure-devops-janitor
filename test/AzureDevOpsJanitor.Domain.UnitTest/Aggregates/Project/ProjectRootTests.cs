@@ -12,14 +12,14 @@ namespace AzureDevOpsJanitor.Domain.UnitTest.Events.Project
         public void CanBeConstructed()
         {
             //Arrange
-            ProjectRoot sut;
+            var sut = new ProjectRoot("my_project");
 
             //Act
-            sut = new ProjectRoot("my_project");
+            var hashCode = sut.GetHashCode();
 
             //Assert
             Assert.NotNull(sut);
-            Assert.True(sut.Id != Guid.Empty);
+            Assert.Equal(hashCode, sut.GetHashCode());
             Assert.True(sut.Name == "my_project");
             Assert.True(sut.DomainEvents.Count == 1);
         }

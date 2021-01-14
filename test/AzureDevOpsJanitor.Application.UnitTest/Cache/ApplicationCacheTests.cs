@@ -1,6 +1,7 @@
 ﻿using AzureDevOpsJanitor.Application.Cache;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
+using Moq;
 using System;
 using System.Threading.Tasks;
 using Xunit;
@@ -13,17 +14,20 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Cache
         public void CanBeConstructed() 
         {
             //Arrange
-            ApplicationCache sut;
             var mockOptions = new Moq.Mock<IOptions<MemoryCacheOptions>>();
 
             mockOptions.Setup(opt => opt.Value).Returns(new MemoryCacheOptions());
-            
+
+            var sut = new ApplicationCache(mockOptions.Object);
+
             //Act
-            sut = new ApplicationCache(mockOptions.Object);
+            var hashCode = sut.GetHashCode();
 
             //Assert
             Assert.NotNull(sut);
-            mockOptions.VerifyAll();
+            Assert.Equal(hashCode, sut.GetHashCode());
+
+            Mock.VerifyAll();
         }
 
         [Fact]
@@ -41,7 +45,8 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Cache
             //Assert
             Assert.True(sut.Count == 1);
             Assert.NotNull(sut.Get("key"));
-            mockOptions.VerifyAll();
+
+            Mock.VerifyAll();
         }
 
         [Fact]
@@ -49,7 +54,7 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Cache
         {
             //Arrange
             var expirationInMilliseconds = 1;
-            var mockOptions = new Moq.Mock<IOptions<MemoryCacheOptions>>();
+            var mockOptions = new Mock<IOptions<MemoryCacheOptions>>();
             mockOptions.Setup(opt => opt.Value).Returns(new MemoryCacheOptions() { ExpirationScanFrequency = TimeSpan.FromMilliseconds(expirationInMilliseconds) });
 
             var sut = new ApplicationCache(mockOptions.Object);
@@ -61,7 +66,8 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Cache
 
             //Assert
             Assert.Null(sut.Get("key"));
-            mockOptions.VerifyAll();
+
+            Mock.VerifyAll();
         }
 
         [Fact]
@@ -80,7 +86,8 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Cache
             //Assert
             Assert.True(sut.Count == 0);
             Assert.Null(sut.Get("key"));
-            mockOptions.VerifyAll();
+
+            Mock.VerifyAll();
         }
     }
 }

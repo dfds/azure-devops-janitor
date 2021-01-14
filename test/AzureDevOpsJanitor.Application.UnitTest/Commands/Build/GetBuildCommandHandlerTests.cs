@@ -15,14 +15,17 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Commands.Build
         public void CanBeConstructed()
         {
             //Arrange
-            GetBuildCommandHandler sut;
             var mockBuildService = new Mock<IBuildService>();
+            var sut = new GetBuildCommandHandler(mockBuildService.Object);
 
             //Act
-            sut = new GetBuildCommandHandler(mockBuildService.Object);
+            var result = sut.GetHashCode();
 
             //Assert
             Assert.NotNull(sut);
+            Assert.Equal(result, sut.GetHashCode());
+
+            Mock.VerifyAll();
         }
 
         [Fact]
@@ -41,7 +44,7 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Commands.Build
             Assert.True(result != null);
             Assert.Empty(result);
 
-            mockBuildService.VerifyAll();
+            Mock.VerifyAll();
         }
     }
 }

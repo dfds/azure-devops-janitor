@@ -11,13 +11,14 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Commands.Project
         public void CanBeConstructed()
         {
             //Arrange
-            GetProjectCommand sut;
+            var sut = new GetProjectCommand(Guid.NewGuid());
 
             //Act
-            sut = new GetProjectCommand(Guid.NewGuid());
+            var hashCode = sut.GetHashCode();
 
             //Assert
             Assert.NotNull(sut);
+            Assert.Equal(hashCode, sut.GetHashCode());
             Assert.True(sut.ProjectId != Guid.Empty);
         }
 

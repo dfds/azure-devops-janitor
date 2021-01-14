@@ -10,13 +10,14 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Commands.Profile
         public void CanBeConstructed()
         {
             //Arrange
-            GetProfileCommand sut;
+            var sut = new GetProfileCommand("my-profile");
 
             //Act
-            sut = new GetProfileCommand("my-profile");
+            var hashCode = sut.GetHashCode();
 
             //Assert
             Assert.NotNull(sut);
+            Assert.Equal(hashCode, sut.GetHashCode());
             Assert.Equal("my-profile", sut.ProfileIdentifier);
         }
 

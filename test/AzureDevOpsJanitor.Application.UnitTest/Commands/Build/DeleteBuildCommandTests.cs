@@ -10,13 +10,14 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Commands.Build
         public void CanBeConstructed() 
         {
             //Arrange
-            DeleteBuildCommand sut;
-            
+            var sut = new DeleteBuildCommand(1);
+
             //Act
-            sut = new DeleteBuildCommand(1);
+            var hashCode = sut.GetHashCode();
 
             //Assert
-            Assert.NotNull(sut);            
+            Assert.NotNull(sut); 
+            Assert.Equal(hashCode, sut.GetHashCode());
             Assert.Equal(1, sut.BuildId);
         }
 

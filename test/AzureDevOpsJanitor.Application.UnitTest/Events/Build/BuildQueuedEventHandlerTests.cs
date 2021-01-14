@@ -16,15 +16,16 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Events.Build
         public void CanBeConstructed()
         {
             //Arrange
-            BuildQueuedEventHandler sut;
             var mockMapper = new Mock<IMapper>();
             var mockVstsRestClient = new Mock<IVstsRestClient>();
+            var sut = new BuildQueuedEventHandler(mockMapper.Object, mockVstsRestClient.Object);
 
             //Act
-            sut = new BuildQueuedEventHandler(mockMapper.Object, mockVstsRestClient.Object);
+            var hashCode = sut.GetHashCode();
 
             //Assert
             Assert.NotNull(sut);
+            Assert.Equal(hashCode, sut.GetHashCode());
         }
 
         [Fact]
@@ -51,7 +52,7 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Events.Build
             await sut.Handle(new Domain.Events.Build.BuildQueuedEvent(new Domain.Aggregates.Build.BuildRoot(Guid.NewGuid(), "my-capability-identifier", new BuildDefinition("name", "yaml", 1))));
 
             //Assert
-            mockMapper.VerifyAll();
+            Mock.VerifyAll();
         }
     }
 }

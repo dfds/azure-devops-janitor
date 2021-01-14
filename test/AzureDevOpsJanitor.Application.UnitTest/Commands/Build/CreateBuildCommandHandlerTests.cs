@@ -15,15 +15,18 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Commands.Build
         [Fact]
         public void CanBeConstructed()
         {
-            //Arrange
-            CreateBuildCommandHandler sut;
+            //Arrange            
             var mockBuildService = new Mock<IBuildService>();
+            var sut = new CreateBuildCommandHandler(mockBuildService.Object);
 
             //Act
-            sut = new CreateBuildCommandHandler(mockBuildService.Object);
+            var hashCode = sut.GetHashCode();
 
             //Assert
+            Assert.Equal(hashCode, sut.GetHashCode());
             Assert.NotNull(sut);
+
+            Mock.VerifyAll();
         }
 
         [Fact]
@@ -32,17 +35,19 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Commands.Build
             //Arrange
             var mockBuildService = new Mock<IBuildService>();
             var buildRoot = new BuildRoot(Guid.NewGuid(), "my-capability-identifier-or-guid", new BuildDefinition("name", "yaml", 1));
-            var sut = new CreateBuildCommandHandler(mockBuildService.Object);
 
             mockBuildService.Setup(m => m.AddAsync(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<BuildDefinition>(), It.IsAny<CancellationToken>())).Returns(Task.FromResult(buildRoot));
             mockBuildService.Setup(m => m.QueueAsync(It.IsAny<int>(), It.IsAny<CancellationToken>()));
+
+            var sut = new CreateBuildCommandHandler(mockBuildService.Object);
 
             //Act
             var result = await sut.Handle(new CreateBuildCommand(Guid.NewGuid(), Guid.NewGuid().ToString(), new BuildDefinition("name", "yaml", 1)));
 
             //Assert
             Assert.Equal(result, buildRoot);
-            mockBuildService.VerifyAll();
+
+            Mock.VerifyAll();
         }
     }
 }

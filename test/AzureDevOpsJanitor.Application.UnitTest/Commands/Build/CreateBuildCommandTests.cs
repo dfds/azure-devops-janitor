@@ -12,13 +12,14 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Commands.Build
         public void CanBeConstructed() 
         {
             //Arrange
-            CreateBuildCommand sut;
-            
+            var sut = new CreateBuildCommand(Guid.NewGuid(), Guid.NewGuid().ToString(), new BuildDefinition("my-def", "my-yaml", 1));
+
             //Act
-            sut = new CreateBuildCommand(Guid.NewGuid(), Guid.NewGuid().ToString(), new BuildDefinition("my-def", "my-yaml", 1));
+            var hashCode = sut.GetHashCode();
 
             //Assert
             Assert.NotNull(sut);
+            Assert.Equal(hashCode, sut.GetHashCode());
             Assert.True(sut.ProjectId != Guid.Empty);
             Assert.True(!string.IsNullOrEmpty(sut.CapabilityId));
             Assert.NotNull(sut.BuildDefinition);
