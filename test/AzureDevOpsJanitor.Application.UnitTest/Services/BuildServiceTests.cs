@@ -49,5 +49,27 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Services
 
             mockBuildRepository.VerifyAll();
         }
+
+        [Fact]
+        public async Task CanDelete()
+        {
+            //Arrange
+            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            var mockBuildRepository = new Mock<IBuildRepository>();
+            var buildId = 1;
+            var buildRoot = new BuildRoot(Guid.NewGuid(), "my-capability-identifier-or-guid", new BuildDefinition("name", "yaml", buildId));
+            var sut = new BuildService(mockBuildRepository.Object);
+
+            mockUnitOfWork.Setup(m => m.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(1));
+            mockBuildRepository.SetupGet(m => m.UnitOfWork).Returns(mockUnitOfWork.Object);
+            mockBuildRepository.Setup(m => m.GetAsync(It.IsAny<int>())).Returns(Task.FromResult(buildRoot));
+            mockBuildRepository.Setup(m => m.Delete(It.IsAny<BuildRoot>()));
+
+            //Act
+            await sut.DeleteAsync(buildId);
+
+            //Assert
+            mockBuildRepository.VerifyAll();
+        }
     }
 }
