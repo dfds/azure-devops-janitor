@@ -37,7 +37,7 @@ namespace AzureDevOpsJanitor.Application.Services
 		{
 			var build = _buildRepository.Add(new BuildRoot(projectId, capabilityId, definition));
 
-			await _buildRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
+			await _buildRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
 			return build;
 		}
@@ -52,7 +52,7 @@ namespace AzureDevOpsJanitor.Application.Services
 
 				_buildRepository.Delete(build);
 
-				await _buildRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
+				await _buildRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 			}
 		}
 
@@ -64,7 +64,7 @@ namespace AzureDevOpsJanitor.Application.Services
 			{ 
 				build.Queue();
 
-				await _buildRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
+				await _buildRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 			}
 		}
 	}

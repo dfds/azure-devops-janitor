@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AzureDevOpsJanitor.Infrastructure.EntityFramework.Migrations
 {
-    public partial class baseline : Migration
+    public partial class Baseline : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,9 +11,9 @@ namespace AzureDevOpsJanitor.Infrastructure.EntityFramework.Migrations
                 name: "BuildDefinition",
                 columns: table => new
                 {
-                    Name = table.Column<string>(nullable: false),
-                    DefinitionId = table.Column<int>(nullable: false),
-                    Yaml = table.Column<string>(nullable: false)
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false),
+                    Yaml = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -24,8 +24,8 @@ namespace AzureDevOpsJanitor.Infrastructure.EntityFramework.Migrations
                 name: "BuildStatus",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(maxLength: 200, nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -36,8 +36,8 @@ namespace AzureDevOpsJanitor.Infrastructure.EntityFramework.Migrations
                 name: "Project",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: true)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -48,10 +48,11 @@ namespace AzureDevOpsJanitor.Infrastructure.EntityFramework.Migrations
                 name: "Build",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    DefinitionName = table.Column<string>(nullable: true),
-                    StatusId = table.Column<int>(nullable: false)
+                    ProjectId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    DefinitionName = table.Column<string>(type: "TEXT", nullable: true),
+                    StatusId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -94,7 +94,7 @@ namespace AzureDevOpsJanitor.Infrastructure.EntityFramework
 		{
 			try
 			{
-				await SaveChangesAsync();
+				await SaveEntitiesAsync();
 
 				GetCurrentTransaction?.Commit();
 			}

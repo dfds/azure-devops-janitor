@@ -9,14 +9,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AzureDevOpsJanitor.Infrastructure.EntityFramework.Migrations
 {
     [DbContext(typeof(DomainContext))]
-    [Migration("20201202120957_baseline")]
-    partial class baseline
+    [Migration("20210115084353_Baseline")]
+    partial class Baseline
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.9");
+                .HasAnnotation("ProductVersion", "5.0.2");
 
             modelBuilder.Entity("AzureDevOpsJanitor.Domain.Aggregates.Build.BuildRoot", b =>
                 {
@@ -25,6 +25,9 @@ namespace AzureDevOpsJanitor.Infrastructure.EntityFramework.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("DefinitionName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("ProjectId")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("StatusId")
@@ -46,8 +49,8 @@ namespace AzureDevOpsJanitor.Infrastructure.EntityFramework.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(200);
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -73,7 +76,7 @@ namespace AzureDevOpsJanitor.Infrastructure.EntityFramework.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("DefinitionId")
+                    b.Property<int>("Id")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Yaml")
@@ -96,6 +99,10 @@ namespace AzureDevOpsJanitor.Infrastructure.EntityFramework.Migrations
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Definition");
+
+                    b.Navigation("Status");
                 });
 #pragma warning restore 612, 618
         }

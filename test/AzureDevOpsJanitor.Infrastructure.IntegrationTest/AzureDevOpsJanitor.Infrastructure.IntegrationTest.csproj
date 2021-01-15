@@ -26,4 +26,8 @@
       <ProjectReference Include="..\..\src\AzureDevOpsJanitor.Infrastructure\AzureDevOpsJanitor.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Vsts\" />
+    </ItemGroup>
+
 </Project>
