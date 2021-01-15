@@ -46,11 +46,11 @@ namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Events
             TeamProjectDto sut;
 
             //Act
-            sut = JsonSerializer.Deserialize<TeamProjectDto>("{\"id\": \"DB6AF750-1F7B-474D-AF65-F7C6106604EC\",\"name\":\"MyName\",\"description\":\"MyDescription\",\"state\":\"MyState\",\"url\":\"https://my-team-project-url\"}");
+            sut = JsonSerializer.Deserialize<TeamProjectDto>("{\"id\": \"db6af750-1f7b-474d-af65-f7c6106604ec\",\"name\":\"MyName\",\"description\":\"MyDescription\",\"state\":\"MyState\",\"url\":\"https://my-team-project-url\"}");
 
             //Assert
             Assert.NotNull(sut);
-            Assert.Equal("DB6AF750-1F7B-474D-AF65-F7C6106604EC", sut.Id.ToString());
+            Assert.Equal("db6af750-1f7b-474d-af65-f7c6106604ec".ToLower(), sut.Id.ToString());
             Assert.Equal("MyName", sut.Name);
             Assert.Equal("MyDescription", sut.Description);
             Assert.Equal("MyState", sut.State);
