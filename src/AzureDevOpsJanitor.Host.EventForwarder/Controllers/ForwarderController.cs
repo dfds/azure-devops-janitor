@@ -34,6 +34,7 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Controllers
             using (StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8))
             {
                 var content = await reader.ReadToEndAsync();
+
                 _kafkaService.Queue(new ForwardContent()
                 {
                     Topic = topic,
