@@ -28,7 +28,8 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
 
         public async Task<ProfileDto> GetProfile(string profileId)
         {
-            var response = await SendAsync(new GetProfileRequest(profileId));
+            var request = new GetProfileRequest(profileId);
+            var response = await SendAsync(request);
             var responseData = await response.Content.ReadAsStringAsync();
             var profileDto = JsonSerializer.Deserialize<ProfileDto>(responseData);
 

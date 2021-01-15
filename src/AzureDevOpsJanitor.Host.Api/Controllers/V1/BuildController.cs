@@ -32,7 +32,7 @@ namespace AzureDevOpsJanitor.Host.Api.Controllers.V1
             return await _applicationFacade.Execute(new GetBuildCommand(buildId));
         }
 
-        [HttpGet("{project/id}")]
+        [HttpGet("{projectId}")]
         public async Task<IEnumerable<BuildRoot>> Get(Guid projectId)
         {
             return await _applicationFacade.Execute(new GetBuildCommand(projectId: projectId));
