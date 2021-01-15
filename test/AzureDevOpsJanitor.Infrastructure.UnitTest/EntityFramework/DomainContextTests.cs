@@ -1,7 +1,5 @@
 ﻿using AzureDevOpsJanitor.Domain.Aggregates.Project;
-using AzureDevOpsJanitor.Infrastructure.EntityFramework;
 using MediatR;
-using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using ResourceProvisioning.Abstractions.Events;
@@ -12,13 +10,20 @@ using Xunit;
 
 namespace AzureDevOpsJanitor.Infrastructure.UnitTest.EntityFramework
 {
-    public class DomainContextTests
+    public class DomainContextTests : IClassFixture<DomainContextFixture>
     {
+        private readonly DomainContextFixture _fixture;
+
+        public DomainContextTests(DomainContextFixture fixture)
+        {
+            _fixture = fixture;
+        }
+
         [Fact]
         public void CanBeConstructed()
         {
             //Arrange
-            var sut = new DomainContext();
+            var sut = _fixture.GetDbContext();
 
             //Act
             var hashCode = sut.GetType().GetHashCode();
@@ -32,13 +37,12 @@ namespace AzureDevOpsJanitor.Infrastructure.UnitTest.EntityFramework
         public async Task CanPublishDomainEventsOnSaveEntities()
         {
             //Arrange
-            var options = new DbContextOptionsBuilder().UseSqlite(new SqliteConnection("Filename=:memory:;")).Options;
             var entityToAdd = new ProjectRoot("my-project");
             var mockMediator = new Mock<IMediator>();
 
             mockMediator.Setup(m => m.Publish(It.IsAny<IDomainEvent>(), It.IsAny<CancellationToken>()));
-
-            var sut = new DomainContext(options, mockMediator.Object);
+                        
+            var sut = _fixture.GetDbContext(mockMediator.Object);
 
             //Act
             sut.Database.Migrate();
