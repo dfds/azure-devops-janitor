@@ -6,7 +6,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects
     public class TeamProjectDto
     {
         [JsonPropertyName("id")]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [JsonPropertyName("url")]
         public Uri Url { get; set; }

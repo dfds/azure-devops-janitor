@@ -3,11 +3,13 @@ using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Build;
 using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Build.Definition;
 using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Profile;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts
@@ -16,20 +18,23 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
     {
         public const string VstsAccessTokenCacheKey = "vstsAccessToken";
 
-        public VstsRestClient(string pat) : base()
+        public VstsRestClient(string pat) : this()
         {
-            DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("basic", Convert.ToBase64String(Encoding.ASCII.GetBytes(pat)));
+            DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format(":{0}", pat))));
         }
 
-        public VstsRestClient(JwtSecurityToken accessToken) : base()
+        public VstsRestClient(JwtSecurityToken accessToken) : this()
         {
             DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", accessToken.RawData);
         }
 
+        public VstsRestClient() : base() {
+            DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        }
+
         public async Task<ProfileDto> GetProfile(string profileId)
         {
-            var request = new GetProfileRequest(profileId);
-            var response = await SendAsync(request);
+            var response = await SendAsync(new GetProfileRequest(profileId));
             var responseData = await response.Content.ReadAsStringAsync();
             var profileDto = JsonSerializer.Deserialize<ProfileDto>(responseData);
 
@@ -80,13 +85,19 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             return definitionDto;
         }
 
-        public async Task<TeamProjectDto> GetProject(string organization)
+        public async Task<IEnumerable<TeamProjectDto>> GetProjects(string organization)
         {
             var response = await SendAsync(new GetProjectRequest(organization));
             var responseData = await response.Content.ReadAsStringAsync();
-            var definitionDto = JsonSerializer.Deserialize<TeamProjectDto>(responseData);
+            var definitionDtos = JsonSerializer.Deserialize<VstsListResult<List<TeamProjectDto>>>(responseData);
 
-            return definitionDto;
+            return definitionDtos.Value;
+        }
+
+        private class VstsListResult<T>
+        {
+            [JsonPropertyName("value")]
+            public T Value { get; set; }
         }
     }
 }

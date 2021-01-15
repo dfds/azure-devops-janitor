@@ -1,11 +1,12 @@
 ﻿using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts
 {
     public interface IVstsRestClient
     {
-        Task<TeamProjectDto> GetProject(string organization);
+        Task<IEnumerable<TeamProjectDto>> GetProjects(string organization);
 
         Task<ProfileDto> GetProfile(string profileId);
 

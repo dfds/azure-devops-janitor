@@ -1,6 +1,9 @@
 ﻿using AzureDevOpsJanitor.Infrastructure.Vsts;
+using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
 using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -15,18 +18,18 @@ namespace AzureDevOpsJanitor.Infrastructure.IntegrationTest.Vsts
             _fixture = fixture;
         }
     
-        [Fact(Skip = "Fix issue with PAT and AccessToken")]
-        public async Task CanGetProfile()
+        [Fact]
+        public async Task CanGetProjects()
         {
             //Arrange
-            var jwtToken = new JwtSecurityToken(_fixture.Configuration.GetValue<string>("Vsts:ClientAccessToken"));
-            var sut = new VstsRestClient(jwtToken);
+            var patString = _fixture.Configuration.GetValue<string>("Vsts:ClientAccessToken");
+            var sut = new VstsRestClient(patString);
 
             //Act
-            var profile = await sut.GetProfile("me");
+            var projects = await sut.GetProjects("dfds");
 
             //Assert
-            Assert.NotNull(profile);
+            Assert.NotNull(projects);
         }
     }
 }

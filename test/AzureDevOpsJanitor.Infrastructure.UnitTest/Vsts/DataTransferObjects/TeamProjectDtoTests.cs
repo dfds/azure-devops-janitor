@@ -25,7 +25,7 @@ namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Events
         {
             //Arrange
             var sut = new TeamProjectDto() { 
-                Id = 1,
+                Id = Guid.NewGuid(),
                 Name = "MyName",
                 Description = "MyDescription",
                 State = "MyState",
@@ -46,11 +46,11 @@ namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Events
             TeamProjectDto sut;
 
             //Act
-            sut = JsonSerializer.Deserialize<TeamProjectDto>("{\"id\":1,\"name\":\"MyName\",\"description\":\"MyDescription\",\"state\":\"MyState\",\"url\":\"https://my-team-project-url\"}");
+            sut = JsonSerializer.Deserialize<TeamProjectDto>("{\"id\": \"DB6AF750-1F7B-474D-AF65-F7C6106604EC\",\"name\":\"MyName\",\"description\":\"MyDescription\",\"state\":\"MyState\",\"url\":\"https://my-team-project-url\"}");
 
             //Assert
             Assert.NotNull(sut);
-            Assert.Equal(1, sut.Id);
+            Assert.Equal("DB6AF750-1F7B-474D-AF65-F7C6106604EC", sut.Id.ToString());
             Assert.Equal("MyName", sut.Name);
             Assert.Equal("MyDescription", sut.Description);
             Assert.Equal("MyState", sut.State);
