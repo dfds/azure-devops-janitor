@@ -45,8 +45,8 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Enablers.Kafka
             var configurationKeys = new[]
             {
                 "group.id",
-                "enable.auto.commit",
                 "bootstrap.servers",
+                "enable.auto.commit",
                 "broker.version.fallback",
                 "api.version.fallback.ms",
                 "ssl.ca.location",

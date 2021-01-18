@@ -16,6 +16,18 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
 
         Task<DefinitionReferenceDto> CreateDefinition(string organization, string project, DefinitionReferenceDto definition);
 
+        Task<DefinitionReferenceDto> UpdateDefinition(string organization, string project, DefinitionReferenceDto definition);
+
+        Task<BuildDto> GetBuild(string organization, string project, int buildId);
+
+        Task<IEnumerable<ChangeDto>> GetBuildChanges(string organization, string project, int fromBuildId, int toBuildId);
+
+        Task<IEnumerable<WorkItemDto>> GetBuildWorkItemRefs(string organization, string project, int buildId);
+
+        Task DeleteBuild(string organization, string project, int buildId);
+
+        Task<BuildDto> UpdateBuild(string organization, string project, BuildDto build);
+
         Task<BuildDto> QueueBuild(string organization, string project, int definitionId);
 
         Task<BuildDto> QueueBuild(string organization, string project, DefinitionReferenceDto definition);

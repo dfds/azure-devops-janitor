@@ -41,13 +41,22 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             return profileDto;
         }
 
+        public async Task<DefinitionReferenceDto> UpdateDefinition(string organization, string project, DefinitionReferenceDto definition)
+        {
+            var response = await SendAsync(new UpdateDefinitionRequest(organization, project, definition));
+            var responseData = await response.Content.ReadAsStringAsync();
+            var definitionDto = JsonSerializer.Deserialize<DefinitionReferenceDto>(responseData);
+
+            return definitionDto;
+        }
+
         public async Task<DefinitionReferenceDto> GetDefinition(string organization, string project, int definitionId)
         {
             var response = await SendAsync(new GetDefinitionRequest(organization, project, definitionId));
             var responseData = await response.Content.ReadAsStringAsync();
-            var definitionDtos = JsonSerializer.Deserialize<DefinitionReferenceDto>(responseData);
+            var definitionDto = JsonSerializer.Deserialize<DefinitionReferenceDto>(responseData);
 
-            return definitionDtos;
+            return definitionDto;
         }
 
         public async Task<string> GetDefinitionYaml(string organization, string project, int definitionId)
@@ -90,6 +99,54 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             var response = await SendAsync(new GetProjectRequest(organization));
             var responseData = await response.Content.ReadAsStringAsync();
             var definitionDtos = JsonSerializer.Deserialize<VstsListResult<List<TeamProjectDto>>>(responseData);
+
+            return definitionDtos.Value;
+        }
+
+        public async Task<BuildDto> GetBuild(string organization, string project, int buildId)
+        {
+            var response = await SendAsync(new GetBuildRequest(organization, project, buildId));
+            var responseData = await response.Content.ReadAsStringAsync();
+            var definitionDto = JsonSerializer.Deserialize<BuildDto>(responseData);
+
+            return definitionDto;
+        }
+
+        public async Task DeleteBuild(string organization, string project, int buildId)
+        {
+            var response = await SendAsync(new GetBuildRequest(organization, project, buildId));
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new VstsClientException("Could not find requested buildId");
+            }
+
+            return;
+        }
+
+        public async Task<BuildDto> UpdateBuild(string organization, string project, BuildDto build)
+        {
+            var response = await SendAsync(new UpdateBuildRequest(organization, project, build));
+            var responseData = await response.Content.ReadAsStringAsync();
+            var buildDto = JsonSerializer.Deserialize<BuildDto>(responseData);
+
+            return buildDto;
+        }
+
+        public async Task<IEnumerable<ChangeDto>> GetBuildChanges(string organization, string project, int fromBuildId, int toBuildId)
+        {
+            var response = await SendAsync(new GetChangesBetweenBuilds(organization, project, fromBuildId, toBuildId));
+            var responseData = await response.Content.ReadAsStringAsync();
+            var definitionDtos = JsonSerializer.Deserialize<VstsListResult<List<ChangeDto>>>(responseData);
+
+            return definitionDtos.Value;
+        }
+
+        public async Task<IEnumerable<WorkItemDto>> GetBuildWorkItemRefs(string organization, string project, int buildId)
+        {
+            var response = await SendAsync(new GetBuildWorkItemRefs(organization, project, buildId));
+            var responseData = await response.Content.ReadAsStringAsync();
+            var definitionDtos = JsonSerializer.Deserialize<VstsListResult<List<WorkItemDto>>>(responseData);
 
             return definitionDtos.Value;
         }

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: segment-ui-beorp-kafka-consume-relay-deployment
+spec:
+  replicas: 1  
+  selector:
+    matchLabels:
+      app: nodejs
+  template:
+    metadata:
+      labels:
+        app: nodejs
+    spec:
+      containers:
+      - name: segment-kafka-consumer-relay
+        image: 825548240362.dkr.ecr.eu-central-1.amazonaws.com/segment:$(Build.BuildNumber)
+        resources:
+          requests:
+            memory: "300Mi"
+            cpu: "100m"
+          limits:
+            memory: "500Mi"
+            cpu: "200m"
+        env:
+          - name: KAFKA_USERNAME
+            value: $(KAFKA_USERNAME)
+          - name: KAFKA_PASSWORD
+            value: $(KAFKA_PASSWORD)

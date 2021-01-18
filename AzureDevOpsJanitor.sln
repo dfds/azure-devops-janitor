@@ -30,6 +30,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureDevOpsJanitor.Host.Eve
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureDevOpsJanitor.Host.EventConsumer", "src\AzureDevOpsJanitor.Host.EventConsumer\AzureDevOpsJanitor.Host.EventConsumer.csproj", "{F9591A65-8A9C-4F30-8C41-C355FFE8ED28}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "K8s", "K8s", "{E6ADC65C-DC26-411D-9ADA-2124B1C87260}"
+	ProjectSection(SolutionItems) = preProject
+		k8s\aws_provider.yaml = k8s\aws_provider.yaml
+		k8s\deployment.yaml = k8s\deployment.yaml
+		k8s\rds_instance.yaml = k8s\rds_instance.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
