@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureDevOpsJanitor.Applicat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureDevOpsJanitor.Host.Api", "src\AzureDevOpsJanitor.Host.Api\AzureDevOpsJanitor.Host.Api.csproj", "{F1A1619E-D962-48CA-B4F9-AB0E6F51E6C1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureDevOpsJanitor.Host.KafkaWorker", "src\AzureDevOpsJanitor.Host.KafkaWorker\AzureDevOpsJanitor.Host.KafkaWorker.csproj", "{40C1B7E5-C483-4C4E-9AE0-A158524892DA}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{E529C2A0-7A49-4F78-B61E-A6DE1FAFC35B}"
 	ProjectSection(SolutionItems) = preProject
 		nuget.config = nuget.config
@@ -27,7 +25,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureDevOpsJanitor.Application.UnitTest", "test\AzureDevOpsJanitor.Application.UnitTest\AzureDevOpsJanitor.Application.UnitTest.csproj", "{C7321375-2144-412F-B9C7-CD44766BAACF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureDevOpsJanitor.Infrastructure.IntegrationTest", "test\AzureDevOpsJanitor.Infrastructure.IntegrationTest\AzureDevOpsJanitor.Infrastructure.IntegrationTest.csproj", "{25C50FAF-E6B0-4426-8D31-44A4FC4C841F}"
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureDevOpsJanitor.Host.EventForwarder", "src\AzureDevOpsJanitor.Host.EventForwarder\AzureDevOpsJanitor.Host.EventForwarder.csproj", "{64B10739-8897-42D5-BC74-E8773EDA1063}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureDevOpsJanitor.Host.EventForwarder", "src\AzureDevOpsJanitor.Host.EventForwarder\AzureDevOpsJanitor.Host.EventForwarder.csproj", "{64B10739-8897-42D5-BC74-E8773EDA1063}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureDevOpsJanitor.Host.EventConsumer", "src\AzureDevOpsJanitor.Host.EventConsumer\AzureDevOpsJanitor.Host.EventConsumer.csproj", "{F9591A65-8A9C-4F30-8C41-C355FFE8ED28}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,10 +52,6 @@ Global
 		{F1A1619E-D962-48CA-B4F9-AB0E6F51E6C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1A1619E-D962-48CA-B4F9-AB0E6F51E6C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1A1619E-D962-48CA-B4F9-AB0E6F51E6C1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{40C1B7E5-C483-4C4E-9AE0-A158524892DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{40C1B7E5-C483-4C4E-9AE0-A158524892DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{40C1B7E5-C483-4C4E-9AE0-A158524892DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{40C1B7E5-C483-4C4E-9AE0-A158524892DA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A355B3E3-4B24-4187-898D-F6BB16B1381E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A355B3E3-4B24-4187-898D-F6BB16B1381E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A355B3E3-4B24-4187-898D-F6BB16B1381E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -75,6 +72,10 @@ Global
 		{64B10739-8897-42D5-BC74-E8773EDA1063}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64B10739-8897-42D5-BC74-E8773EDA1063}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64B10739-8897-42D5-BC74-E8773EDA1063}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9591A65-8A9C-4F30-8C41-C355FFE8ED28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9591A65-8A9C-4F30-8C41-C355FFE8ED28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9591A65-8A9C-4F30-8C41-C355FFE8ED28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9591A65-8A9C-4F30-8C41-C355FFE8ED28}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
