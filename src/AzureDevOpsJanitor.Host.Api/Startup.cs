@@ -1,6 +1,5 @@
 ﻿using AzureDevOpsJanitor.Application;
 using AzureDevOpsJanitor.Host.Api.Infrastructure.Middleware;
-using AzureDevOpsJanitor.Infrastructure.EntityFramework;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.AzureAD.UI;
 using Microsoft.AspNetCore.Builder;
@@ -11,7 +10,7 @@ using Microsoft.OpenApi.Models;
 
 namespace AzureDevOpsJanitor.Host.Api
 {
-	public class Startup
+    public class Startup
 	{
 		public Startup(IConfiguration configuration)
 		{
@@ -24,20 +23,7 @@ namespace AzureDevOpsJanitor.Host.Api
 		{
 			AddHostServices(services);
 
-			DependencyInjection.AddApplication(services, options =>
-			{
-				Configuration.Bind(options);
-
-				if (options.ConnectionStrings.Exists())
-				{
-					return;
-				}
-
-				options.ConnectionStrings = new ConfigurationSection((IConfigurationRoot)Configuration, "ConnectionStrings")
-				{
-					[nameof(DomainContext)] = "Filename=:memory:;"
-				};
-			});
+			DependencyInjection.AddApplication(services, Configuration);
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

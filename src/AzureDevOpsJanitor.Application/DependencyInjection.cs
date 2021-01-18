@@ -29,7 +29,6 @@ using ResourceProvisioning.Abstractions.Data;
 using ResourceProvisioning.Abstractions.Events;
 using ResourceProvisioning.Abstractions.Facade;
 using ResourceProvisioning.Abstractions.Repositories;
-using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Reflection;
@@ -39,13 +38,15 @@ namespace AzureDevOpsJanitor.Application
     //TODO: Consider splitting infrastructure dependencies into their own assembly
     public static class DependencyInjection
 	{
-		public static void AddApplication(this IServiceCollection services, Action<ApplicationFacadeOptions> configureOptions = default)
+		public static void AddApplication(this IServiceCollection services, IConfiguration configuration)
 		{
 			services.AddTransient<ServiceFactory>(p => p.GetService);
 
 			services.AddLogging();
 			services.AddOptions<ApplicationFacadeOptions>()
-					.Configure(configureOptions);
+					.Bind(configuration);
+			services.AddOptions<KafkaOptions>()
+					.Bind(configuration);
 			services.AddCache();
 			services.AddEntityFramework();
 			services.AddAutoMapper(Assembly.GetExecutingAssembly());
