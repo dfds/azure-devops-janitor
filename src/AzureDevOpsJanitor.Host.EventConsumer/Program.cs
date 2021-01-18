@@ -18,9 +18,10 @@ namespace AzureDevOpsJanitor.Host.KafkaWorker
             {
                 DependencyInjection.AddApplication(services);
 
-                services.AddHostedService<Worker>();
                 services.AddOptions<KafkaOptions>()
                         .Bind(hostContext.Configuration);
+
+                services.AddHostedService<Worker>();
             });
     }
 }

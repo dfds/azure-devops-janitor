@@ -16,12 +16,14 @@ using AzureDevOpsJanitor.Domain.ValueObjects;
 using AzureDevOpsJanitor.Infrastructure.EntityFramework;
 using AzureDevOpsJanitor.Infrastructure.Kafka;
 using AzureDevOpsJanitor.Infrastructure.Vsts;
+using Confluent.Kafka;
 using MediatR;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using ResourceProvisioning.Abstractions.Commands;
 using ResourceProvisioning.Abstractions.Data;
 using ResourceProvisioning.Abstractions.Events;
@@ -34,21 +36,21 @@ using System.Reflection;
 
 namespace AzureDevOpsJanitor.Application
 {
-	public static class DependencyInjection
+    //TODO: Consider splitting infrastructure dependencies into their own assembly
+    public static class DependencyInjection
 	{
 		public static void AddApplication(this IServiceCollection services, Action<ApplicationFacadeOptions> configureOptions = default)
 		{
-			var options = new ApplicationFacadeOptions();
-
-			configureOptions?.Invoke(options);
+			services.AddTransient<ServiceFactory>(p => p.GetService);
 
 			services.AddLogging();
 			services.AddOptions<ApplicationFacadeOptions>()
 					.Configure(configureOptions);
 			services.AddCache();
-			services.AddEntityFramework(options);
+			services.AddEntityFramework();
 			services.AddAutoMapper(Assembly.GetExecutingAssembly());
 			services.AddMediator();
+			services.AddKafka();
 			services.AddBehaviors();
 			services.AddCommandHandlers();
 			services.AddEventHandlers();
@@ -60,8 +62,21 @@ namespace AzureDevOpsJanitor.Application
 
 		private static void AddMediator(this IServiceCollection services)
 		{
-			services.AddTransient<ServiceFactory>(p => p.GetService);
 			services.AddTransient<IMediator>(p => new Mediator(p.GetService<ServiceFactory>()));
+		}
+
+		private static void AddKafka(this IServiceCollection services)
+		{
+			services.AddTransient(p => {
+				var logger = p.GetService<ILogger<IProducer<Ignore, IIntegrationEvent>>>();
+				var producerOptions = p.GetService<KafkaOptions>();
+				var producerBuilder = new ProducerBuilder<Ignore, IIntegrationEvent>(producerOptions.Configuration);
+				var producer = producerBuilder.SetErrorHandler((_, e) => logger.LogError($"Error: {e.Reason}", e))
+											.SetStatisticsHandler((_, json) => logger.LogDebug($"Statistics: {json}"))
+											.Build();
+
+				return producer;
+			});
 		}
 
 		private static void AddCache(this IServiceCollection services)
@@ -127,12 +142,14 @@ namespace AzureDevOpsJanitor.Application
 			services.AddTransient<IVstsRestClient, VstsRestClient>(p => new VstsRestClient(p.GetService<IMemoryCache>().Get<JwtSecurityToken>(VstsRestClient.VstsAccessTokenCacheKey)));
 		}
 
-		private static void AddEntityFramework(this IServiceCollection services, ApplicationFacadeOptions brokerOptions = default)
+		private static void AddEntityFramework(this IServiceCollection services)
 		{
+			var brokerOptions = services.BuildServiceProvider().GetService<ApplicationFacadeOptions>();
+
 			services.AddDbContext<DomainContext>(options =>
 			{
 				var callingAssemblyName = Assembly.GetExecutingAssembly().GetName().Name;
-				var connectionString = brokerOptions?.ConnectionStrings?.GetValue<string>(nameof(DomainContext));
+				var connectionString = brokerOptions.ConnectionStrings?.GetValue<string>(nameof(DomainContext));
 
 				if (string.IsNullOrEmpty(connectionString))
 				{

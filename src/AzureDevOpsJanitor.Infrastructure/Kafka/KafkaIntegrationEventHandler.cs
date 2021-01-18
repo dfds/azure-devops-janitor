@@ -1,7 +1,7 @@
 ﻿using Confluent.Kafka;
 using Microsoft.Extensions.Options;
 using ResourceProvisioning.Abstractions.Events;
-using System.Linq;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,27 +12,22 @@ namespace AzureDevOpsJanitor.Infrastructure.Kafka
         private readonly IOptions<KafkaOptions> _options;
         private readonly IProducer<Ignore, IIntegrationEvent> _producer;
 
-        public KafkaIntegrationEventHandler(IProducer<Ignore, IIntegrationEvent> producer = default, IOptions<KafkaOptions> options = default) 
+        public KafkaIntegrationEventHandler(IProducer<Ignore, IIntegrationEvent> producer, IOptions<KafkaOptions> options) 
         {
-            _producer = producer;
-            _options = options;
+            _producer = producer ?? throw new ArgumentException(null, nameof(producer)); ;
+            _options = options ?? throw new ArgumentException(null, nameof(options)); ;
         }
 
         public async Task Handle(IIntegrationEvent notification, CancellationToken cancellationToken)
         {
-            if (_options?.Value.Topics == null || _options?.Value.Topics.Count() == 0)
-            {
-                return;
-            }
-
             var message = new Message<Ignore, IIntegrationEvent>()
             {
                 Value = notification
             };
 
-            foreach (var topic in _options?.Value.Topics)
+            foreach (var topic in _options.Value.Topics)
             {
-                await _producer?.ProduceAsync(topic, message, cancellationToken);
+                await _producer.ProduceAsync(topic, message, cancellationToken);
             }
         }
     }
