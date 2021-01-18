@@ -12,12 +12,12 @@ namespace AzureDevOpsJanitor.Host.KafkaWorker
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder(args)
-            .ConfigureServices((hostContext, services) =>
-            {
-                DependencyInjection.AddApplication(services, hostContext.Configuration);
+        Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder(args)
+        .ConfigureServices((hostContext, services) =>
+        {
+            DependencyInjection.AddApplication(services, hostContext.Configuration);
 
-                services.AddHostedService<Worker>();
-            });
+            services.AddHostedService<Worker>();
+        });
     }
 }

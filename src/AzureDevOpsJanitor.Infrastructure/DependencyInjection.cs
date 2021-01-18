@@ -10,6 +10,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using ResourceProvisioning.Abstractions.Data;
 using ResourceProvisioning.Abstractions.Events;
 using System.IdentityModel.Tokens.Jwt;
@@ -68,12 +69,12 @@ namespace AzureDevOpsJanitor.Infrastructure
 
 		private static void AddEntityFramework(this IServiceCollection services)
 		{
-			var dbContextOptions = services.BuildServiceProvider().GetService<DomainContextOptions>();
+			var dbContextOptions = services.BuildServiceProvider().GetService<IOptions<DomainContextOptions>>();
 
 			services.AddDbContext<DomainContext>(options =>
 			{
 				var callingAssemblyName = Assembly.GetExecutingAssembly().GetName().Name;
-				var connectionString = dbContextOptions.ConnectionStrings?.GetValue<string>(nameof(DomainContext));
+				var connectionString = dbContextOptions.Value.ConnectionStrings?.GetValue<string>(nameof(DomainContext));
 
 				if (string.IsNullOrEmpty(connectionString))
 				{
@@ -104,7 +105,7 @@ namespace AzureDevOpsJanitor.Infrastructure
 					return;
 				}
 
-				if (dbContextOptions.EnableAutoMigrations)
+				if (dbContextOptions.Value.EnableAutoMigrations)
 				{
 					context.Database.Migrate();
 				}
