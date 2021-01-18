@@ -1,3 +1,5 @@
+using AzureDevOpsJanitor.Application;
+using AzureDevOpsJanitor.Infrastructure.Kafka;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -14,7 +16,11 @@ namespace AzureDevOpsJanitor.Host.KafkaWorker
             Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder(args)
             .ConfigureServices((hostContext, services) =>
             {
+                DependencyInjection.AddApplication(services);
+
                 services.AddHostedService<Worker>();
+                services.AddOptions<KafkaOptions>()
+                        .Bind(hostContext.Configuration);
             });
     }
 }

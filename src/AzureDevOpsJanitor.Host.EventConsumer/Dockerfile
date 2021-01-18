@@ -1,5 +1,5 @@
 #Setup build image
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
+FROM mcr.microsoft.com/dotnet/core/sdk:5.0 AS build-env
 
 # Build arg to hold ADO PAT for restoring private feed packages
 ARG PAT
@@ -19,20 +19,20 @@ RUN wget -qO- https://raw.githubusercontent.com/Microsoft/artifacts-credprovider
 RUN sed -i "s|</configuration>|<packageSourceCredentials><dfds-devex-shared><add key=\"Username\" value=\"PAT\" /><add key=\"ClearTextPassword\" value=\"${PAT}\" /></dfds-devex-shared></packageSourceCredentials></configuration>|" nuget.config
 
 #Set workdir to current project folder
-WORKDIR /build/src/AzureDevOpsJanitor.Host.KafkaWorker
+WORKDIR /build/src/AzureDevOpsJanitor.Host.EventConsumer
 
 #Restore csproj packages.
 RUN dotnet restore
 
 #Compile source code using standard Release profile
-RUN dotnet publish -c Release -o /build/out AzureDevOpsJanitor.Host.KafkaWorker.csproj
+RUN dotnet publish -c Release -o /build/out AzureDevOpsJanitor.Host.EventConsumer.csproj
 
 #Setup final container images.
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS runtime
+FROM mcr.microsoft.com/dotnet/core/aspnet:5.0 AS runtime
 WORKDIR /app
 
 #Copy binaries from publish container to final container
 COPY --from=build-env /build/out .
 
 #Run dotnet executable
-ENTRYPOINT ["dotnet", "AzureDevOpsJanitor.Host.KafkaWorker.dll"]
+ENTRYPOINT ["dotnet", "AzureDevOpsJanitor.Host.EventConsumer.dll"]

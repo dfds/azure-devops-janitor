@@ -1,5 +1,5 @@
 #Setup build image
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
+FROM mcr.microsoft.com/dotnet/core/sdk:5.0 AS build-env
 
 # Build arg to hold ADO PAT for restoring private feed packages
 ARG PAT
@@ -28,7 +28,7 @@ RUN dotnet restore
 RUN dotnet publish -c Release -o /build/out AzureDevOpsJanitor.Host.Api.csproj
 
 #Setup final container images.
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS runtime
+FROM mcr.microsoft.com/dotnet/core/aspnet:5.0 AS runtime
 WORKDIR /app
 
 EXPOSE 54323

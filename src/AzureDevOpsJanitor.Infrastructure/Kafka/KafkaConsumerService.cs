@@ -16,10 +16,10 @@ namespace AzureDevOpsJanitor.Infrastructure.Kafka
 {
     public class KafkaConsumerService : BackgroundService
     {
-        private readonly ILogger<KafkaConsumerService> _logger;
-        private readonly IOptions<KafkaOptions> _options;
-        private readonly IMapper _mapper;
-        private readonly IFacade _applicationFacade;
+        protected readonly ILogger<KafkaConsumerService> _logger;
+        protected readonly IOptions<KafkaOptions> _options;
+        protected readonly IMapper _mapper;
+        protected readonly IFacade _applicationFacade;
 
         public KafkaConsumerService(ILogger<KafkaConsumerService> logger, IMapper mapper, IOptions<KafkaOptions> options, IFacade applicationFacade)
         {
@@ -31,9 +31,10 @@ namespace AzureDevOpsJanitor.Infrastructure.Kafka
 
         protected override Task ExecuteAsync(CancellationToken cancellationToken)
         {
-            var config = new ConsumerConfig(_options?.Value.Configuration);
+            var config = new ConsumerConfig(_options.Value.Configuration);
 
-            const int commitPeriod = 5;
+            config.EnablePartitionEof = _options.Value.EnablePartitionEof;
+            config.StatisticsIntervalMs = _options.Value.StatisticsIntervalMs;
 
             using var consumer = new ConsumerBuilder<Ignore, string>(config)
                 .SetErrorHandler((_, e) => _logger.LogError($"Error: {e.Reason}", e))
@@ -48,7 +49,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Kafka
                 })
                 .Build();
 
-            foreach (var topic in _options?.Value.Topics)
+            foreach (var topic in _options.Value.Topics)
             {
                 consumer.Subscribe(topic);
             }
@@ -81,7 +82,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Kafka
                             _applicationFacade.Execute(command, cancellationToken);
                         }
 
-                        if (consumeResult.Offset % commitPeriod == 0)
+                        if (consumeResult.Offset % _options.Value.CommitPeriod == 0)
                         {
                             // The Commit method sends a "commit offsets" request to the Kafka
                             // cluster and synchronously waits for the response. This is very

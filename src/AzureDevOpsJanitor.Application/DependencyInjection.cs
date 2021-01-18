@@ -14,6 +14,7 @@ using AzureDevOpsJanitor.Domain.Repository;
 using AzureDevOpsJanitor.Domain.Services;
 using AzureDevOpsJanitor.Domain.ValueObjects;
 using AzureDevOpsJanitor.Infrastructure.EntityFramework;
+using AzureDevOpsJanitor.Infrastructure.Kafka;
 using AzureDevOpsJanitor.Infrastructure.Vsts;
 using MediatR;
 using Microsoft.Data.Sqlite;
@@ -93,9 +94,11 @@ namespace AzureDevOpsJanitor.Application
 		{
 			services.AddTransient<INotificationHandler<BuildCreatedEvent>, BuildCreatedEventHandler>();
 			services.AddTransient<INotificationHandler<BuildQueuedEvent>, BuildQueuedEventHandler>();
+			services.AddTransient<INotificationHandler<IIntegrationEvent>, KafkaIntegrationEventHandler>();
 
 			services.AddTransient<IEventHandler<BuildCreatedEvent>, BuildCreatedEventHandler>();
 			services.AddTransient<IEventHandler<BuildQueuedEvent>, BuildQueuedEventHandler>();
+			services.AddTransient<IEventHandler<IIntegrationEvent>, KafkaIntegrationEventHandler>();
 		}
 
 		private static void AddRepositories(this IServiceCollection services)

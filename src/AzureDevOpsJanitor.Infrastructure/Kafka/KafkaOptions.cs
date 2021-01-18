@@ -8,6 +8,13 @@ namespace AzureDevOpsJanitor.Infrastructure.Kafka
         [Required]
         public IDictionary<string, string> Configuration { get; set; }
 
+        [Required]
         public IEnumerable<string> Topics { get; set; }
+
+        public bool EnablePartitionEof { get; set; } = false;
+
+        public int StatisticsIntervalMs { get; set; } = 5000;
+
+        public int CommitPeriod { get; set; } = 5;
     }
 }
