@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <UserSecretsId>dotnet-AzureDevOpsJanitor.Host.KafkaWorker-84F2C5D9-3C81-4C7D-AC80-2B71D85FB458</UserSecretsId>
+    <UserSecretsId>dotnet-AzureDevOpsJanitor.Host.EventConsumer-84F2C5D9-3C81-4C7D-AC80-2B71D85FB458</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>

@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "AzureDevOpsJanitor.Host.KafkaWorker": {
+    "AzureDevOpsJanitor.Host.EventConsumer": {
       "commandName": "Project",
       "environmentVariables": {
         "DOTNET_ENVIRONMENT": "Development"
