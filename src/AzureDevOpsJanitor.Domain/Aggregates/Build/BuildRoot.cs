@@ -112,9 +112,9 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Build
 				yield return new ValidationResult(nameof(ProjectId));
 			}
 
-			if (!Guid.TryParse(_capabilityIdentifier, out _) || string.IsNullOrEmpty(_capabilityIdentifier))
+			if (!Guid.TryParse(CapabilityIdentifier, out _) || string.IsNullOrEmpty(CapabilityIdentifier))
 			{
-				yield return new ValidationResult(nameof(_capabilityIdentifier));
+				yield return new ValidationResult(nameof(CapabilityIdentifier));
 			}
 		}
 	}

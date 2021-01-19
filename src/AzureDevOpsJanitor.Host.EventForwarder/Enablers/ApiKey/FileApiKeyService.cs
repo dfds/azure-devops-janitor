@@ -16,18 +16,19 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Enablers.ApiKey
             _keys = JsonSerializer.Deserialize<KeyFile>(rawFileContent);
         }
         
-        public async Task<bool> IsAuthorized(string clientId, string apiKey)
+        public Task<bool> IsAuthorized(string clientId, string apiKey)
         {
             if (_keys.Keys.ContainsKey(apiKey))
             {
                 if (_keys.Keys[apiKey] == clientId)
                 {
-                    return true;
+                    return Task.FromResult(true);
                 }
-                return false;
+
+                return Task.FromResult(false);
             }
 
-            return false;
+            return Task.FromResult(false);
         }
     }
 
