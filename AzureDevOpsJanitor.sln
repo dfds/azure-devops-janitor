@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureDevOpsJanitor.Applicat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureDevOpsJanitor.Host.Api", "src\AzureDevOpsJanitor.Host.Api\AzureDevOpsJanitor.Host.Api.csproj", "{F1A1619E-D962-48CA-B4F9-AB0E6F51E6C1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{E529C2A0-7A49-4F78-B61E-A6DE1FAFC35B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E529C2A0-7A49-4F78-B61E-A6DE1FAFC35B}"
 	ProjectSection(SolutionItems) = preProject
 		nuget.config = nuget.config
 	EndProjectSection
@@ -30,12 +30,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureDevOpsJanitor.Host.Eve
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureDevOpsJanitor.Host.EventConsumer", "src\AzureDevOpsJanitor.Host.EventConsumer\AzureDevOpsJanitor.Host.EventConsumer.csproj", "{F9591A65-8A9C-4F30-8C41-C355FFE8ED28}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "K8s", "K8s", "{E6ADC65C-DC26-411D-9ADA-2124B1C87260}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".k8s", ".k8s", "{E6ADC65C-DC26-411D-9ADA-2124B1C87260}"
 	ProjectSection(SolutionItems) = preProject
 		k8s\aws_provider.yaml = k8s\aws_provider.yaml
 		k8s\deployment.yaml = k8s\deployment.yaml
 		k8s\rds_instance.yaml = k8s\rds_instance.yaml
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hosts", "Hosts", "{FF970998-6D4B-4411-A956-79BC34A60177}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apis", "Apis", "{DC5FEE1F-E52D-41C6-8E86-E98C7811F42C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{AF06C2E6-BC82-4895-98EB-BADCCA4CC1CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -88,10 +94,15 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{F1A1619E-D962-48CA-B4F9-AB0E6F51E6C1} = {DC5FEE1F-E52D-41C6-8E86-E98C7811F42C}
 		{A355B3E3-4B24-4187-898D-F6BB16B1381E} = {733FC4BD-E8FE-47FA-9A7D-162DB6AF8FAF}
 		{329DF13E-6066-41FE-812B-1C6A5F1CD153} = {733FC4BD-E8FE-47FA-9A7D-162DB6AF8FAF}
 		{C7321375-2144-412F-B9C7-CD44766BAACF} = {733FC4BD-E8FE-47FA-9A7D-162DB6AF8FAF}
 		{25C50FAF-E6B0-4426-8D31-44A4FC4C841F} = {733FC4BD-E8FE-47FA-9A7D-162DB6AF8FAF}
+		{64B10739-8897-42D5-BC74-E8773EDA1063} = {AF06C2E6-BC82-4895-98EB-BADCCA4CC1CD}
+		{F9591A65-8A9C-4F30-8C41-C355FFE8ED28} = {AF06C2E6-BC82-4895-98EB-BADCCA4CC1CD}
+		{DC5FEE1F-E52D-41C6-8E86-E98C7811F42C} = {FF970998-6D4B-4411-A956-79BC34A60177}
+		{AF06C2E6-BC82-4895-98EB-BADCCA4CC1CD} = {FF970998-6D4B-4411-A956-79BC34A60177}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FBDC4252-0C37-444E-85FD-7DACD5487C7B}
