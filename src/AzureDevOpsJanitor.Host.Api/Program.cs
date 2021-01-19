@@ -14,7 +14,6 @@ namespace AzureDevOpsJanitor.Host.Api
             Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    //TODO: Explore configuration options
                     webBuilder.UseSentry();
                     webBuilder.UseStartup<Startup>();
                 });
