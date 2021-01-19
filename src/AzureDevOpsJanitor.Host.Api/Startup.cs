@@ -1,6 +1,5 @@
 ﻿using AzureDevOpsJanitor.Application;
 using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Middleware;
-using KnstAsyncApi.Schemas.V2;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
