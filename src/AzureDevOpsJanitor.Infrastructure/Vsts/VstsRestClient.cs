@@ -3,6 +3,7 @@ using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Build;
 using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Build.Definition;
 using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Profile;
 using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Project;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -11,6 +12,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts
@@ -19,19 +21,35 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
     {
         public const string VstsAccessTokenCacheKey = "vstsAccessToken";
 
-        public VstsRestClient(string pat) : this()
+        private readonly IOptions<VstsRestClientOptions> _options;
+
+        public VstsRestClient(IOptions<VstsRestClientOptions> options) : base()
         {
-            DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format(":{0}", pat))));
+            _options = options;
+
+            InitializeDefaultHeaders();
         }
 
-        public VstsRestClient(JwtSecurityToken accessToken) : this()
+        private void InitializeDefaultHeaders()
         {
-            DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", accessToken.RawData);
-        }
+            if (string.IsNullOrEmpty(_options.Value.ClientSecret))
+            {
+                throw new ArgumentException(null, nameof(_options.Value.ClientSecret));
+            }
 
-        public VstsRestClient() : base()
-        {
+            AuthenticationHeaderValue authZHeader;
+
+            if (Regex.IsMatch(_options.Value.ClientSecret, JwtConstants.JsonCompactSerializationRegex) || Regex.IsMatch(_options.Value.ClientSecret, JwtConstants.JweCompactSerializationRegex))
+            {
+                authZHeader = new AuthenticationHeaderValue("Bearer", _options.Value.ClientSecret);
+            }
+            else
+            {
+                authZHeader = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format(":{0}", _options.Value.ClientSecret))));
+            }
+
             DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            DefaultRequestHeaders.Authorization = authZHeader;
         }
 
         public async Task<ProfileDto> GetProfile(string profileId)

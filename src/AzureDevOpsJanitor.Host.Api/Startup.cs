@@ -1,5 +1,4 @@
 ﻿using AzureDevOpsJanitor.Application;
-using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,7 +30,6 @@ namespace AzureDevOpsJanitor.Host.Api
             app.UseCors("open");
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseMiddleware<VstsCallbackMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
@@ -67,8 +65,6 @@ namespace AzureDevOpsJanitor.Host.Api
                     Version = "v1"
                 });
             });
-
-            services.AddTransient<VstsCallbackMiddleware>();
 
             AddHostAuthentication(services);
         }
