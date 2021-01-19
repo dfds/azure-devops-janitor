@@ -1,5 +1,6 @@
 ﻿using AzureDevOpsJanitor.Application;
 using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Middleware;
+using KnstAsyncApi.Schemas.V2;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -67,6 +68,19 @@ namespace AzureDevOpsJanitor.Host.Api
 					Version = "v1"
 				});
 			});
+
+			services.AddAsyncApi(options =>
+			{
+				options.AsyncApi = new AsyncApiDocument
+				{
+					Info = new Info("Async API", "1.0.0")
+					{
+						Description = "Description"
+					}
+				};
+			});
+
+			services.AddAsyncApiUI();
 
 			services.AddTransient<VstsCallbackMiddleware>();
 

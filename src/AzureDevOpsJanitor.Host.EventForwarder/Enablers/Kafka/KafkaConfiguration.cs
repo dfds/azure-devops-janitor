@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace AzureDevOpsJanitor.Host.EventForwarder.Enablers.Kafka
 {
+    //TODO: Deprecate this in favor of options pattern
     public class KafkaConfiguration
     {
         private const string KEY_PREFIX = "ADO_JANITOR_";

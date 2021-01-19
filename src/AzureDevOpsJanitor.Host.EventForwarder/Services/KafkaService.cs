@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace AzureDevOpsJanitor.Host.EventForwarder.Services
 {
+    //TODO: Deprecate this in favor of mediator passed IIntegrationEvent publishing and KafkaEventHandler? This has the added benefit of decoupling our controllers from the service.
     public class KafkaService : IHostedService
     {
         private ILogger<KafkaService> _logger;

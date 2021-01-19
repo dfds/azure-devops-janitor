@@ -3,6 +3,8 @@ using Confluent.Kafka;
 
 namespace AzureDevOpsJanitor.Host.EventForwarder.Enablers.Kafka
 {
+    //TODO: A factory pattern should generally try to abid by the "create instance of T rule". 
+    //If you force it to always return a single producer type its better to simply just register it in the DI container using a factory method
     public class KafkaProducerFactory
     {
         private readonly KafkaConfiguration _configuration;
