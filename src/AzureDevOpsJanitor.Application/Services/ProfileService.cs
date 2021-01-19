@@ -21,6 +21,7 @@ namespace AzureDevOpsJanitor.Application.Services
 		{
 			var profileData = await _client.GetProfile(profileIdentifier);
 
+			//TODO: Mapping
 			return _mapper.Map<UserProfile>(profileData);
 		}
 	}

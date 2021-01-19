@@ -76,7 +76,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Kafka
                             var integrationEvent = JsonSerializer.Deserialize<IIntegrationEvent>(consumeResult.Message.Value);
                             var aggregate = JsonSerializer.Deserialize<IAggregateRoot>(integrationEvent.Payload.GetString());
 
-                            //TODO: Implement mapping logic. Aggregate should map to commands based on state. Verify mapping operation works and facade executes.
+                            //TODO: Mapping. Aggregate should map to commands based on state.
                             var command = _mapper.Map<IAggregateRoot, ICommand<IAggregateRoot>>(aggregate);
 
                             _applicationFacade.Execute(command, cancellationToken);
@@ -84,12 +84,6 @@ namespace AzureDevOpsJanitor.Infrastructure.Kafka
 
                         if (consumeResult.Offset % _options.Value.CommitPeriod == 0)
                         {
-                            // The Commit method sends a "commit offsets" request to the Kafka
-                            // cluster and synchronously waits for the response. This is very
-                            // slow compared to the rate at which the consumer is capable of
-                            // consuming messages. A high performance application will typically
-                            // commit offsets relatively infrequently and be designed handle
-                            // duplicate messages in the event of failure.
                             try
                             {
                                 consumer.Commit(consumeResult);

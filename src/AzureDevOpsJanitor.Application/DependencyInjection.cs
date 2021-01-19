@@ -31,13 +31,14 @@ namespace AzureDevOpsJanitor.Application
 	{
 		public static void AddApplication(this IServiceCollection services, IConfiguration configuration)
 		{
-			services.AddTransient<ServiceFactory>(p => p.GetService);
-
+			//Framework dependencies
 			services.AddLogging();
 
-			services.AddInfrastructure(configuration);
+			//External dependencies
 			services.AddAutoMapper(Assembly.GetExecutingAssembly());
+			services.AddInfrastructure(configuration);
 
+			//Application dependencies
 			services.AddBehaviors();
 			services.AddCache();
 			services.AddCommandHandlers();

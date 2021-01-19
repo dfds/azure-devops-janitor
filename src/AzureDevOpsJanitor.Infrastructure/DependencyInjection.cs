@@ -1,5 +1,4 @@
-﻿
-using AzureDevOpsJanitor.Infrastructure.EntityFramework;
+﻿using AzureDevOpsJanitor.Infrastructure.EntityFramework;
 using AzureDevOpsJanitor.Infrastructure.Kafka;
 using AzureDevOpsJanitor.Infrastructure.Vsts;
 using Confluent.Kafka;
@@ -22,28 +21,17 @@ namespace AzureDevOpsJanitor.Infrastructure
 	{
 		public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
 		{
-			services.AddTransient<ServiceFactory>(p => p.GetService);
-
-			services.Configure<DomainContextOptions>(configuration);
-			services.Configure<KafkaOptions>(configuration.GetSection(KafkaOptions.Kafka));
-
-			services.AddClients();
-			services.AddEntityFramework();
-			services.AddEventHandlers();
-			services.AddKafka();
 			services.AddMediator();
+			services.AddClients();
+			services.AddEntityFramework(configuration);
+			services.AddKafka(configuration);
 		}
 
 		private static void AddMediator(this IServiceCollection services)
 		{
+			services.AddTransient<ServiceFactory>(p => p.GetService);
+
 			services.AddTransient<IMediator>(p => new Mediator(p.GetService<ServiceFactory>()));
-		}
-
-		private static void AddEventHandlers(this IServiceCollection services)
-		{
-			services.AddTransient<INotificationHandler<IIntegrationEvent>, KafkaIntegrationEventHandler>();
-
-			services.AddTransient<IEventHandler<IIntegrationEvent>, KafkaIntegrationEventHandler>();
 		}
 
 		private static void AddClients(this IServiceCollection services)
@@ -51,8 +39,10 @@ namespace AzureDevOpsJanitor.Infrastructure
 			services.AddTransient<IVstsRestClient, VstsRestClient>(p => new VstsRestClient(p.GetService<IMemoryCache>().Get<JwtSecurityToken>(VstsRestClient.VstsAccessTokenCacheKey)));
 		}
 
-		private static void AddKafka(this IServiceCollection services)
+		private static void AddKafka(this IServiceCollection services, IConfiguration configuration)
 		{
+			services.Configure<KafkaOptions>(configuration.GetSection(KafkaOptions.Kafka));
+
 			services.AddTransient(p => {
 				var logger = p.GetService<ILogger<IProducer<Ignore, IIntegrationEvent>>>();
 				var producerOptions = p.GetService<KafkaOptions>();
@@ -63,16 +53,19 @@ namespace AzureDevOpsJanitor.Infrastructure
 
 				return producer;
 			});
+
+			services.AddTransient<INotificationHandler<IIntegrationEvent>, KafkaIntegrationEventHandler>();
+			services.AddTransient<IEventHandler<IIntegrationEvent>, KafkaIntegrationEventHandler>();
 		}
 
-		private static void AddEntityFramework(this IServiceCollection services)
+		private static void AddEntityFramework(this IServiceCollection services, IConfiguration configuration)
 		{
-			var dbContextOptions = services.BuildServiceProvider().GetService<IOptions<DomainContextOptions>>();
-			var c1 = dbContextOptions.Value.ConnectionStrings?.GetValue<string>(nameof(DomainContext));
-			var kafkaOptions = services.BuildServiceProvider().GetService<IOptions<KafkaOptions>>();
+			services.Configure<DomainContextOptions>(configuration);
 
 			services.AddDbContext<DomainContext>(options =>
 			{
+				var serviceProvider = services.BuildServiceProvider();
+				var dbContextOptions = serviceProvider.GetService<IOptions<DomainContextOptions>>();
 				var callingAssemblyName = Assembly.GetExecutingAssembly().GetName().Name;
 				var connectionString = dbContextOptions.Value.ConnectionStrings?.GetValue<string>(nameof(DomainContext));
 
