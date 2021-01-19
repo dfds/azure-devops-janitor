@@ -91,7 +91,7 @@ namespace AzureDevOpsJanitor.Infrastructure
 
 					}).Options;
 
-				using var context = new DomainContext(dbOptions, new FakeMediator());
+				using var context = new DomainContext(dbOptions, serviceProvider.GetService<IMediator>());
 
 				if (!context.Database.EnsureCreated())
 				{

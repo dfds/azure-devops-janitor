@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AzureDevOpsJanitor.Infrastructure.EntityFramework.Configurations
 {
-	class BuildStatusEntityTypeConfiguration : IEntityTypeConfiguration<BuildStatus>
+    public class BuildStatusEntityTypeConfiguration : IEntityTypeConfiguration<BuildStatus>
 	{
 		public void Configure(EntityTypeBuilder<BuildStatus> configuration)
 		{

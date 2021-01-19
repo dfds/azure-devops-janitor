@@ -15,7 +15,7 @@ namespace AzureDevOpsJanitor.Infrastructure.EntityFramework
 			var optionsBuilder = new DbContextOptionsBuilder<DomainContext>()
 				.UseSqlite(connection);
 
-			return new DomainContext(optionsBuilder.Options, new FakeMediator());
+			return new DomainContext(optionsBuilder.Options);
 		}
 	}
 }

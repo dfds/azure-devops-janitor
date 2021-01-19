@@ -1,24 +1,26 @@
 ﻿using AzureDevOpsJanitor.Domain.Aggregates.Build;
 using AzureDevOpsJanitor.Domain.Aggregates.Project;
 using AzureDevOpsJanitor.Domain.ValueObjects;
-using AzureDevOpsJanitor.Infrastructure.EntityFramework.Configurations;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using ResourceProvisioning.Abstractions.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Infrastructure.EntityFramework
 {
-	public sealed class DomainContext : DbContext, IUnitOfWork
+    public sealed class DomainContext : DbContext, IUnitOfWork
 	{
 		public const string DEFAULT_SCHEMA = nameof(DomainContext);
 		private readonly IMediator _mediator;
+		private readonly IDictionary<Type, IEnumerable<IMaterializedView>> _seedData;
 
 		public DbSet<ProjectRoot> Project { get; set; }
 
@@ -30,21 +32,31 @@ namespace AzureDevOpsJanitor.Infrastructure.EntityFramework
 
 		public IDbContextTransaction GetCurrentTransaction { get; private set; }
 
-		public DomainContext() : this(new DbContextOptions<DomainContext>() { }, new FakeMediator()) { }
+		public DomainContext() : this(new DbContextOptions<DomainContext>()) { }
 
-		public DomainContext(DbContextOptions options, IMediator mediator) : base(options)
+		public DomainContext(DbContextOptions options, IMediator mediator = default, IDictionary<Type, IEnumerable<IMaterializedView>> seedData = default) : base(options)
 		{
 			_mediator = mediator;
+            _seedData = seedData;
 
 			System.Diagnostics.Debug.WriteLine($"{nameof(DomainContext)}::ctor ->" + GetHashCode());
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.ApplyConfiguration(new ProjectEntityTypeConfiguration());
-			modelBuilder.ApplyConfiguration(new BuildDefinitionEntityTypeConfiguration());
-			modelBuilder.ApplyConfiguration(new BuildRootEntityTypeConfiguration());
-			modelBuilder.ApplyConfiguration(new BuildStatusEntityTypeConfiguration());
+			var configurationTypes = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.GetInterface("IEntityTypeConfiguration`1") != null);
+
+			foreach (var configurationType in configurationTypes)
+			{
+				var entityType = configurationType.GetInterface("IEntityTypeConfiguration`1").GenericTypeArguments.SingleOrDefault();
+				var materializedViewData = _seedData?.SingleOrDefault(v => v.Key == entityType).Value;
+				var configurationCtorArgTypes = (materializedViewData != null) ? new[] { materializedViewData.GetType() } : Array.Empty<Type>();
+				var configurationCtorArgs = (materializedViewData != null) ? new[] { materializedViewData } : null;
+				var configurationCtor = configurationType.GetConstructor(BindingFlags.Public | BindingFlags.Instance, null, configurationCtorArgTypes, null);
+				dynamic configuration = configurationCtor.Invoke(configurationCtorArgs);
+
+				modelBuilder.ApplyConfiguration(configuration);
+			}
 		}
 
 		public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default)
