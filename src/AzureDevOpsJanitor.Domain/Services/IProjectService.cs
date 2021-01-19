@@ -15,6 +15,8 @@ namespace AzureDevOpsJanitor.Domain.Services
 
 		Task<ProjectRoot> AddAsync(string name, CancellationToken cancellationToken = default);
 
+		Task<ProjectRoot> UpdateAsync(ProjectRoot project, CancellationToken cancellationToken = default);
+
 		Task DeleteAsync(Guid projectId, CancellationToken cancellationToken = default);
 	}
 }

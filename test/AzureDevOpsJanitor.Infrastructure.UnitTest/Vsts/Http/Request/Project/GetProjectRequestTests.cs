@@ -1,8 +1,8 @@
-﻿using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Profile;
+﻿using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Project;
 using System.Net.Http;
 using Xunit;
 
-namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Http.Request.Profile
+namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Http.Request.Project
 {
     public class GetProjectRequestTests
     {

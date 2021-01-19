@@ -26,7 +26,7 @@ namespace AzureDevOpsJanitor.Host.Api
 			DependencyInjection.AddApplication(services, Configuration);
 		}
 
-		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+		public void Configure(IApplicationBuilder app)
 		{
 			app.UseHttpsRedirection();
 			app.UseRouting();

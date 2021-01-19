@@ -63,15 +63,21 @@ namespace AzureDevOpsJanitor.Application
 		{
 			services.AddTransient<IRequestHandler<GetBuildCommand, IEnumerable<BuildRoot>>, GetBuildCommandHandler>();
 			services.AddTransient<IRequestHandler<CreateBuildCommand, BuildRoot>, CreateBuildCommandHandler>();
+			services.AddTransient<IRequestHandler<UpdateBuildCommand, BuildRoot>, UpdateBuildCommandHandler>();
 			services.AddTransient<IRequestHandler<DeleteBuildCommand, bool>, DeleteBuildCommandHandler>();
 			services.AddTransient<IRequestHandler<GetProfileCommand, UserProfile>, GetProfileCommandHandler>();
 			services.AddTransient<IRequestHandler<GetProjectCommand, IEnumerable<ProjectRoot>>, GetProjectCommandHandler>();
+			services.AddTransient<IRequestHandler<CreateProjectCommand, ProjectRoot>, CreateProjectCommandHandler>();
+			services.AddTransient<IRequestHandler<UpdateProjectCommand, ProjectRoot>, UpdateProjectCommandHandler>();
 
 			services.AddTransient<ICommandHandler<GetBuildCommand, IEnumerable<BuildRoot>>, GetBuildCommandHandler>();
 			services.AddTransient<ICommandHandler<CreateBuildCommand, BuildRoot>, CreateBuildCommandHandler>();
+			services.AddTransient<ICommandHandler<UpdateBuildCommand, BuildRoot>, UpdateBuildCommandHandler>();
 			services.AddTransient<ICommandHandler<DeleteBuildCommand, bool>, DeleteBuildCommandHandler>();
 			services.AddTransient<ICommandHandler<GetProfileCommand, UserProfile>, GetProfileCommandHandler>();
 			services.AddTransient<ICommandHandler<GetProjectCommand, IEnumerable<ProjectRoot>>, GetProjectCommandHandler>();
+			services.AddTransient<ICommandHandler<CreateProjectCommand, ProjectRoot>, CreateProjectCommandHandler>();
+			services.AddTransient<ICommandHandler<UpdateProjectCommand, ProjectRoot>, UpdateProjectCommandHandler>();
 		}
 
 		private static void AddEventHandlers(this IServiceCollection services)

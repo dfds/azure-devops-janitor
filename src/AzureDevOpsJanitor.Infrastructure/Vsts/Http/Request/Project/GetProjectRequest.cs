@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 
-namespace AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Profile
+namespace AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Project
 {
     public sealed class GetProjectRequest : BaseRequest
     {

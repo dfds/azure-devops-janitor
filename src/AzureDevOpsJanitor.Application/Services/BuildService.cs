@@ -67,5 +67,14 @@ namespace AzureDevOpsJanitor.Application.Services
 				await _buildRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 			}
 		}
-	}
+
+        public async Task<BuildRoot> UpdateAsync(BuildRoot build, CancellationToken cancellationToken = default)
+        {
+			build = _buildRepository.Update(build);
+
+			await _buildRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+
+			return build;
+		}
+    }
 }

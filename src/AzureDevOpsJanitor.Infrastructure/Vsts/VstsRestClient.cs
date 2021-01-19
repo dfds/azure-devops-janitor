@@ -2,6 +2,7 @@
 using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Build;
 using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Build.Definition;
 using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Profile;
+using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Project;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -92,6 +93,24 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             var definitionDto = JsonSerializer.Deserialize<BuildDto>(responseData);
 
             return definitionDto;
+        }
+
+        public async Task<OperationReferenceDto> CreateProject(string organization, TeamProjectDto project)
+        {
+            var response = await SendAsync(new CreateProjectRequest(organization, project));
+            var responseData = await response.Content.ReadAsStringAsync();
+            var operationReferenceDto = JsonSerializer.Deserialize<OperationReferenceDto>(responseData);
+
+            return operationReferenceDto;
+        }
+
+        public async Task<OperationReferenceDto> UpdateProject(string organization, TeamProjectDto project)
+        {
+            var response = await SendAsync(new UpdateProjectRequest(organization, project));
+            var responseData = await response.Content.ReadAsStringAsync();
+            var operationReferenceDto = JsonSerializer.Deserialize<OperationReferenceDto>(responseData);
+
+            return operationReferenceDto;
         }
 
         public async Task<IEnumerable<TeamProjectDto>> GetProjects(string organization)

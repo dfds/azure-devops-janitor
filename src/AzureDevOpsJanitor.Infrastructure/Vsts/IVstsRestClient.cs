@@ -8,6 +8,10 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
     {
         Task<IEnumerable<TeamProjectDto>> GetProjects(string organization);
 
+        Task<OperationReferenceDto> CreateProject(string organization, TeamProjectDto project);
+
+        Task<OperationReferenceDto> UpdateProject(string organization, TeamProjectDto project);
+
         Task<ProfileDto> GetProfile(string profileId);
 
         Task<DefinitionReferenceDto> GetDefinition(string organization, string project, int definitionId);

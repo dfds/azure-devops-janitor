@@ -35,7 +35,7 @@ namespace AzureDevOpsJanitor.Domain.UnitTest.Events.Project
             var validationResults = sut.Validate(validationCtx);
 
             //Assert
-            Assert.True(validationResults.Count() == 0);
+            Assert.True(!validationResults.Any());
         }
 
         [Fact]

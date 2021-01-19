@@ -87,7 +87,7 @@ namespace AzureDevOpsJanitor.Infrastructure.EntityFramework
 
 		public async Task BeginTransactionAsync()
 		{
-			GetCurrentTransaction = GetCurrentTransaction ?? await Database.BeginTransactionAsync(IsolationLevel.ReadCommitted);
+			GetCurrentTransaction ??= await Database.BeginTransactionAsync(IsolationLevel.ReadCommitted);
 		}
 
 		public async Task CommitTransactionAsync()
