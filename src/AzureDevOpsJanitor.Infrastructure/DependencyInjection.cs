@@ -36,7 +36,7 @@ namespace AzureDevOpsJanitor.Infrastructure
 
 		private static void AddClients(this IServiceCollection services, IConfiguration configuration)
 		{
-			services.Configure<KafkaOptions>(configuration.GetSection(KafkaOptions.Kafka));
+			services.Configure<VstsRestClientOptions>(configuration.GetSection(VstsRestClientOptions.Vsts));
 
 			services.AddTransient<IVstsRestClient, VstsRestClient>(p => new VstsRestClient(p.GetService<IMemoryCache>().Get<JwtSecurityToken>(VstsRestClient.VstsAccessTokenCacheKey)));
 		}

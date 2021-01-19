@@ -80,8 +80,6 @@ namespace AzureDevOpsJanitor.Host.Api
 				};
 			});
 
-			services.AddAsyncApiUI();
-
 			services.AddTransient<VstsCallbackMiddleware>();
 
 			AddHostAuthentication(services);
