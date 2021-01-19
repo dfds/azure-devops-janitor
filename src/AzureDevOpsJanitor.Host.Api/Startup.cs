@@ -1,11 +1,9 @@
 ﻿using AzureDevOpsJanitor.Application;
 using AzureDevOpsJanitor.Host.Api.Infrastructure.Middleware;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.AzureAD.UI;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Identity.Web;
 using Microsoft.OpenApi.Models;
 
 namespace AzureDevOpsJanitor.Host.Api
@@ -77,8 +75,7 @@ namespace AzureDevOpsJanitor.Host.Api
 
 		protected virtual void AddHostAuthentication(IServiceCollection services)
 		{
-			services.AddAuthentication(AzureADDefaults.BearerAuthenticationScheme)
-					.AddAzureADBearer(options => Configuration.Bind("AzureAd", options));
+			services.AddMicrosoftIdentityWebApiAuthentication(Configuration);
 		}
 	}
 }
