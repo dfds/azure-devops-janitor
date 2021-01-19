@@ -1,12 +1,11 @@
-using System;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
 using AzureDevOpsJanitor.Host.EventForwarder.Attributes;
 using AzureDevOpsJanitor.Host.EventForwarder.Models;
 using AzureDevOpsJanitor.Host.EventForwarder.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Host.EventForwarder.Controllers
 {
@@ -27,11 +26,11 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Controllers
         [HttpPost]
         public async Task<IActionResult> Forward([FromHeader(Name = "x-topic")] string topic, [FromHeader(Name = "x-apiKey")] string apiKey)
         {
-            // Rewrite headers to be a middleware
-            Console.WriteLine($"topic: {topic}");
-            Console.WriteLine($"apiKey: {apiKey}");
+            //TODO: Rewrite headers to be a middleware
+            _logger.LogInformation($"topic: {topic}");
+            _logger.LogInformation($"apiKey: {apiKey}");
 
-            using (StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8))
+            using (var reader = new StreamReader(Request.Body, Encoding.UTF8))
             {
                 var content = await reader.ReadToEndAsync();
 

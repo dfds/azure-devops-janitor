@@ -20,6 +20,7 @@ namespace AzureDevOpsJanitor.Infrastructure.UnitTest.EntityFramework
             _options = new DbContextOptionsBuilder().UseSqlite(_connection).Options;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA1816:Dispose methods should call SuppressFinalize", Justification = "<Pending>")]
         public void Dispose()
         {
             _connection.Dispose();
