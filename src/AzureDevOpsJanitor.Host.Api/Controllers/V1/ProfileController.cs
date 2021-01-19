@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 namespace AzureDevOpsJanitor.Host.Api.Controllers.V1
 {
     [ApiController]
-	[Route("[controller]")]
-	public sealed class ProfileController : ControllerBase
-	{
-		private readonly IFacade _applicationFacade;
+    [Route("[controller]")]
+    public sealed class ProfileController : ControllerBase
+    {
+        private readonly IFacade _applicationFacade;
 
         public ProfileController(IFacade applicationFacade)
-		{
+        {
             _applicationFacade = applicationFacade ?? throw new ArgumentNullException(nameof(applicationFacade));
         }
-        
+
         [HttpGet]
         public async Task<UserProfile> Get([FromQuery] string profileId = null)
         {

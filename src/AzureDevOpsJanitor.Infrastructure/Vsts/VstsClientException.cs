@@ -3,16 +3,16 @@
 namespace AzureDevOpsJanitor.Infrastructure.Vsts
 {
     public sealed class VstsClientException : Exception
-	{
-		public VstsClientException()
-		{ }
+    {
+        public VstsClientException()
+        { }
 
-		public VstsClientException(string message)
-			: base(message)
-		{ }
+        public VstsClientException(string message)
+            : base(message)
+        { }
 
-		public VstsClientException(string message, Exception innerException)
-			: base(message, innerException)
-		{ }
-	}
+        public VstsClientException(string message, Exception innerException)
+            : base(message, innerException)
+        { }
+    }
 }

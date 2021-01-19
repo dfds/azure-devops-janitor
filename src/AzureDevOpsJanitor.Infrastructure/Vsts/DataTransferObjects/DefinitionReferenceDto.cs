@@ -19,7 +19,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects
 
         [JsonPropertyName("type")]
         public string Type { get; set; }
-        
+
         [JsonPropertyName("uri")]
         public Uri Uri { get; set; }
 

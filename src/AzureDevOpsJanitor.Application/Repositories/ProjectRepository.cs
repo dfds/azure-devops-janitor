@@ -11,29 +11,29 @@ using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Application.Repositories
 {
-	public sealed class ProjectRepository : EntityFrameworkRepository<ProjectRoot>, IProjectRepository
-	{
-		public ProjectRepository(DomainContext context) : base(context)
-		{
+    public sealed class ProjectRepository : EntityFrameworkRepository<ProjectRoot>, IProjectRepository
+    {
+        public ProjectRepository(DomainContext context) : base(context)
+        {
 
-		}
+        }
 
-		public override async Task<IEnumerable<ProjectRoot>> GetAsync(Expression<Func<ProjectRoot, bool>> filter)
-		{
-			return await Task.Factory.StartNew(() =>
-			{
-				return _context.Project
-							 .AsNoTracking()
-							 .Where(filter)
-							 .AsEnumerable();
-			});
-		}
+        public override async Task<IEnumerable<ProjectRoot>> GetAsync(Expression<Func<ProjectRoot, bool>> filter)
+        {
+            return await Task.Factory.StartNew(() =>
+            {
+                return _context.Project
+                             .AsNoTracking()
+                             .Where(filter)
+                             .AsEnumerable();
+            });
+        }
 
-		public async Task<ProjectRoot> GetAsync(Guid projectId)
-		{
-			var project = await _context.Project.FindAsync(projectId);
-			
-			return project;
-		}
-	}
+        public async Task<ProjectRoot> GetAsync(Guid projectId)
+        {
+            var project = await _context.Project.FindAsync(projectId);
+
+            return project;
+        }
+    }
 }

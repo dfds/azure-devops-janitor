@@ -23,12 +23,12 @@ namespace AzureDevOpsJanitor.Host.EventForwarder
         {
             services.AddTransient<KafkaConfiguration>();
             services.AddTransient<KafkaProducerFactory>();
-            
+
             services.AddSingleton<KafkaService>();
             services.AddSingleton<IHostedService>(p => p.GetService<KafkaService>());
 
             services.AddScoped<IApiKeyService, FileApiKeyService>();
-            
+
             services.AddControllers();
         }
 

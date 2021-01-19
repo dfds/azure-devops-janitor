@@ -24,13 +24,14 @@ namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Events
         public void CanBeSerialized()
         {
             //Arrange
-            var sut = new BuildCompletedEvent() { 
+            var sut = new BuildCompletedEvent()
+            {
                 Id = Guid.NewGuid(),
                 EventType = "MyEventType",
                 PublisherId = "MyPublisherId",
                 Scope = "MyScope"
             };
-            
+
             //Act
             var payload = JsonSerializer.Serialize(sut, new JsonSerializerOptions { IgnoreNullValues = true });
 

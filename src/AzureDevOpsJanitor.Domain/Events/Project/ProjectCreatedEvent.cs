@@ -2,11 +2,11 @@
 
 namespace AzureDevOpsJanitor.Domain.Events.Project
 {
-	public sealed class ProjectCreatedEvent : ProjectEvent
-	{
-		public ProjectCreatedEvent(ProjectRoot project)
-		{
-			Project = project;
-		}
-	}
+    public sealed class ProjectCreatedEvent : ProjectEvent
+    {
+        public ProjectCreatedEvent(ProjectRoot project)
+        {
+            Project = project;
+        }
+    }
 }

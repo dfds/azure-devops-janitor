@@ -3,8 +3,8 @@ using ResourceProvisioning.Abstractions.Events;
 
 namespace AzureDevOpsJanitor.Domain.Events.Project
 {
-	public abstract class ProjectEvent : IDomainEvent
-	{
-		public ProjectRoot Project { get; protected set; }
-	}
+    public abstract class ProjectEvent : IDomainEvent
+    {
+        public ProjectRoot Project { get; protected set; }
+    }
 }

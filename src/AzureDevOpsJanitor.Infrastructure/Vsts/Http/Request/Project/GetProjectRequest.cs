@@ -5,7 +5,8 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Project
 {
     public sealed class GetProjectRequest : BaseRequest
     {
-        public GetProjectRequest(string organization) {
+        public GetProjectRequest(string organization)
+        {
             ApiVersion = "6.0";
             Method = HttpMethod.Get;
             RequestUri = new Uri($"https://dev.azure.com/{organization}/_apis/projects?api-version={ApiVersion}");

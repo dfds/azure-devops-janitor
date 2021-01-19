@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 namespace AzureDevOpsJanitor.Host.Api.Controllers.V1
 {
     [ApiController]
-	[Route("[controller]")]
-	public sealed class ProjectController : ControllerBase
-	{
-		private readonly IFacade _applicationFacade;
+    [Route("[controller]")]
+    public sealed class ProjectController : ControllerBase
+    {
+        private readonly IFacade _applicationFacade;
 
         public ProjectController(IFacade applicationFacade)
-		{
+        {
             _applicationFacade = applicationFacade ?? throw new ArgumentNullException(nameof(applicationFacade));
         }
-        
+
         [HttpGet]
         public async Task<IEnumerable<ProjectRoot>> Get()
         {

@@ -28,87 +28,87 @@ using System.Reflection;
 namespace AzureDevOpsJanitor.Application
 {
     public static class DependencyInjection
-	{
-		public static void AddApplication(this IServiceCollection services, IConfiguration configuration)
-		{
-			//Framework dependencies
-			services.AddLogging();
+    {
+        public static void AddApplication(this IServiceCollection services, IConfiguration configuration)
+        {
+            //Framework dependencies
+            services.AddLogging();
 
-			//External dependencies
-			services.AddAutoMapper(Assembly.GetExecutingAssembly());
-			services.AddInfrastructure(configuration);
+            //External dependencies
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddInfrastructure(configuration);
 
-			//Application dependencies
-			services.AddBehaviors();
-			services.AddCache();
-			services.AddCommandHandlers();
-			services.AddEventHandlers();
-			services.AddFacade();
-			services.AddRepositories();
-			services.AddServices();
-		}
+            //Application dependencies
+            services.AddBehaviors();
+            services.AddCache();
+            services.AddCommandHandlers();
+            services.AddEventHandlers();
+            services.AddFacade();
+            services.AddRepositories();
+            services.AddServices();
+        }
 
-		private static void AddBehaviors(this IServiceCollection services)
-		{
-			services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionBehaviour<,>));
-			services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
-		}
+        private static void AddBehaviors(this IServiceCollection services)
+        {
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionBehaviour<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+        }
 
-		private static void AddCache(this IServiceCollection services)
-		{
-			services.AddSingleton<IMemoryCache, ApplicationCache>();
-		}
+        private static void AddCache(this IServiceCollection services)
+        {
+            services.AddSingleton<IMemoryCache, ApplicationCache>();
+        }
 
-		private static void AddCommandHandlers(this IServiceCollection services)
-		{
-			services.AddTransient<IRequestHandler<GetBuildCommand, IEnumerable<BuildRoot>>, GetBuildCommandHandler>();
-			services.AddTransient<IRequestHandler<CreateBuildCommand, BuildRoot>, CreateBuildCommandHandler>();
-			services.AddTransient<IRequestHandler<UpdateBuildCommand, BuildRoot>, UpdateBuildCommandHandler>();
-			services.AddTransient<IRequestHandler<DeleteBuildCommand, bool>, DeleteBuildCommandHandler>();
-			services.AddTransient<IRequestHandler<GetProfileCommand, UserProfile>, GetProfileCommandHandler>();
-			services.AddTransient<IRequestHandler<GetProjectCommand, IEnumerable<ProjectRoot>>, GetProjectCommandHandler>();
-			services.AddTransient<IRequestHandler<CreateProjectCommand, ProjectRoot>, CreateProjectCommandHandler>();
-			services.AddTransient<IRequestHandler<UpdateProjectCommand, ProjectRoot>, UpdateProjectCommandHandler>();
+        private static void AddCommandHandlers(this IServiceCollection services)
+        {
+            services.AddTransient<IRequestHandler<GetBuildCommand, IEnumerable<BuildRoot>>, GetBuildCommandHandler>();
+            services.AddTransient<IRequestHandler<CreateBuildCommand, BuildRoot>, CreateBuildCommandHandler>();
+            services.AddTransient<IRequestHandler<UpdateBuildCommand, BuildRoot>, UpdateBuildCommandHandler>();
+            services.AddTransient<IRequestHandler<DeleteBuildCommand, bool>, DeleteBuildCommandHandler>();
+            services.AddTransient<IRequestHandler<GetProfileCommand, UserProfile>, GetProfileCommandHandler>();
+            services.AddTransient<IRequestHandler<GetProjectCommand, IEnumerable<ProjectRoot>>, GetProjectCommandHandler>();
+            services.AddTransient<IRequestHandler<CreateProjectCommand, ProjectRoot>, CreateProjectCommandHandler>();
+            services.AddTransient<IRequestHandler<UpdateProjectCommand, ProjectRoot>, UpdateProjectCommandHandler>();
 
-			services.AddTransient<ICommandHandler<GetBuildCommand, IEnumerable<BuildRoot>>, GetBuildCommandHandler>();
-			services.AddTransient<ICommandHandler<CreateBuildCommand, BuildRoot>, CreateBuildCommandHandler>();
-			services.AddTransient<ICommandHandler<UpdateBuildCommand, BuildRoot>, UpdateBuildCommandHandler>();
-			services.AddTransient<ICommandHandler<DeleteBuildCommand, bool>, DeleteBuildCommandHandler>();
-			services.AddTransient<ICommandHandler<GetProfileCommand, UserProfile>, GetProfileCommandHandler>();
-			services.AddTransient<ICommandHandler<GetProjectCommand, IEnumerable<ProjectRoot>>, GetProjectCommandHandler>();
-			services.AddTransient<ICommandHandler<CreateProjectCommand, ProjectRoot>, CreateProjectCommandHandler>();
-			services.AddTransient<ICommandHandler<UpdateProjectCommand, ProjectRoot>, UpdateProjectCommandHandler>();
-		}
+            services.AddTransient<ICommandHandler<GetBuildCommand, IEnumerable<BuildRoot>>, GetBuildCommandHandler>();
+            services.AddTransient<ICommandHandler<CreateBuildCommand, BuildRoot>, CreateBuildCommandHandler>();
+            services.AddTransient<ICommandHandler<UpdateBuildCommand, BuildRoot>, UpdateBuildCommandHandler>();
+            services.AddTransient<ICommandHandler<DeleteBuildCommand, bool>, DeleteBuildCommandHandler>();
+            services.AddTransient<ICommandHandler<GetProfileCommand, UserProfile>, GetProfileCommandHandler>();
+            services.AddTransient<ICommandHandler<GetProjectCommand, IEnumerable<ProjectRoot>>, GetProjectCommandHandler>();
+            services.AddTransient<ICommandHandler<CreateProjectCommand, ProjectRoot>, CreateProjectCommandHandler>();
+            services.AddTransient<ICommandHandler<UpdateProjectCommand, ProjectRoot>, UpdateProjectCommandHandler>();
+        }
 
-		private static void AddEventHandlers(this IServiceCollection services)
-		{
-			services.AddTransient<INotificationHandler<BuildCreatedEvent>, BuildCreatedEventHandler>();
-			services.AddTransient<INotificationHandler<BuildQueuedEvent>, BuildQueuedEventHandler>();
+        private static void AddEventHandlers(this IServiceCollection services)
+        {
+            services.AddTransient<INotificationHandler<BuildCreatedEvent>, BuildCreatedEventHandler>();
+            services.AddTransient<INotificationHandler<BuildQueuedEvent>, BuildQueuedEventHandler>();
 
-			services.AddTransient<IEventHandler<BuildCreatedEvent>, BuildCreatedEventHandler>();
-			services.AddTransient<IEventHandler<BuildQueuedEvent>, BuildQueuedEventHandler>();
-		}
+            services.AddTransient<IEventHandler<BuildCreatedEvent>, BuildCreatedEventHandler>();
+            services.AddTransient<IEventHandler<BuildQueuedEvent>, BuildQueuedEventHandler>();
+        }
 
-		private static void AddFacade(this IServiceCollection services)
-		{
-			services.AddTransient<IFacade, ApplicationFacade>();
-		}
+        private static void AddFacade(this IServiceCollection services)
+        {
+            services.AddTransient<IFacade, ApplicationFacade>();
+        }
 
-		private static void AddRepositories(this IServiceCollection services)
-		{
-			services.AddTransient<IRepository<BuildRoot>, BuildRepository>();
-			services.AddTransient<IBuildRepository, BuildRepository>();
+        private static void AddRepositories(this IServiceCollection services)
+        {
+            services.AddTransient<IRepository<BuildRoot>, BuildRepository>();
+            services.AddTransient<IBuildRepository, BuildRepository>();
 
-			services.AddTransient<IRepository<ProjectRoot>, ProjectRepository>();
-			services.AddTransient<IProjectRepository, ProjectRepository>();
-		}
+            services.AddTransient<IRepository<ProjectRoot>, ProjectRepository>();
+            services.AddTransient<IProjectRepository, ProjectRepository>();
+        }
 
-		private static void AddServices(this IServiceCollection services)
-		{
-			services.AddTransient<IBuildService, BuildService>();
-			services.AddTransient<IProjectService, ProjectService>();
-			services.AddTransient<IProfileService, ProfileService>();
-		}
+        private static void AddServices(this IServiceCollection services)
+        {
+            services.AddTransient<IBuildService, BuildService>();
+            services.AddTransient<IProjectService, ProjectService>();
+            services.AddTransient<IProfileService, ProfileService>();
+        }
 
-	}
+    }
 }

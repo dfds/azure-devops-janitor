@@ -20,7 +20,8 @@ namespace AzureDevOpsJanitor.Host.EventConsumer
 
             DependencyInjection.AddApplication(services, hostContext.Configuration);
         })
-        .ConfigureLogging(logBuilder => {
+        .ConfigureLogging(logBuilder =>
+        {
             logBuilder.AddSentry();
         });
     }

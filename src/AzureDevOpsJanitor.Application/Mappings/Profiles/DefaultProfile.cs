@@ -7,17 +7,17 @@ using ResourceProvisioning.Abstractions.Commands;
 namespace AzureDevOpsJanitor.Application.Mappings.Profiles
 {
     public sealed class DefaultProfile : AutoMapper.Profile
-	{
-		public DefaultProfile()
-		{
-			CreateMap<ProfileDto, UserProfile>()
-			.ReverseMap();
+    {
+        public DefaultProfile()
+        {
+            CreateMap<ProfileDto, UserProfile>()
+            .ReverseMap();
 
-			CreateMap<DefinitionReferenceDto, BuildDefinition>()
-			.ReverseMap();
+            CreateMap<DefinitionReferenceDto, BuildDefinition>()
+            .ReverseMap();
 
-			CreateMap<IAggregateRoot, ICommand<IAggregateRoot>>()
-			.ConvertUsing<AggregateRootToCommandConverter>();
-		}
-	}
+            CreateMap<IAggregateRoot, ICommand<IAggregateRoot>>()
+            .ConvertUsing<AggregateRootToCommandConverter>();
+        }
+    }
 }

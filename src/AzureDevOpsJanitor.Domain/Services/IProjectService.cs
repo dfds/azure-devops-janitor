@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Domain.Services
 {
-	public interface IProjectService : IDomainService
-	{
-		Task<IEnumerable<ProjectRoot>> GetAsync();
+    public interface IProjectService : IDomainService
+    {
+        Task<IEnumerable<ProjectRoot>> GetAsync();
 
-		Task<ProjectRoot> GetAsync(Guid projectId);
+        Task<ProjectRoot> GetAsync(Guid projectId);
 
-		Task<ProjectRoot> AddAsync(string name, CancellationToken cancellationToken = default);
+        Task<ProjectRoot> AddAsync(string name, CancellationToken cancellationToken = default);
 
-		Task<ProjectRoot> UpdateAsync(ProjectRoot project, CancellationToken cancellationToken = default);
+        Task<ProjectRoot> UpdateAsync(ProjectRoot project, CancellationToken cancellationToken = default);
 
-		Task DeleteAsync(Guid projectId, CancellationToken cancellationToken = default);
-	}
+        Task DeleteAsync(Guid projectId, CancellationToken cancellationToken = default);
+    }
 }

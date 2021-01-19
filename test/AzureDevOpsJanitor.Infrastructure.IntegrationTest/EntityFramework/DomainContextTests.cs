@@ -19,7 +19,7 @@ namespace AzureDevOpsJanitor.Infrastructure.IntegrationTest.EntityFramework
         {
             _fixture = fixture;
         }
-    
+
         [Fact]
         public async Task CanAddEntities()
         {

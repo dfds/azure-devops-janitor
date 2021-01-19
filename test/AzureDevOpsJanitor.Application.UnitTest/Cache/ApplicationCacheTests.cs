@@ -11,7 +11,7 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Cache
     public class ApplicationCacheTests
     {
         [Fact]
-        public void CanBeConstructed() 
+        public void CanBeConstructed()
         {
             //Arrange
             var mockOptions = new Moq.Mock<IOptions<MemoryCacheOptions>>();

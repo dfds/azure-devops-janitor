@@ -11,54 +11,54 @@ using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Application.Repositories
 {
-	public sealed class BuildRepository : EntityFrameworkRepository<BuildRoot>, IBuildRepository
-	{
-		public BuildRepository(DomainContext context) : base(context)
-		{
+    public sealed class BuildRepository : EntityFrameworkRepository<BuildRoot>, IBuildRepository
+    {
+        public BuildRepository(DomainContext context) : base(context)
+        {
 
-		}
+        }
 
-		public override async Task<IEnumerable<BuildRoot>> GetAsync(Expression<Func<BuildRoot, bool>> filter)
-		{
-			return await Task.Factory.StartNew(() =>
-			{
-				return _context.Build
-							 .AsNoTracking()
-							 .Where(filter)
-							 .Include(i => i.Status)
-							 .Include(i => i.Definition)
-							 .AsEnumerable();
-			});
-		}
+        public override async Task<IEnumerable<BuildRoot>> GetAsync(Expression<Func<BuildRoot, bool>> filter)
+        {
+            return await Task.Factory.StartNew(() =>
+            {
+                return _context.Build
+                             .AsNoTracking()
+                             .Where(filter)
+                             .Include(i => i.Status)
+                             .Include(i => i.Definition)
+                             .AsEnumerable();
+            });
+        }
 
-		public async Task<BuildRoot> GetAsync(int buildId)
-		{
-			var build = await _context.Build.FindAsync(buildId);
+        public async Task<BuildRoot> GetAsync(int buildId)
+        {
+            var build = await _context.Build.FindAsync(buildId);
 
-			if (build != null)
-			{
-				var entry = _context.Entry(build);
+            if (build != null)
+            {
+                var entry = _context.Entry(build);
 
-				if (entry != null)
-				{
-					await entry.Reference(i => i.Status).LoadAsync();
-				}
-			}
+                if (entry != null)
+                {
+                    await entry.Reference(i => i.Status).LoadAsync();
+                }
+            }
 
-			return build;
-		}
+            return build;
+        }
 
-		public async Task<IEnumerable<BuildRoot>> GetAsync(Guid projectId)
-		{
-			return await Task.Factory.StartNew(() =>
-			{
-				return _context.Build
-							 .AsNoTracking()
-							 .Where(b => b.ProjectId == projectId)
-							 .Include(i => i.Status)
-							 .Include(i => i.Definition)
-							 .AsEnumerable();
-			});
-		}
-	}
+        public async Task<IEnumerable<BuildRoot>> GetAsync(Guid projectId)
+        {
+            return await Task.Factory.StartNew(() =>
+            {
+                return _context.Build
+                             .AsNoTracking()
+                             .Where(b => b.ProjectId == projectId)
+                             .Include(i => i.Status)
+                             .Include(i => i.Definition)
+                             .AsEnumerable();
+            });
+        }
+    }
 }

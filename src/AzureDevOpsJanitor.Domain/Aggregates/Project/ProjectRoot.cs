@@ -5,23 +5,23 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AzureDevOpsJanitor.Domain.Aggregates.Project
 {
-	public sealed class ProjectRoot : AbstractRoot<Guid>
-	{
-		public string Name { get; private set; }
+    public sealed class ProjectRoot : AbstractRoot<Guid>
+    {
+        public string Name { get; private set; }
 
-		public ProjectRoot(string name)
-		{
-			Name = name;
+        public ProjectRoot(string name)
+        {
+            Name = name;
 
-			AddDomainEvent(new ProjectCreatedEvent(this));
-		}
+            AddDomainEvent(new ProjectCreatedEvent(this));
+        }
 
-		public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-		{
-			if (string.IsNullOrEmpty(Name))
-			{
-				yield return new ValidationResult(nameof(Name));
-			}
-		}
-	}
+        public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (string.IsNullOrEmpty(Name))
+            {
+                yield return new ValidationResult(nameof(Name));
+            }
+        }
+    }
 }

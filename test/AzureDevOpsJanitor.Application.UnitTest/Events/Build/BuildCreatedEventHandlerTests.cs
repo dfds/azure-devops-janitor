@@ -32,12 +32,13 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Events.Build
         }
 
         [Fact]
-        public async Task CanHandleEvent() 
+        public async Task CanHandleEvent()
         {
             //Arrange
             var mockMapper = new Mock<IMapper>();
             var mockVstsRestClient = new Mock<IVstsRestClient>();
-            var fakeVstsPayload = new DefinitionReferenceDto() { 
+            var fakeVstsPayload = new DefinitionReferenceDto()
+            {
                 Id = 1,
                 Name = "my-def",
                 Project = "my-proj",

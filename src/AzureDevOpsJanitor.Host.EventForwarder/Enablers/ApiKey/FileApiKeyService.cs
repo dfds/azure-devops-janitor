@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
@@ -15,7 +14,7 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Enablers.ApiKey
             var rawFileContent = File.ReadAllText("apikey.json");
             _keys = JsonSerializer.Deserialize<KeyFile>(rawFileContent);
         }
-        
+
         public Task<bool> IsAuthorized(string clientId, string apiKey)
         {
             if (_keys.Keys.ContainsKey(apiKey))

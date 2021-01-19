@@ -12,7 +12,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Kafka
         private readonly IOptions<KafkaOptions> _options;
         private readonly IProducer<Ignore, IIntegrationEvent> _producer;
 
-        public KafkaIntegrationEventHandler(IProducer<Ignore, IIntegrationEvent> producer, IOptions<KafkaOptions> options) 
+        public KafkaIntegrationEventHandler(IProducer<Ignore, IIntegrationEvent> producer, IOptions<KafkaOptions> options)
         {
             _producer = producer ?? throw new ArgumentException(null, nameof(producer)); ;
             _options = options ?? throw new ArgumentException(null, nameof(options)); ;

@@ -7,7 +7,7 @@ namespace AzureDevOpsJanitor.Domain.UnitTest.ValueObjects
     public class UserProfileTests
     {
         [Fact]
-        public void CanBeConstructed() 
+        public void CanBeConstructed()
         {
             //Arrange
             UserProfile sut;

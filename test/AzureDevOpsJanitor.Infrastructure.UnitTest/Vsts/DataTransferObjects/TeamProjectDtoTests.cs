@@ -24,14 +24,15 @@ namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Events
         public void CanBeSerialized()
         {
             //Arrange
-            var sut = new TeamProjectDto() { 
+            var sut = new TeamProjectDto()
+            {
                 Id = Guid.NewGuid(),
                 Name = "MyName",
                 Description = "MyDescription",
                 State = "MyState",
                 Url = new Uri("https://my-team-project-url/")
             };
-            
+
             //Act
             var payload = JsonSerializer.Serialize(sut, new JsonSerializerOptions { IgnoreNullValues = true });
 

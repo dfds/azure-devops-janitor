@@ -7,7 +7,7 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Commands.Build
     public class DeleteBuildCommandTests
     {
         [Fact]
-        public void CanBeConstructed() 
+        public void CanBeConstructed()
         {
             //Arrange
             var sut = new DeleteBuildCommand(1);
@@ -16,7 +16,7 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Commands.Build
             var hashCode = sut.GetHashCode();
 
             //Assert
-            Assert.NotNull(sut); 
+            Assert.NotNull(sut);
             Assert.Equal(hashCode, sut.GetHashCode());
             Assert.Equal(1, sut.BuildId);
         }
@@ -40,7 +40,7 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Commands.Build
             //Arrange
             DeleteBuildCommand sut;
             var json = "{\"buildId\":1}";
-            
+
             //Act
             sut = JsonSerializer.Deserialize<DeleteBuildCommand>(json);
 

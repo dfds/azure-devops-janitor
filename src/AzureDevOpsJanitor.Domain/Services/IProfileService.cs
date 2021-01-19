@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Domain.Services
 {
-	public interface IProfileService : IDomainService
-	{
-		Task<UserProfile> GetAsync(string profileIdentifier);
-	}
+    public interface IProfileService : IDomainService
+    {
+        Task<UserProfile> GetAsync(string profileIdentifier);
+    }
 }

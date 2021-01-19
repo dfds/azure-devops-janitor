@@ -18,95 +18,96 @@ using System.Reflection;
 namespace AzureDevOpsJanitor.Infrastructure
 {
     public static class DependencyInjection
-	{
-		public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
-		{
-			services.AddMediator();
-			services.AddClients(configuration);
-			services.AddEntityFramework(configuration);
-			services.AddKafka(configuration);
-		}
+    {
+        public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddMediator();
+            services.AddClients(configuration);
+            services.AddEntityFramework(configuration);
+            services.AddKafka(configuration);
+        }
 
-		private static void AddMediator(this IServiceCollection services)
-		{
-			services.AddTransient<ServiceFactory>(p => p.GetService);
+        private static void AddMediator(this IServiceCollection services)
+        {
+            services.AddTransient<ServiceFactory>(p => p.GetService);
 
-			services.AddTransient<IMediator>(p => new Mediator(p.GetService<ServiceFactory>()));
-		}
+            services.AddTransient<IMediator>(p => new Mediator(p.GetService<ServiceFactory>()));
+        }
 
-		private static void AddClients(this IServiceCollection services, IConfiguration configuration)
-		{
-			services.Configure<VstsRestClientOptions>(configuration.GetSection(VstsRestClientOptions.Vsts));
+        private static void AddClients(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<VstsRestClientOptions>(configuration.GetSection(VstsRestClientOptions.Vsts));
 
-			services.AddTransient<IVstsRestClient, VstsRestClient>(p => new VstsRestClient(p.GetService<IMemoryCache>().Get<JwtSecurityToken>(VstsRestClient.VstsAccessTokenCacheKey)));
-		}
+            services.AddTransient<IVstsRestClient, VstsRestClient>(p => new VstsRestClient(p.GetService<IMemoryCache>().Get<JwtSecurityToken>(VstsRestClient.VstsAccessTokenCacheKey)));
+        }
 
-		private static void AddKafka(this IServiceCollection services, IConfiguration configuration)
-		{
-			services.Configure<KafkaOptions>(configuration.GetSection(KafkaOptions.Kafka));
+        private static void AddKafka(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<KafkaOptions>(configuration.GetSection(KafkaOptions.Kafka));
 
-			services.AddTransient(p => {
-				var logger = p.GetService<ILogger<IProducer<Ignore, IIntegrationEvent>>>();
-				var producerOptions = p.GetService<KafkaOptions>();
-				var producerBuilder = new ProducerBuilder<Ignore, IIntegrationEvent>(producerOptions.Configuration);
-				var producer = producerBuilder.SetErrorHandler((_, e) => logger.LogError($"Error: {e.Reason}", e))
-											.SetStatisticsHandler((_, json) => logger.LogDebug($"Statistics: {json}"))
-											.Build();
+            services.AddTransient(p =>
+            {
+                var logger = p.GetService<ILogger<IProducer<Ignore, IIntegrationEvent>>>();
+                var producerOptions = p.GetService<KafkaOptions>();
+                var producerBuilder = new ProducerBuilder<Ignore, IIntegrationEvent>(producerOptions.Configuration);
+                var producer = producerBuilder.SetErrorHandler((_, e) => logger.LogError($"Error: {e.Reason}", e))
+                                            .SetStatisticsHandler((_, json) => logger.LogDebug($"Statistics: {json}"))
+                                            .Build();
 
-				return producer;
-			});
+                return producer;
+            });
 
-			services.AddTransient<INotificationHandler<IIntegrationEvent>, KafkaIntegrationEventHandler>();
-			services.AddTransient<IEventHandler<IIntegrationEvent>, KafkaIntegrationEventHandler>();
-		}
+            services.AddTransient<INotificationHandler<IIntegrationEvent>, KafkaIntegrationEventHandler>();
+            services.AddTransient<IEventHandler<IIntegrationEvent>, KafkaIntegrationEventHandler>();
+        }
 
-		private static void AddEntityFramework(this IServiceCollection services, IConfiguration configuration)
-		{
-			services.Configure<DomainContextOptions>(configuration);
+        private static void AddEntityFramework(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<DomainContextOptions>(configuration);
 
-			services.AddDbContext<DomainContext>(options =>
-			{
-				var serviceProvider = services.BuildServiceProvider();
-				var dbContextOptions = serviceProvider.GetService<IOptions<DomainContextOptions>>();
-				var callingAssemblyName = Assembly.GetExecutingAssembly().GetName().Name;
-				var connectionString = dbContextOptions.Value.ConnectionStrings?.GetValue<string>(nameof(DomainContext));
+            services.AddDbContext<DomainContext>(options =>
+            {
+                var serviceProvider = services.BuildServiceProvider();
+                var dbContextOptions = serviceProvider.GetService<IOptions<DomainContextOptions>>();
+                var callingAssemblyName = Assembly.GetExecutingAssembly().GetName().Name;
+                var connectionString = dbContextOptions.Value.ConnectionStrings?.GetValue<string>(nameof(DomainContext));
 
-				if (string.IsNullOrEmpty(connectionString))
-				{
-					return;
-				}
+                if (string.IsNullOrEmpty(connectionString))
+                {
+                    return;
+                }
 
-				services.AddSingleton(factory =>
-				{
-					var connection = new SqliteConnection(connectionString);
+                services.AddSingleton(factory =>
+                {
+                    var connection = new SqliteConnection(connectionString);
 
-					connection.Open();
+                    connection.Open();
 
-					return connection;
-				});
+                    return connection;
+                });
 
-				var dbOptions = options.UseSqlite(services.BuildServiceProvider().GetService<SqliteConnection>(),
-					sqliteOptions =>
-					{
-						sqliteOptions.MigrationsAssembly(callingAssemblyName);
-						sqliteOptions.MigrationsHistoryTable(callingAssemblyName + "_MigrationHistory");
+                var dbOptions = options.UseSqlite(services.BuildServiceProvider().GetService<SqliteConnection>(),
+                    sqliteOptions =>
+                    {
+                        sqliteOptions.MigrationsAssembly(callingAssemblyName);
+                        sqliteOptions.MigrationsHistoryTable(callingAssemblyName + "_MigrationHistory");
 
-					}).Options;
+                    }).Options;
 
-				using var context = new DomainContext(dbOptions, serviceProvider.GetService<IMediator>());
+                using var context = new DomainContext(dbOptions, serviceProvider.GetService<IMediator>());
 
-				if (!context.Database.EnsureCreated())
-				{
-					return;
-				}
+                if (!context.Database.EnsureCreated())
+                {
+                    return;
+                }
 
-				if (dbContextOptions.Value.EnableAutoMigrations)
-				{
-					context.Database.Migrate();
-				}
-			});
+                if (dbContextOptions.Value.EnableAutoMigrations)
+                {
+                    context.Database.Migrate();
+                }
+            });
 
-			services.AddScoped<IUnitOfWork>(factory => factory.GetRequiredService<DomainContext>());
-		}
-	}
+            services.AddScoped<IUnitOfWork>(factory => factory.GetRequiredService<DomainContext>());
+        }
+    }
 }

@@ -9,7 +9,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects
 
         [JsonPropertyName("refresh_token")]
         public string RefreshToken { get; set; }
-        
+
         [JsonPropertyName("expires_in")]
         public string ExpiresIn { get; set; }
 

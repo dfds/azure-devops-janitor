@@ -1,8 +1,8 @@
+using Confluent.Kafka;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Confluent.Kafka;
-using Microsoft.Extensions.Configuration;
 
 namespace AzureDevOpsJanitor.Host.EventForwarder.Enablers.Kafka
 {
@@ -30,7 +30,7 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Enablers.Kafka
 
             return Tuple.Create(key, value);
         }
-        
+
         public ConsumerConfig GetConsumerConfiguration()
         {
             return new ConsumerConfig(AsDictionary());
@@ -62,7 +62,7 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Enablers.Kafka
                 .Where(pair => pair != null)
                 .Select(pair => new KeyValuePair<string, string>(pair.Item1, pair.Item2))
                 .ToDictionary(x => x.Key, v => v.Value);
-            
+
             config.Add("request.timeout.ms", "3000");
 
             return config;

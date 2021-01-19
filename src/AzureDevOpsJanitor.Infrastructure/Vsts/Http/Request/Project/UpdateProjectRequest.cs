@@ -12,7 +12,8 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Project
             Content = new StringContent(JsonSerializer.Serialize(project));
         }
 
-        public UpdateProjectRequest(string organization, string projectId) {
+        public UpdateProjectRequest(string organization, string projectId)
+        {
             ApiVersion = "6.0";
             Method = HttpMethod.Patch;
             RequestUri = new Uri($"https://dev.azure.com/{organization}/_apis/projects/{projectId}?api-version={ApiVersion}");

@@ -9,73 +9,73 @@ using Microsoft.OpenApi.Models;
 namespace AzureDevOpsJanitor.Host.Api
 {
     public class Startup
-	{
-		public Startup(IConfiguration configuration)
-		{
-			Configuration = configuration;
-		}
+    {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
 
-		public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; }
 
-		public void ConfigureServices(IServiceCollection services)
-		{
-			AddHostServices(services);
+        public void ConfigureServices(IServiceCollection services)
+        {
+            AddHostServices(services);
 
-			DependencyInjection.AddApplication(services, Configuration);
-		}
+            DependencyInjection.AddApplication(services, Configuration);
+        }
 
-		public void Configure(IApplicationBuilder app)
-		{
-			app.UseHttpsRedirection();
-			app.UseRouting();
-			app.UseCors("open");
-			app.UseAuthentication();
-			app.UseAuthorization();
-			app.UseMiddleware<VstsCallbackMiddleware>();
-			app.UseEndpoints(endpoints => 
-			{ 
-				endpoints.MapControllers(); 
-			});
-			app.UseSwagger();
-			app.UseSwaggerUI(c =>
-			{
-				c.SwaggerEndpoint("/swagger/v1/swagger.json", "Broker API V1");
-			});
-		}
+        public void Configure(IApplicationBuilder app)
+        {
+            app.UseHttpsRedirection();
+            app.UseRouting();
+            app.UseCors("open");
+            app.UseAuthentication();
+            app.UseAuthorization();
+            app.UseMiddleware<VstsCallbackMiddleware>();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Broker API V1");
+            });
+        }
 
-		protected virtual void AddHostServices(IServiceCollection services)
-		{
-			services.AddControllers();
+        protected virtual void AddHostServices(IServiceCollection services)
+        {
+            services.AddControllers();
 
-			services.AddCors(options =>
-			{
-				options.DefaultPolicyName = "open";
-				options.AddDefaultPolicy(p =>
-				{
-					p.AllowAnyHeader();
-					p.AllowAnyMethod();
-					p.AllowCredentials();
-					p.WithExposedHeaders("X-Pagination");
-				});
-			});
+            services.AddCors(options =>
+            {
+                options.DefaultPolicyName = "open";
+                options.AddDefaultPolicy(p =>
+                {
+                    p.AllowAnyHeader();
+                    p.AllowAnyMethod();
+                    p.AllowCredentials();
+                    p.WithExposedHeaders("X-Pagination");
+                });
+            });
 
-			services.AddSwaggerGen(c =>
-			{
-				c.SwaggerDoc("v1", new OpenApiInfo
-				{
-					Title = "Broker API",
-					Version = "v1"
-				});
-			});
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Broker API",
+                    Version = "v1"
+                });
+            });
 
-			services.AddTransient<VstsCallbackMiddleware>();
+            services.AddTransient<VstsCallbackMiddleware>();
 
-			AddHostAuthentication(services);
-		}
+            AddHostAuthentication(services);
+        }
 
-		protected virtual void AddHostAuthentication(IServiceCollection services)
-		{
-			services.AddMicrosoftIdentityWebApiAuthentication(Configuration);
-		}
-	}
+        protected virtual void AddHostAuthentication(IServiceCollection services)
+        {
+            services.AddMicrosoftIdentityWebApiAuthentication(Configuration);
+        }
+    }
 }

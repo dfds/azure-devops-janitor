@@ -1,9 +1,5 @@
 ﻿using AzureDevOpsJanitor.Infrastructure.Vsts;
-using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
 using Microsoft.Extensions.Configuration;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -17,7 +13,7 @@ namespace AzureDevOpsJanitor.Infrastructure.IntegrationTest.Vsts
         {
             _fixture = fixture;
         }
-    
+
         [Fact]
         public async Task CanGetProjects()
         {

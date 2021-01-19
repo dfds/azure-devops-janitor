@@ -93,7 +93,7 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Services
             mockBuildRepository.Setup(m => m.GetAsync(It.IsAny<int>())).Returns(Task.FromResult(buildRoot));
 
             var sut = new BuildService(mockBuildRepository.Object);
-            
+
             //Act
             await sut.QueueAsync(buildId);
 

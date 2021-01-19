@@ -27,7 +27,7 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Services
         }
 
         [Fact]
-        public async Task CanGet() 
+        public async Task CanGet()
         {
             //Arrange
             var mockVstsRestClient = new Mock<IVstsRestClient>();

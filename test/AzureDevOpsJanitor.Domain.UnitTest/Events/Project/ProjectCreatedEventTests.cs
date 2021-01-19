@@ -21,7 +21,7 @@ namespace AzureDevOpsJanitor.Domain.UnitTest.Events.Project
         }
 
         [Fact]
-        public void AreNotEqual() 
+        public void AreNotEqual()
         {
             //Arrange
             var projectRoot = new ProjectRoot(string.Empty);

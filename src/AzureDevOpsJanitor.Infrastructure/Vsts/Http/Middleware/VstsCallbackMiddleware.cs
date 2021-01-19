@@ -27,7 +27,8 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.Http.Middleware
         {
             if (context.Request.Path.Value == _vstsOptions.Value.RedirectUri.AbsolutePath)
             {
-                if (!context.Request.QueryString.HasValue || !context.Request.QueryString.Value.Contains("code")) {
+                if (!context.Request.QueryString.HasValue || !context.Request.QueryString.Value.Contains("code"))
+                {
                     throw new Exception("Missing code query param in oauth2 callback");
                 }
 

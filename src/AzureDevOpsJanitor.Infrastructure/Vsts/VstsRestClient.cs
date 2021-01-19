@@ -29,7 +29,8 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", accessToken.RawData);
         }
 
-        public VstsRestClient() : base() {
+        public VstsRestClient() : base()
+        {
             DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 

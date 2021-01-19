@@ -1,6 +1,4 @@
 ﻿using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
-using AzureDevOpsJanitor.Infrastructure.Vsts.Events;
-using System;
 using System.Text.Json;
 using Xunit;
 
@@ -25,12 +23,13 @@ namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Events
         public void CanBeSerialized()
         {
             //Arrange
-            var sut = new BuildDto() { 
+            var sut = new BuildDto()
+            {
                 Id = 1,
                 Project = "MyProject",
                 BuildNumber = "1234"
             };
-            
+
             //Act
             var payload = JsonSerializer.Serialize(sut, new JsonSerializerOptions { IgnoreNullValues = true });
 

@@ -5,23 +5,23 @@ using System.Text.Json.Serialization;
 
 namespace AzureDevOpsJanitor.Domain.ValueObjects
 {
-	public sealed class UserProfile : ValueObject
-	{
-		[Required]
-		[JsonPropertyName("name")]
-		public string Name { get; private set; }
+    public sealed class UserProfile : ValueObject
+    {
+        [Required]
+        [JsonPropertyName("name")]
+        public string Name { get; private set; }
 
-		private UserProfile() { }
+        private UserProfile() { }
 
-		[JsonConstructor]
-		public UserProfile(string name)
-		{
-			Name = name;
-		}
+        [JsonConstructor]
+        public UserProfile(string name)
+        {
+            Name = name;
+        }
 
-		protected override IEnumerable<object> GetAtomicValues()
-		{
-			yield return Name;
-		}
-	}
+        protected override IEnumerable<object> GetAtomicValues()
+        {
+            yield return Name;
+        }
+    }
 }

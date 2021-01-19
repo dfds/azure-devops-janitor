@@ -24,13 +24,14 @@ namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Events
         public void CanBeSerialized()
         {
             //Arrange
-            var sut = new ProfileDto() { 
+            var sut = new ProfileDto()
+            {
                 Id = Guid.NewGuid(),
                 Name = "MyName",
                 Alias = Guid.NewGuid(),
                 Email = "myemail@dfds.com"
             };
-            
+
             //Act
             var payload = JsonSerializer.Serialize(sut, new JsonSerializerOptions { IgnoreNullValues = true });
 

@@ -7,7 +7,7 @@ namespace AzureDevOpsJanitor.Domain.UnitTest.ValueObjects
     public class BuildDefinitionTests
     {
         [Fact]
-        public void CanBeConstructed() 
+        public void CanBeConstructed()
         {
             //Arrange
             BuildDefinition sut;

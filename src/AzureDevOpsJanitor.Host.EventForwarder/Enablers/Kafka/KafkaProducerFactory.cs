@@ -1,5 +1,5 @@
-using System;
 using Confluent.Kafka;
+using System;
 
 namespace AzureDevOpsJanitor.Host.EventForwarder.Enablers.Kafka
 {
@@ -21,7 +21,7 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Enablers.Kafka
             builder.SetErrorHandler(OnKafkaError);
             return builder.Build();
         }
-        
+
         private void OnKafkaError(IProducer<string, string> producer, Error error)
         {
             if (error.IsFatal)

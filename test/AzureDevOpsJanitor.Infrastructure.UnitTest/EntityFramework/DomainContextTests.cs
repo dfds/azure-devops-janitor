@@ -41,7 +41,7 @@ namespace AzureDevOpsJanitor.Infrastructure.UnitTest.EntityFramework
             var mockMediator = new Mock<IMediator>();
 
             mockMediator.Setup(m => m.Publish(It.IsAny<IDomainEvent>(), It.IsAny<CancellationToken>()));
-                        
+
             var sut = _fixture.GetDbContext(mockMediator.Object);
 
             //Act

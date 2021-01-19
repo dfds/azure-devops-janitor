@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Domain.Repository
 {
-	public interface IBuildRepository : IRepository<BuildRoot>
-	{
-		Task<BuildRoot> GetAsync(int buildId);
+    public interface IBuildRepository : IRepository<BuildRoot>
+    {
+        Task<BuildRoot> GetAsync(int buildId);
 
-		Task<IEnumerable<BuildRoot>> GetAsync(Guid projectId);
-	}
+        Task<IEnumerable<BuildRoot>> GetAsync(Guid projectId);
+    }
 }

@@ -1,12 +1,12 @@
-using System;
-using System.Collections.Concurrent;
-using System.Threading;
-using System.Threading.Tasks;
 using AzureDevOpsJanitor.Host.EventForwarder.Enablers.Kafka;
 using AzureDevOpsJanitor.Host.EventForwarder.Models;
 using Confluent.Kafka;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Concurrent;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Host.EventForwarder.Services
 {
@@ -58,7 +58,7 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Services
                                 Value = val.Payload
                             });
                         }
-                        
+
                         Thread.Sleep(500);
                     }
                 }, _cancellationTokenSource.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default)
@@ -83,7 +83,7 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Services
             {
                 await Task.WhenAny(_executingTask, Task.Delay(-1, cancellationToken));
             }
-            
+
             Console.WriteLine("Stopping KafkaService");
 
             _cancellationTokenSource.Dispose();

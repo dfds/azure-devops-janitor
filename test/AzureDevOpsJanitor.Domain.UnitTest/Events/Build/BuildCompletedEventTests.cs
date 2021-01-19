@@ -22,7 +22,7 @@ namespace AzureDevOpsJanitor.Domain.UnitTest.Events.Build
         }
 
         [Fact]
-        public void AreNotEqual() 
+        public void AreNotEqual()
         {
             //Arrange
             var buildRoot = new BuildRoot(Guid.Empty, Guid.NewGuid().ToString(), null);

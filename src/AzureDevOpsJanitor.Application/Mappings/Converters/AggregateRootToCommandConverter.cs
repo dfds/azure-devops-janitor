@@ -16,8 +16,8 @@ namespace AzureDevOpsJanitor.Application.Mappings.Converters
             switch (source)
             {
                 case BuildRoot build:
-                    if(build.Id == 0)
-                    { 
+                    if (build.Id == 0)
+                    {
                         return new CreateBuildCommand(build.ProjectId, build.CapabilityIdentifier, build.Definition);
                     }
                     else
@@ -29,7 +29,7 @@ namespace AzureDevOpsJanitor.Application.Mappings.Converters
                     {
                         return new CreateProjectCommand(project.Name);
                     }
-                    else 
+                    else
                     {
                         return new UpdateProjectCommand(project);
                     }

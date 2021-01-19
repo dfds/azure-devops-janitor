@@ -8,13 +8,13 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Commands.Build
     public class GetBuildCommandTests
     {
         [Fact]
-        public void CanBeConstructed() 
+        public void CanBeConstructed()
         {
             //Arrange
             var sut = new GetBuildCommand(1, Guid.NewGuid());
 
             //Act
-            var hashCode = sut.GetHashCode(); 
+            var hashCode = sut.GetHashCode();
 
             //Assert
             Assert.NotNull(sut);
@@ -42,7 +42,7 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Commands.Build
             //Arrange
             GetBuildCommand sut;
             var json = "{\"projectId\":\"6def4aee-1467-4613-9b1b-5c4bf4cbbe89\",\"buildId\":1}";
-            
+
             //Act
             sut = JsonSerializer.Deserialize<GetBuildCommand>(json);
 

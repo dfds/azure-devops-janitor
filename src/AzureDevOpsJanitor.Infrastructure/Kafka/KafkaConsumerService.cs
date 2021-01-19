@@ -78,8 +78,8 @@ namespace AzureDevOpsJanitor.Infrastructure.Kafka
                             var aggregate = JsonSerializer.Deserialize<IAggregateRoot>(integrationEvent.Payload.GetString());
                             var command = _mapper.Map<IAggregateRoot, ICommand<IAggregateRoot>>(aggregate);
 
-                            if(command != null)
-                            { 
+                            if (command != null)
+                            {
                                 _applicationFacade.Execute(command, cancellationToken);
                             }
                         }

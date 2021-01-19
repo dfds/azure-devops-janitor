@@ -22,7 +22,7 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Controllers
             _logger = logger;
             _kafkaService = kafkaService;
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> Forward([FromHeader(Name = "x-topic")] string topic, [FromHeader(Name = "x-apiKey")] string apiKey)
         {
@@ -40,7 +40,7 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Controllers
                     Payload = content
                 });
             }
-            
+
             return new OkResult();
         }
     }

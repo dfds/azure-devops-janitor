@@ -8,19 +8,19 @@ using System.Threading.Tasks;
 namespace AzureDevOpsJanitor.Application.Commands.Project
 {
     public sealed class CreateProjectCommandHandler : ICommandHandler<CreateProjectCommand, ProjectRoot>
-	{
-		private readonly IProjectService _projectService;
+    {
+        private readonly IProjectService _projectService;
 
-		public CreateProjectCommandHandler(IProjectService projectService)
-		{
-			_projectService = projectService ?? throw new ArgumentNullException(nameof(projectService));
-		}
+        public CreateProjectCommandHandler(IProjectService projectService)
+        {
+            _projectService = projectService ?? throw new ArgumentNullException(nameof(projectService));
+        }
 
-		public async Task<ProjectRoot> Handle(CreateProjectCommand command, CancellationToken cancellationToken = default)
-		{
-			var project = await _projectService.AddAsync(command.Name, cancellationToken);
+        public async Task<ProjectRoot> Handle(CreateProjectCommand command, CancellationToken cancellationToken = default)
+        {
+            var project = await _projectService.AddAsync(command.Name, cancellationToken);
 
-			return project;
-		}
-	}
+            return project;
+        }
+    }
 }

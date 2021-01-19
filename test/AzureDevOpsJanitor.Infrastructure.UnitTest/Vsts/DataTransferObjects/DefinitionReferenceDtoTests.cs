@@ -24,7 +24,8 @@ namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Events
         public void CanBeSerialized()
         {
             //Arrange
-            var sut = new DefinitionReferenceDto() { 
+            var sut = new DefinitionReferenceDto()
+            {
                 Id = 1,
                 Name = "MyName",
                 Project = "MyProject",
@@ -33,7 +34,7 @@ namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Events
                 Type = "MyType",
                 Uri = new Uri("https://foo.bar/")
             };
-            
+
             //Act
             var payload = JsonSerializer.Serialize(sut, new JsonSerializerOptions { IgnoreNullValues = true });
 

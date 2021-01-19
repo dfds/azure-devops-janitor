@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Domain.Repository
 {
-	public interface IProjectRepository : IRepository<ProjectRoot>
-	{
-		Task<ProjectRoot> GetAsync(Guid projectId);
-	}
+    public interface IProjectRepository : IRepository<ProjectRoot>
+    {
+        Task<ProjectRoot> GetAsync(Guid projectId);
+    }
 }
