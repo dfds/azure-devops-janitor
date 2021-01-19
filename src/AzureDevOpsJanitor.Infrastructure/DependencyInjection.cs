@@ -22,7 +22,7 @@ namespace AzureDevOpsJanitor.Infrastructure
 		public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
 		{
 			services.AddMediator();
-			services.AddClients();
+			services.AddClients(configuration);
 			services.AddEntityFramework(configuration);
 			services.AddKafka(configuration);
 		}
@@ -34,8 +34,10 @@ namespace AzureDevOpsJanitor.Infrastructure
 			services.AddTransient<IMediator>(p => new Mediator(p.GetService<ServiceFactory>()));
 		}
 
-		private static void AddClients(this IServiceCollection services)
+		private static void AddClients(this IServiceCollection services, IConfiguration configuration)
 		{
+			services.Configure<KafkaOptions>(configuration.GetSection(KafkaOptions.Kafka));
+
 			services.AddTransient<IVstsRestClient, VstsRestClient>(p => new VstsRestClient(p.GetService<IMemoryCache>().Get<JwtSecurityToken>(VstsRestClient.VstsAccessTokenCacheKey)));
 		}
 

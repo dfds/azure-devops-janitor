@@ -1,9 +1,11 @@
 ﻿using System;
 
-namespace AzureDevOpsJanitor.Host.Api.Settings
+namespace AzureDevOpsJanitor.Infrastructure.Vsts
 {
-    public sealed class VstsSettings
+    public sealed class VstsRestClientOptions
     {
+        public const string Vsts = "Vsts";
+
         public Uri Issuer { get; set; }
 
         public Uri AuthorizeService => new Uri($"{Issuer.AbsoluteUri}/oauth2/authorize");

@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace AzureDevOpsJanitor.Host.Api.Models.Vsts
+namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects
 {
-    internal sealed class VstsStsDto
+    public sealed class VstsStsDto
     {
         [JsonPropertyName("access_token")]
         public string AccessToken { get; set; }

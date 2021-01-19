@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects
 {
-    public class TeamProjectDto
+    public sealed class TeamProjectDto
     {
         [JsonPropertyName("id")]
         public Guid Id { get; set; }
