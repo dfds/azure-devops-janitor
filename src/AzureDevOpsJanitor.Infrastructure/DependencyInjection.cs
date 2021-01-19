@@ -24,10 +24,8 @@ namespace AzureDevOpsJanitor.Infrastructure
 		{
 			services.AddTransient<ServiceFactory>(p => p.GetService);
 
-			services.AddOptions<DomainContextOptions>()
-					.Bind(configuration);
-			services.AddOptions<KafkaOptions>()
-					.Bind(configuration);
+			services.Configure<DomainContextOptions>(configuration);
+			services.Configure<KafkaOptions>(configuration.GetSection(KafkaOptions.Kafka));
 
 			services.AddClients();
 			services.AddEntityFramework();
@@ -70,6 +68,8 @@ namespace AzureDevOpsJanitor.Infrastructure
 		private static void AddEntityFramework(this IServiceCollection services)
 		{
 			var dbContextOptions = services.BuildServiceProvider().GetService<IOptions<DomainContextOptions>>();
+			var c1 = dbContextOptions.Value.ConnectionStrings?.GetValue<string>(nameof(DomainContext));
+			var kafkaOptions = services.BuildServiceProvider().GetService<IOptions<KafkaOptions>>();
 
 			services.AddDbContext<DomainContext>(options =>
 			{

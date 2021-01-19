@@ -6,7 +6,7 @@ using ResourceProvisioning.Abstractions.Facade;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AzureDevOpsJanitor.Host.KafkaWorker
+namespace AzureDevOpsJanitor.Host.EventConsumer
 {
     public class Worker : KafkaConsumerService
     {

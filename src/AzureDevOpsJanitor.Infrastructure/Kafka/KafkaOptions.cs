@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace AzureDevOpsJanitor.Infrastructure.Kafka
 {
     public class KafkaOptions
     {
-        [Required]
+        public const string Kafka = "Kafka";
+
         public IDictionary<string, string> Configuration { get; set; }
 
-        [Required]
         public IEnumerable<string> Topics { get; set; }
 
         public bool EnablePartitionEof { get; set; } = false;

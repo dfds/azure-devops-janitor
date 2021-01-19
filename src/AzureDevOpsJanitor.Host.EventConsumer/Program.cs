@@ -1,8 +1,9 @@
 using AzureDevOpsJanitor.Application;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
-namespace AzureDevOpsJanitor.Host.KafkaWorker
+namespace AzureDevOpsJanitor.Host.EventConsumer
 {
     public static class Program
     {
@@ -15,9 +16,12 @@ namespace AzureDevOpsJanitor.Host.KafkaWorker
         Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder(args)
         .ConfigureServices((hostContext, services) =>
         {
-            DependencyInjection.AddApplication(services, hostContext.Configuration);
-
             services.AddHostedService<Worker>();
+
+            DependencyInjection.AddApplication(services, hostContext.Configuration);
+        })
+        .ConfigureLogging(logBuilder => {
+            logBuilder.AddSentry();
         });
     }
 }
