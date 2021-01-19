@@ -11,10 +11,11 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Build
 		private BuildStatus _status;
 #pragma warning disable IDE0052 // Remove unread private members
 		private int _statusId;
-		private readonly string _capabilityIdentifier;
 #pragma warning restore IDE0052 // Remove unread private members
 
-        public Guid ProjectId { get; private set; }
+		public string CapabilityIdentifier { get; init; }
+
+		public Guid ProjectId { get; private set; }
 
         public BuildDefinition Definition { get; private set; }
 
@@ -39,7 +40,7 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Build
 
 		public BuildRoot(Guid projectId, string capabilityIdentifier, BuildDefinition definition) : this()
 		{
-			_capabilityIdentifier = capabilityIdentifier;
+			CapabilityIdentifier = capabilityIdentifier;
 			ProjectId = projectId;
 			Definition = definition;
 		}

@@ -31,10 +31,11 @@ namespace AzureDevOpsJanitor.Infrastructure.Kafka
 
         protected override Task ExecuteAsync(CancellationToken cancellationToken)
         {
-            var config = new ConsumerConfig(_options.Value.Configuration);
-
-            config.EnablePartitionEof = _options.Value.EnablePartitionEof;
-            config.StatisticsIntervalMs = _options.Value.StatisticsIntervalMs;
+            var config = new ConsumerConfig(_options.Value.Configuration)
+            {
+                EnablePartitionEof = _options.Value.EnablePartitionEof,
+                StatisticsIntervalMs = _options.Value.StatisticsIntervalMs
+            };
 
             using var consumer = new ConsumerBuilder<Ignore, string>(config)
                 .SetErrorHandler((_, e) => _logger.LogError($"Error: {e.Reason}", e))
@@ -75,11 +76,12 @@ namespace AzureDevOpsJanitor.Infrastructure.Kafka
                         {
                             var integrationEvent = JsonSerializer.Deserialize<IIntegrationEvent>(consumeResult.Message.Value);
                             var aggregate = JsonSerializer.Deserialize<IAggregateRoot>(integrationEvent.Payload.GetString());
-
-                            //TODO: Mapping. Aggregate should map to commands based on state.
                             var command = _mapper.Map<IAggregateRoot, ICommand<IAggregateRoot>>(aggregate);
 
-                            _applicationFacade.Execute(command, cancellationToken);
+                            if(command != null)
+                            { 
+                                _applicationFacade.Execute(command, cancellationToken);
+                            }
                         }
 
                         if (consumeResult.Offset % _options.Value.CommitPeriod == 0)

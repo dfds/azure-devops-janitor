@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using AzureDevOpsJanitor.Application.Commands.Build;
+using AzureDevOpsJanitor.Domain.Aggregates.Build;
 using ResourceProvisioning.Abstractions.Aggregates;
 using ResourceProvisioning.Abstractions.Commands;
 
@@ -8,7 +10,21 @@ namespace AzureDevOpsJanitor.Application.Mapping.Converters
     {
         public ICommand<IAggregateRoot> Convert(IAggregateRoot source, ICommand<IAggregateRoot> destination, ResolutionContext context)
         {
-            throw new System.NotImplementedException();
+            switch (source)
+            {
+                case BuildRoot build:
+                    if(build.Id == 0)
+                    { 
+                        return new CreateBuildCommand(build.ProjectId, build.CapabilityIdentifier, build.Definition);
+                    }
+
+                    break;
+                case null:
+                default:
+                    break;
+            }
+
+            return null;
         }
     }
 }
