@@ -69,17 +69,6 @@ namespace AzureDevOpsJanitor.Host.Api
 				});
 			});
 
-			services.AddAsyncApi(options =>
-			{
-				options.AsyncApi = new AsyncApiDocument
-				{
-					Info = new Info("Async API", "1.0.0")
-					{
-						Description = "Description"
-					}
-				};
-			});
-
 			services.AddTransient<VstsCallbackMiddleware>();
 
 			AddHostAuthentication(services);
