@@ -18,17 +18,14 @@ namespace AzureDevOpsJanitor.Application.Repositories
 
         }
 
-        public override async Task<IEnumerable<BuildRoot>> GetAsync(Expression<Func<BuildRoot, bool>> filter)
+        public override Task<IEnumerable<BuildRoot>> GetAsync(Expression<Func<BuildRoot, bool>> filter)
         {
-            return await Task.Factory.StartNew(() =>
-            {
-                return _context.Build
-                             .AsNoTracking()
-                             .Where(filter)
-                             .Include(i => i.Status)
-                             .Include(i => i.Definition)
-                             .AsEnumerable();
-            });
+            return Task.FromResult(_context.Build
+                        .AsNoTracking()
+                        .Where(filter)
+                        .Include(i => i.Status)
+                        .Include(i => i.Definition)
+                        .AsEnumerable());
         }
 
         public async Task<BuildRoot> GetAsync(int buildId)
@@ -50,15 +47,7 @@ namespace AzureDevOpsJanitor.Application.Repositories
 
         public async Task<IEnumerable<BuildRoot>> GetAsync(Guid projectId)
         {
-            return await Task.Factory.StartNew(() =>
-            {
-                return _context.Build
-                             .AsNoTracking()
-                             .Where(b => b.ProjectId == projectId)
-                             .Include(i => i.Status)
-                             .Include(i => i.Definition)
-                             .AsEnumerable();
-            });
+            return await GetAsync(o => o.ProjectId == projectId);
         }
     }
 }

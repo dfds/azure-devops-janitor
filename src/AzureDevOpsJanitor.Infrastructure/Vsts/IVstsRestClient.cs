@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts
 {
+    //TODO: Class is getting bloated. We need a Facade pattern.
     public interface IVstsRestClient
     {
         Task<IEnumerable<TeamProjectDto>> GetProjects(string organization);
