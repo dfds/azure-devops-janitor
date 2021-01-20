@@ -38,8 +38,6 @@ namespace AzureDevOpsJanitor.Infrastructure.EntityFramework
         {
             _mediator = mediator;
             _seedData = seedData;
-
-            System.Diagnostics.Debug.WriteLine($"{nameof(DomainContext)}::ctor ->" + GetHashCode());
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -89,8 +87,8 @@ namespace AzureDevOpsJanitor.Infrastructure.EntityFramework
                 if (!Validator.TryValidateObject(entity, validationContext, results, true))
                 {
                     var messages = results.Select(r => r.ErrorMessage).ToList().Aggregate((message, nextMessage) => message + ", " + nextMessage);
-
-                    throw new System.Exception($"Unable to save changes for {entity.GetType().FullName} due to error(s): {messages}");
+                    
+                    throw new DomainContextException($"Unable to save changes for {entity.GetType().FullName} due to error(s): {messages}");
                 }
             }
 
