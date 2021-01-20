@@ -5,14 +5,12 @@ using Confluent.Kafka;
 using MediatR;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ResourceProvisioning.Abstractions.Data;
 using ResourceProvisioning.Abstractions.Events;
-using System.IdentityModel.Tokens.Jwt;
 using System.Reflection;
 
 namespace AzureDevOpsJanitor.Infrastructure

@@ -38,17 +38,17 @@ namespace AzureDevOpsJanitor.Infrastructure.Kafka
             };
 
             using var consumer = new ConsumerBuilder<Ignore, string>(config)
-                .SetErrorHandler((_, e) => _logger.LogError($"Error: {e.Reason}", e))
-                .SetStatisticsHandler((_, json) => _logger.LogDebug($"Statistics: {json}"))
-                .SetPartitionsAssignedHandler((c, partitions) =>
-                {
-                    _logger.LogInformation($"Assigned partitions: [{string.Join(", ", partitions)}]");
-                })
-                .SetPartitionsRevokedHandler((c, partitions) =>
-                {
-                    _logger.LogInformation($"Revoking assignment: [{string.Join(", ", partitions)}]");
-                })
-                .Build();
+            .SetErrorHandler((_, e) => _logger.LogError($"Error: {e.Reason}", e))
+            .SetStatisticsHandler((_, json) => _logger.LogDebug($"Statistics: {json}"))
+            .SetPartitionsAssignedHandler((c, partitions) =>
+            {
+                _logger.LogInformation($"Assigned partitions: [{string.Join(", ", partitions)}]");
+            })
+            .SetPartitionsRevokedHandler((c, partitions) =>
+            {
+                _logger.LogInformation($"Revoking assignment: [{string.Join(", ", partitions)}]");
+            })
+            .Build();
 
             foreach (var topic in _options.Value.Topics)
             {
