@@ -1,5 +1,5 @@
 using AzureDevOpsJanitor.Host.EventForwarder.Attributes;
-using AzureDevOpsJanitor.Host.EventForwarder.Models;
+using AzureDevOpsJanitor.Host.EventForwarder.Events;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
@@ -27,7 +27,7 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Controllers
             using (var reader = new StreamReader(Request.Body, Encoding.UTF8))
             {
                 var content = await reader.ReadToEndAsync();
-                var @event = new ForwardContent(JsonDocument.Parse(content).RootElement, new[] { topic });                
+                var @event = new ForwardContentEvent(JsonDocument.Parse(content).RootElement, new[] { topic });                
 
                 await _mediator.Publish(@event);
             }
