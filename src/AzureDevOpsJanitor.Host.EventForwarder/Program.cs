@@ -12,6 +12,10 @@ namespace AzureDevOpsJanitor.Host.EventForwarder
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+                .ConfigureWebHostDefaults(webBuilder => 
+                {
+                    webBuilder.UseSentry();
+                    webBuilder.UseStartup<Startup>(); 
+                });
     }
 }
