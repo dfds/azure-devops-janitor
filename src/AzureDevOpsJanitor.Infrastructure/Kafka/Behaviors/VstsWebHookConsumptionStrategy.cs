@@ -29,9 +29,18 @@ namespace AzureDevOpsJanitor.Infrastructure.Kafka.Behaviors
             if (!string.IsNullOrEmpty(target.Message.Value))
             {
                 var payload = JsonSerializer.Deserialize<IIntegrationEvent>(target.Message.Value);
-                //TODO: Switch this to map correctly. For now assume its a build dto.
-                var dto = JsonSerializer.Deserialize<BuildDto>(payload.Payload?.GetString());
-                var aggregate = _mapper.Map<IAggregateRoot>(dto);
+                IAggregateRoot aggregate;
+
+                //TODO: Finish switch 
+                switch (payload.Type)
+                {
+                    default:
+                        var dto = JsonSerializer.Deserialize<BuildDto>(payload.Payload?.GetString());
+
+                        aggregate = _mapper.Map<IAggregateRoot>(dto);
+                        break;
+                }
+
                 var command = _mapper.Map<IAggregateRoot, ICommand<IAggregateRoot>>(aggregate);
 
                 if (command != null)

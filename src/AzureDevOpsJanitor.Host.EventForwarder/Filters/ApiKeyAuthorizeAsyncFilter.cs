@@ -10,9 +10,8 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Filters
 {
     public class ApiKeyAuthorizeAsyncFilter : IAsyncAuthorizationFilter
     {
-        //TODO: Replace static with const. Unless its intended behavior that people should be able to change this dynamically? (generally a bad idea)
-        public static string ApiKeyHeaderName = "x-apiKey";
-        public static string ClientIdHeaderName = "x-clientId";
+        public const string ApiKeyHeaderName = "x-apiKey";
+        public const string ClientIdHeaderName = "x-clientId";
 
         private readonly ILogger<ApiKeyAuthorizeAsyncFilter> _logger;
         private readonly IApiKeyService _apiKeyService;
