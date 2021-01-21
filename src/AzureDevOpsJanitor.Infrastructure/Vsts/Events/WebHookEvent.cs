@@ -1,5 +1,6 @@
 ﻿using ResourceProvisioning.Abstractions.Events;
 using System;
+using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -8,22 +9,22 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.Events
     public abstract class WebHookEvent : IIntegrationEvent
     {
         [JsonPropertyName("id")]
-        public Guid Id { get; set; }
+        public Guid Id { get; init; }
 
         [JsonPropertyName("publisherId")]
-        public string PublisherId { get; set; }
+        public string PublisherId { get; init; }
 
         [JsonPropertyName("eventType")]
-        public string EventType { get; set; }
+        public string EventType { get; init; }
 
         [JsonPropertyName("scope")]
-        public string Scope { get; set; }
+        public string Scope { get; init; }
 
         [JsonPropertyName("message")]
-        public JsonElement? Message { get; set; }
+        public JsonElement? Message { get; init; }
 
         [JsonPropertyName("resource")]
-        public JsonElement? Resource { get; set; }
+        public JsonElement? Resource { get; init; }
 
         public Guid CorrelationId => Id;
 
@@ -34,5 +35,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.Events
         public string Type => EventType;
 
         public JsonElement? Payload => Message;
+
+        public IEnumerable<string> Topics { get; init; }
     }
 }

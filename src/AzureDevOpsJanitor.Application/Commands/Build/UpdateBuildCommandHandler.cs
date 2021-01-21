@@ -18,11 +18,7 @@ namespace AzureDevOpsJanitor.Application.Commands.Build
 
         public async Task<BuildRoot> Handle(UpdateBuildCommand command, CancellationToken cancellationToken = default)
         {
-            var build = await _buildService.UpdateAsync(command.Build);
-
-            //TODO: Figure out if we need to dequeue the build if the state is terminated.
-
-            return build;
+            return await _buildService.UpdateAsync(command.Build);
         }
     }
 }

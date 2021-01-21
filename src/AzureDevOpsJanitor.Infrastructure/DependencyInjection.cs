@@ -1,5 +1,6 @@
 ﻿using AzureDevOpsJanitor.Infrastructure.EntityFramework;
 using AzureDevOpsJanitor.Infrastructure.Kafka;
+using AzureDevOpsJanitor.Infrastructure.Kafka.Events;
 using AzureDevOpsJanitor.Infrastructure.Vsts;
 using Confluent.Kafka;
 using MediatR;
@@ -55,8 +56,8 @@ namespace AzureDevOpsJanitor.Infrastructure
                 return producer;
             });
 
-            services.AddTransient<INotificationHandler<IIntegrationEvent>, KafkaIntegrationEventHandler>();
-            services.AddTransient<IEventHandler<IIntegrationEvent>, KafkaIntegrationEventHandler>();
+            services.AddTransient<INotificationHandler<IIntegrationEvent>, DefaultIntegrationEventHandler>();
+            services.AddTransient<IEventHandler<IIntegrationEvent>, DefaultIntegrationEventHandler>();
         }
 
         private static void AddEntityFramework(this IServiceCollection services, IConfiguration configuration)

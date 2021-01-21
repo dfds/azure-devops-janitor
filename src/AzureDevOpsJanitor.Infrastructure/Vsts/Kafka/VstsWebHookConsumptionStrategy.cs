@@ -1,30 +1,24 @@
 ﻿using AutoMapper;
+using AzureDevOpsJanitor.Infrastructure.Kafka.Behaviors;
 using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
 using Confluent.Kafka;
 using ResourceProvisioning.Abstractions.Aggregates;
-using ResourceProvisioning.Abstractions.Behaviours;
 using ResourceProvisioning.Abstractions.Commands;
 using ResourceProvisioning.Abstractions.Events;
 using ResourceProvisioning.Abstractions.Facade;
-using System;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AzureDevOpsJanitor.Infrastructure.Kafka.Behaviors
+namespace AzureDevOpsJanitor.Infrastructure.Vsts.Kafka
 {
-    public sealed class VstsWebHookConsumptionStrategy : IStrategy<ConsumeResult<Ignore, string>>
+    public sealed class VstsWebHookConsumptionStrategy : AbstractConsumtionStrategy
     {
-        private readonly IFacade _applicationFacade;
-        private readonly IMapper _mapper;
-
-        public VstsWebHookConsumptionStrategy(IMapper mapper, IFacade applicationFacade)
+        public VstsWebHookConsumptionStrategy(IMapper mapper, IFacade applicationFacade) : base(mapper, applicationFacade)
         {
-            _mapper = mapper ?? throw new ArgumentException(null, nameof(mapper));
-            _applicationFacade = applicationFacade ?? throw new ArgumentException(null, nameof(applicationFacade));
         }
 
-        public ValueTask<ConsumeResult<Ignore, string>> Apply(ConsumeResult<Ignore, string> target, CancellationToken cancellationToken)
+        public override ValueTask<ConsumeResult<Ignore, string>> Apply(ConsumeResult<Ignore, string> target, CancellationToken cancellationToken)
         {
             if (!string.IsNullOrEmpty(target.Message.Value))
             {

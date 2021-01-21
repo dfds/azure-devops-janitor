@@ -5,7 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\AzureDevOpsJanitor.Application\AzureDevOpsJanitor.Application.csproj" />
+      <ProjectReference Include="..\AzureDevOpsJanitor.Infrastructure\AzureDevOpsJanitor.Infrastructure.csproj" />
     </ItemGroup>
 
 

@@ -1,10 +1,10 @@
 using AzureDevOpsJanitor.Host.EventForwarder.Attributes;
 using AzureDevOpsJanitor.Host.EventForwarder.Models;
-using AzureDevOpsJanitor.Host.EventForwarder.Services;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.IO;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Host.EventForwarder.Controllers
@@ -14,31 +14,22 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Controllers
     [ApiKeyAuthorize]
     public class ForwarderController : Controller
     {
-        private readonly ILogger<ForwarderController> _logger;
-        private readonly KafkaService _kafkaService;
+        private readonly IMediator _mediator;
 
-        public ForwarderController(ILogger<ForwarderController> logger, KafkaService kafkaService)
+        public ForwarderController(IMediator mediator)
         {
-            _logger = logger;
-            _kafkaService = kafkaService;
+            _mediator = mediator;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Forward([FromHeader(Name = "x-topic")] string topic, [FromHeader(Name = "x-apiKey")] string apiKey)
+        public async Task<IActionResult> Forward([FromHeader(Name = "x-topic")] string topic)
         {
-            //TODO: Rewrite headers to be a middleware
-            _logger.LogInformation($"topic: {topic}");
-            _logger.LogInformation($"apiKey: {apiKey}");
-
             using (var reader = new StreamReader(Request.Body, Encoding.UTF8))
             {
                 var content = await reader.ReadToEndAsync();
+                var @event = new ForwardContent(JsonDocument.Parse(content).RootElement, new[] { topic });                
 
-                _kafkaService.Queue(new ForwardContent()
-                {
-                    Topic = topic,
-                    Payload = content
-                });
+                await _mediator.Publish(@event);
             }
 
             return new OkResult();
