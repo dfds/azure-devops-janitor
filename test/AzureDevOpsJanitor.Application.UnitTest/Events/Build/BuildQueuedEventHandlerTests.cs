@@ -38,10 +38,9 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Events.Build
             {
                 Id = 1,
                 Name = "my-def",
-                Project = "my-proj",
                 QueueStatus = "my-queue-status",
                 Type = "my-type",
-                Revision = "my-revision"
+                Revision = 1
             };
 
             var sut = new BuildQueuedEventHandler(mockMapper.Object, mockVstsRestClient.Object);

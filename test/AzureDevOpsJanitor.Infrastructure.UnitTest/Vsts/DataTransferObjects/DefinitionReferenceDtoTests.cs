@@ -28,9 +28,8 @@ namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Events
             {
                 Id = 1,
                 Name = "MyName",
-                Project = "MyProject",
                 QueueStatus = "MyQueueStatus",
-                Revision = "MyRevision",
+                Revision = 1,
                 Type = "MyType",
                 Uri = new Uri("https://foo.bar/")
             };
@@ -49,15 +48,14 @@ namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Events
             DefinitionReferenceDto sut;
 
             //Act
-            sut = JsonSerializer.Deserialize<DefinitionReferenceDto>("{\"id\":1,\"name\":\"MyName\",\"project\":\"MyProject\",\"revision\":\"MyRevision\",\"type\":\"MyType\",\"uri\":\"https://foo.bar\",\"queueStatus\":\"MyQueueStatus\"}");
+            sut = JsonSerializer.Deserialize<DefinitionReferenceDto>("{\"id\":1,\"name\":\"MyName\",\"revision\":1,\"type\":\"MyType\",\"uri\":\"https://foo.bar\",\"queueStatus\":\"MyQueueStatus\"}");
 
             //Assert
             Assert.NotNull(sut);
             Assert.Equal(1, sut.Id);
             Assert.Equal("MyName", sut.Name);
-            Assert.Equal("MyProject", sut.Project);
             Assert.Equal("MyQueueStatus", sut.QueueStatus);
-            Assert.Equal("MyRevision", sut.Revision);
+            Assert.Equal(1, sut.Revision);
             Assert.Equal("MyType", sut.Type);
             Assert.Equal("https://foo.bar/", sut.Uri.AbsoluteUri);
         }

@@ -1,10 +1,11 @@
-﻿using System;
+﻿using ResourceProvisioning.Abstractions.Events;
+using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts.Events
 {
-    public abstract class VstsEvent
+    public abstract class WebHookEvent : IIntegrationEvent
     {
         [JsonPropertyName("id")]
         public Guid Id { get; set; }
@@ -23,5 +24,15 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.Events
 
         [JsonPropertyName("resource")]
         public JsonElement? Resource { get; set; }
+
+        public Guid CorrelationId => Id;
+
+        public DateTime CreationDate => DateTime.Now;
+
+        public int SchemaVersion => 1;
+
+        public string Type => EventType;
+
+        public JsonElement? Payload => Message;
     }
 }

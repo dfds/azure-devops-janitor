@@ -1,6 +1,6 @@
 ﻿namespace AzureDevOpsJanitor.Infrastructure.Vsts.Events
 {
-    public sealed class ReleaseApprovalPendingEvent : VstsEvent
+    public sealed class ReleaseApprovalPendingEvent : WebHookEvent
     {
 
     }

@@ -1,6 +1,6 @@
 ﻿namespace AzureDevOpsJanitor.Infrastructure.Vsts.Events
 {
-    public sealed class ReleaseAbandonedEvent : VstsEvent
+    public sealed class ReleaseAbandonedEvent : WebHookEvent
     {
 
     }

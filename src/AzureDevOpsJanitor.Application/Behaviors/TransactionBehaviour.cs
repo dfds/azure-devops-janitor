@@ -17,7 +17,7 @@ namespace AzureDevOpsJanitor.Application.Behaviors
             ILogger<TransactionBehaviour<TRequest, TResponse>> logger)
         {
             _dbContext = dbContext ?? throw new ArgumentException(null, nameof(dbContext));
-            _logger = logger ?? throw new ArgumentException(null, nameof(ILogger));
+            _logger = logger ?? throw new ArgumentException(null, nameof(logger));
         }
 
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)

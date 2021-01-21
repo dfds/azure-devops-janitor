@@ -12,12 +12,12 @@ using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts.Http.Middleware
 {
-    public sealed class VstsCallbackMiddleware : IMiddleware
+    public sealed class StsCallbackMiddleware : IMiddleware
     {
         private readonly IMemoryCache _cache;
         private readonly IOptions<VstsRestClientOptions> _vstsOptions;
 
-        public VstsCallbackMiddleware(IMemoryCache cache, IOptions<VstsRestClientOptions> options)
+        public StsCallbackMiddleware(IMemoryCache cache, IOptions<VstsRestClientOptions> options)
         {
             _cache = cache;
             _vstsOptions = options;
@@ -45,7 +45,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.Http.Middleware
 
                 var stsResponse = await client.PostAsync(_vstsOptions.Value.TokenService.AbsoluteUri, new FormUrlEncodedContent(formData));
                 var stsResponseData = await stsResponse.Content.ReadAsStringAsync();
-                var stsPayload = JsonSerializer.Deserialize<VstsStsDto>(stsResponseData);
+                var stsPayload = JsonSerializer.Deserialize<StsDto>(stsResponseData);
                 var tokenHandler = new JwtSecurityTokenHandler();
 
                 if (tokenHandler.CanReadToken(stsPayload.AccessToken))

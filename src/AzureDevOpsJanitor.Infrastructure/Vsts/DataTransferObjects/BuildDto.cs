@@ -10,7 +10,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects
         public int Id { get; set; }
 
         [JsonPropertyName("project")]
-        public string Project { get; set; }
+        public TeamProjectDto Project { get; set; }
 
         [JsonPropertyName("buildNumber")]
         public string BuildNumber { get; set; }

@@ -10,7 +10,7 @@ namespace AzureDevOpsJanitor.Host.EventConsumer
 {
     public class Worker : KafkaConsumerService
     {
-        public Worker(ILogger<KafkaConsumerService> logger, IMapper mapper, IOptions<KafkaOptions> options, IFacade applicationFacade) : base(logger, mapper, options, applicationFacade)
+        public Worker(ILogger<KafkaConsumerService> logger, IOptions<KafkaOptions> options, IMapper mapper, IFacade applicationFacade) : base(logger, options, mapper, applicationFacade)
         {
         }
 

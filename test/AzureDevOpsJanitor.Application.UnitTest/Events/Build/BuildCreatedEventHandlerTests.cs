@@ -41,10 +41,9 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Events.Build
             {
                 Id = 1,
                 Name = "my-def",
-                Project = "my-proj",
                 QueueStatus = "my-queue-status",
                 Type = "my-type",
-                Revision = "my-revision"
+                Revision = 1
             };
 
             mockMapper.Setup(m => m.Map<DefinitionReferenceDto>(It.IsAny<BuildDefinition>())).Returns(fakeVstsPayload);

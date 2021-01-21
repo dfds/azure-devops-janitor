@@ -1,11 +1,12 @@
 ﻿using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
+using ResourceProvisioning.Abstractions.Protocols.Http;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts
 {
     //TODO: Class is getting bloated. We need a Facade pattern.
-    public interface IVstsRestClient
+    public interface IVstsRestClient : IRestClient
     {
         Task<IEnumerable<TeamProjectDto>> GetProjects(string organization);
 

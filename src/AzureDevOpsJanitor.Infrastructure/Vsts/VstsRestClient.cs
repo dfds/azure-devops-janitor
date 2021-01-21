@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts
 {
+    //TODO: Change inheritance from HttpClient to RestClient.
     public sealed class VstsRestClient : HttpClient, IVstsRestClient
     {
         public const string VstsAccessTokenCacheKey = "vstsAccessToken";
@@ -156,7 +157,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new VstsClientException("Could not find requested buildId");
+                throw new VstsRestClientException("Could not find requested buildId");
             }
 
             return;

@@ -26,7 +26,6 @@ namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Events
             var sut = new BuildDto()
             {
                 Id = 1,
-                Project = "MyProject",
                 BuildNumber = "1234"
             };
 
@@ -44,12 +43,11 @@ namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Events
             BuildDto sut;
 
             //Act
-            sut = JsonSerializer.Deserialize<BuildDto>("{\"id\":1,\"project\":\"MyProject\",\"buildNumber\":\"1234\"}");
+            sut = JsonSerializer.Deserialize<BuildDto>("{\"id\":1,\"buildNumber\":\"1234\"}");
 
             //Assert
             Assert.NotNull(sut);
             Assert.Equal(1, sut.Id);
-            Assert.Equal("MyProject", sut.Project);
             Assert.Equal("1234", sut.BuildNumber);
         }
     }

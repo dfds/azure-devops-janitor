@@ -1,14 +1,12 @@
 ﻿using AutoMapper;
+using AzureDevOpsJanitor.Infrastructure.Kafka.Behaviors;
 using Confluent.Kafka;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using ResourceProvisioning.Abstractions.Aggregates;
-using ResourceProvisioning.Abstractions.Commands;
-using ResourceProvisioning.Abstractions.Events;
+using ResourceProvisioning.Abstractions.Behaviours;
 using ResourceProvisioning.Abstractions.Facade;
 using System;
-using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,19 +15,21 @@ namespace AzureDevOpsJanitor.Infrastructure.Kafka
     public class KafkaConsumerService : BackgroundService
     {
         protected readonly ILogger<KafkaConsumerService> _logger;
+        private readonly IStrategy<ConsumeResult<Ignore, string>> _consumptionStrategy;
         protected readonly IOptions<KafkaOptions> _options;
-        protected readonly IMapper _mapper;
-        protected readonly IFacade _applicationFacade;
 
-        public KafkaConsumerService(ILogger<KafkaConsumerService> logger, IMapper mapper, IOptions<KafkaOptions> options, IFacade applicationFacade)
+        public KafkaConsumerService(ILogger<KafkaConsumerService> logger, IOptions<KafkaOptions> options, IMapper mapper, IFacade applicationFacade) : this(logger, options, new DefaultConsumptionStrategy(mapper, applicationFacade)) 
+        {
+        }
+
+        public KafkaConsumerService(ILogger<KafkaConsumerService> logger, IOptions<KafkaOptions> options, IStrategy<ConsumeResult<Ignore, string>> consumptionStrategy)
         {
             _logger = logger ?? throw new ArgumentException(null, nameof(logger));
             _options = options ?? throw new ArgumentException(null, nameof(options));
-            _mapper = mapper ?? throw new ArgumentException(null, nameof(mapper));
-            _applicationFacade = applicationFacade ?? throw new ArgumentException(null, nameof(applicationFacade));
+            _consumptionStrategy = consumptionStrategy ?? throw new ArgumentException(null, nameof(consumptionStrategy));
         }
 
-        protected override Task ExecuteAsync(CancellationToken cancellationToken)
+        protected async override Task ExecuteAsync(CancellationToken cancellationToken)
         {
             var config = new ConsumerConfig(_options.Value.Configuration)
             {
@@ -72,18 +72,8 @@ namespace AzureDevOpsJanitor.Infrastructure.Kafka
 
                         _logger.LogInformation($"Received message at {consumeResult.TopicPartitionOffset}: {consumeResult.Message.Value}");
 
-                        if (!string.IsNullOrEmpty(consumeResult.Message.Value))
-                        {
-                            var integrationEvent = JsonSerializer.Deserialize<IIntegrationEvent>(consumeResult.Message.Value);
-                            var aggregate = JsonSerializer.Deserialize<IAggregateRoot>(integrationEvent.Payload.GetString());
-                            var command = _mapper.Map<IAggregateRoot, ICommand<IAggregateRoot>>(aggregate);
-
-                            if (command != null)
-                            {
-                                _applicationFacade.Execute(command, cancellationToken);
-                            }
-                        }
-
+                        await _consumptionStrategy.Apply(consumeResult, cancellationToken);
+                        
                         if (consumeResult.Offset % _options.Value.CommitPeriod == 0)
                         {
                             try
@@ -109,7 +99,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Kafka
                 consumer.Close();
             }
 
-            return Task.CompletedTask;
+            return;
         }
     }
 }
