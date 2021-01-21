@@ -7,8 +7,6 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Events
 {
     public class ForwardContentEvent : IntegrationEvent
     {
-        public IEnumerable<string> Topics { get; init; }
-
         public ForwardContentEvent(JsonElement payload, IEnumerable<string> topics) : base("forward", payload, Guid.NewGuid(), Guid.NewGuid(), DateTime.Now, 1)
         {
             Topics = topics;

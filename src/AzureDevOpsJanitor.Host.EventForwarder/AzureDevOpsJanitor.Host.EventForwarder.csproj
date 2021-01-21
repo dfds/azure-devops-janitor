@@ -5,6 +5,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Sentry.AspNetCore" Version="2.1.8" />
+    </ItemGroup>
+
+    <ItemGroup>
       <ProjectReference Include="..\AzureDevOpsJanitor.Infrastructure\AzureDevOpsJanitor.Infrastructure.csproj" />
     </ItemGroup>
 
