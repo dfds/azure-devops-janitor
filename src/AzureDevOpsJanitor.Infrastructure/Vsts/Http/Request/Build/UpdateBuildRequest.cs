@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Build
 {
-    public sealed class UpdateBuildRequest : BaseRequest
+    public sealed class UpdateBuildRequest : ApiRequest
     {
         public UpdateBuildRequest(string organization, string project, BuildDto build) : this(organization, project, build.Id)
         {

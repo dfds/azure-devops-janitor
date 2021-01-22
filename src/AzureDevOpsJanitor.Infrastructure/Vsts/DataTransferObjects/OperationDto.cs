@@ -2,7 +2,7 @@
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects
 {
-    public sealed class OperationReferenceDto
+    public sealed class OperationDto
     {
         [JsonPropertyName("id")]
         public string Id { get; set; }

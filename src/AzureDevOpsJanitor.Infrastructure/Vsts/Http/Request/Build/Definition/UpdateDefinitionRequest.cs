@@ -5,9 +5,9 @@ using System.Text.Json;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Build
 {
-    public sealed class UpdateDefinitionRequest : BaseRequest
+    public sealed class UpdateDefinitionRequest : ApiRequest
     {
-        public UpdateDefinitionRequest(string organization, string project, DefinitionReferenceDto definition) : this(organization, project, definition.Id)
+        public UpdateDefinitionRequest(string organization, string project, DefinitionDto definition) : this(organization, project, definition.Id)
         {
             Content = new StringContent(JsonSerializer.Serialize(definition));
         }

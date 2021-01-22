@@ -11,10 +11,10 @@ namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Events
         public void CanBeConstructed()
         {
             //Arrange
-            DefinitionReferenceDto sut;
+            DefinitionDto sut;
 
             //Act
-            sut = new DefinitionReferenceDto();
+            sut = new DefinitionDto();
 
             //Assert
             Assert.NotNull(sut);
@@ -24,7 +24,7 @@ namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Events
         public void CanBeSerialized()
         {
             //Arrange
-            var sut = new DefinitionReferenceDto()
+            var sut = new DefinitionDto()
             {
                 Id = 1,
                 Name = "MyName",
@@ -45,10 +45,10 @@ namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Events
         public void CanBeDeserialized()
         {
             //Arrange
-            DefinitionReferenceDto sut;
+            DefinitionDto sut;
 
             //Act
-            sut = JsonSerializer.Deserialize<DefinitionReferenceDto>("{\"id\":1,\"name\":\"MyName\",\"revision\":1,\"type\":\"MyType\",\"uri\":\"https://foo.bar\",\"queueStatus\":\"MyQueueStatus\"}");
+            sut = JsonSerializer.Deserialize<DefinitionDto>("{\"id\":1,\"name\":\"MyName\",\"revision\":1,\"type\":\"MyType\",\"uri\":\"https://foo.bar\",\"queueStatus\":\"MyQueueStatus\"}");
 
             //Assert
             Assert.NotNull(sut);

@@ -1,11 +1,12 @@
 ﻿using AzureDevOpsJanitor.Domain.Events.Project;
+using ResourceProvisioning.Abstractions.Aggregates;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace AzureDevOpsJanitor.Domain.Aggregates.Project
 {
-    public sealed class ProjectRoot : AbstractRoot<Guid>
+    public sealed class ProjectRoot : AggregateRoot<Guid>
     {
         public string Name { get; private set; }
 

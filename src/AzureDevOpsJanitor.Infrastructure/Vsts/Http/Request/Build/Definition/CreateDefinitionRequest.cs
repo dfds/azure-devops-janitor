@@ -5,9 +5,9 @@ using System.Text.Json;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Build.Definition
 {
-    public sealed class CreateDefinitionRequest : BaseRequest
+    public sealed class CreateDefinitionRequest : ApiRequest
     {
-        public CreateDefinitionRequest(string organization, string project, DefinitionReferenceDto definition)
+        public CreateDefinitionRequest(string organization, string project, DefinitionDto definition)
         {
             ApiVersion = "6.1-preview.7";
             Method = HttpMethod.Post;

@@ -3,7 +3,7 @@ using System.Net.Http;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Build.Definition
 {
-    public sealed class GetBuildWorkItemRefs : BaseRequest
+    public sealed class GetBuildWorkItemRefs : ApiRequest
     {
         public GetBuildWorkItemRefs(string organization, string project, int buildId)
         {

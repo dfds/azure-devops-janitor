@@ -8,9 +8,9 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AzureDevOpsJanitor.Infrastructure.Kafka.Behaviors
+namespace AzureDevOpsJanitor.Infrastructure.Kafka.Strategies
 {
-    public sealed class DefaultConsumptionStrategy : AbstractConsumtionStrategy
+    public sealed class DefaultConsumptionStrategy : ConsumtionStrategy
     {
         public DefaultConsumptionStrategy(IMapper mapper, IFacade applicationFacade) : base(mapper, applicationFacade)
         {

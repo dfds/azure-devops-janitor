@@ -3,7 +3,7 @@ using System.Net.Http;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Project
 {
-    public sealed class GetProjectRequest : BaseRequest
+    public sealed class GetProjectRequest : ApiRequest
     {
         public GetProjectRequest(string organization)
         {

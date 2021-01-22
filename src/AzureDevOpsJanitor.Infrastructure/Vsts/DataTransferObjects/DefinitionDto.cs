@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects
 {
-    public sealed class DefinitionReferenceDto
+    public sealed class DefinitionDto
     {
         [JsonPropertyName("id")]
         public int Id { get; set; }
@@ -12,7 +12,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects
         public string Name { get; set; }
 
         [JsonPropertyName("project")]
-        public TeamProjectDto Project { get; set; }
+        public ProjectDto Project { get; set; }
 
         [JsonPropertyName("revision")]
         public int Revision { get; set; }

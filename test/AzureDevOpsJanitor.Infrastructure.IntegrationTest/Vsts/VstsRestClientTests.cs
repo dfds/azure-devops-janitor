@@ -20,12 +20,12 @@ namespace AzureDevOpsJanitor.Infrastructure.IntegrationTest.Vsts
         public async Task CanGetProjects()
         {
             //Arrange
-            var options = new VstsRestClientOptions()
+            var options = new VstsClientOptions()
             {
                 ClientSecret = _fixture.Configuration.GetValue<string>("Vsts:ClientAccessToken")
             };
 
-            var sut = new VstsRestClient(Options.Create(options));
+            var sut = new VstsClient(Options.Create(options));
 
             //Act
             var projects = await sut.GetProjects("dfds");

@@ -3,7 +3,7 @@ using System.Net.Http;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Profile
 {
-    public sealed class GetProfileRequest : BaseRequest
+    public sealed class GetProfileRequest : ApiRequest
     {
         public GetProfileRequest(string profileId)
         {

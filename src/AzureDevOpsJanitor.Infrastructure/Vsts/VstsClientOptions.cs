@@ -2,7 +2,7 @@
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts
 {
-    public sealed class VstsRestClientOptions
+    public sealed class VstsClientOptions
     {
         public const string Vsts = "Vsts";
 

@@ -3,7 +3,7 @@ using System.Net.Http;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Build.Definition
 {
-    public sealed class GetChangesBetweenBuilds : BaseRequest
+    public sealed class GetChangesBetweenBuilds : ApiRequest
     {
         public GetChangesBetweenBuilds(string organization, string project, int fromBuildId, int toBuildId)
         {

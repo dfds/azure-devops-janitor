@@ -3,7 +3,7 @@ using System.Net.Http;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Build.Definition
 {
-    public sealed class DeleteBuildRequest : BaseRequest
+    public sealed class DeleteBuildRequest : ApiRequest
     {
         public DeleteBuildRequest(string organization, string project, int buildId)
         {

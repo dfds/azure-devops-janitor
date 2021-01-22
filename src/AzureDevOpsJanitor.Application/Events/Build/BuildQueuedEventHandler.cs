@@ -11,16 +11,16 @@ namespace AzureDevOpsJanitor.Application.Events.Build
     public sealed class BuildQueuedEventHandler : IEventHandler<BuildQueuedEvent>
     {
         private readonly IMapper _mapper;
-        private readonly IVstsRestClient _restClient;
+        private readonly IVstsClient _restClient;
 
-        public BuildQueuedEventHandler(IMapper mapper, IVstsRestClient restClient)
+        public BuildQueuedEventHandler(IMapper mapper, IVstsClient restClient)
         {
             _mapper = mapper;
             _restClient = restClient;
         }
         public async Task Handle(BuildQueuedEvent @event, CancellationToken cancellationToken = default)
         {
-            await _restClient.QueueBuild("dfds", "CloudEngineering", _mapper.Map<DefinitionReferenceDto>(@event.Build.Definition));
+            await _restClient.QueueBuild("dfds", "CloudEngineering", _mapper.Map<DefinitionDto>(@event.Build.Definition));
         }
     }
 }

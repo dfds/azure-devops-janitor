@@ -13,7 +13,7 @@ namespace AzureDevOpsJanitor.Application.Mappings.Profiles
             CreateMap<ProfileDto, UserProfile>()
             .ReverseMap();
 
-            CreateMap<DefinitionReferenceDto, BuildDefinition>()
+            CreateMap<DefinitionDto, BuildDefinition>()
             .ReverseMap();
 
             CreateMap<IAggregateRoot, ICommand<IAggregateRoot>>()

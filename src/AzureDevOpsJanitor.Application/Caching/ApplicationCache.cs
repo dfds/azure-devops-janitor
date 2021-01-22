@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 
-namespace AzureDevOpsJanitor.Application.Cache
+namespace AzureDevOpsJanitor.Application.Caching
 {
     public sealed class ApplicationCache : MemoryCache
     {

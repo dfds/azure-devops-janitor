@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Domain.Services
 {
-    public interface IProjectService : IDomainService
+    public interface IProjectService : IService
     {
         Task<IEnumerable<ProjectRoot>> GetAsync();
 

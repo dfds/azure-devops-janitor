@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using AzureDevOpsJanitor.Infrastructure.Kafka.Behaviors;
+using AzureDevOpsJanitor.Infrastructure.Kafka.Strategies;
 using Confluent.Kafka;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using ResourceProvisioning.Abstractions.Behaviours;
 using ResourceProvisioning.Abstractions.Facade;
+using ResourceProvisioning.Abstractions.Strategies;
 using System;
 using System.Threading;
 using System.Threading.Tasks;

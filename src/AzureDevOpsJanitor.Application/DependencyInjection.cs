@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using AzureDevOpsJanitor.Application.Behaviors;
-using AzureDevOpsJanitor.Application.Cache;
+using AzureDevOpsJanitor.Application.Caching;
 using AzureDevOpsJanitor.Application.Commands.Build;
 using AzureDevOpsJanitor.Application.Commands.Profile;
 using AzureDevOpsJanitor.Application.Commands.Project;
@@ -40,12 +40,12 @@ namespace AzureDevOpsJanitor.Application
 
             //Application dependencies
             services.AddBehaviors();
-            services.AddCache();
+            services.AddCaching();
             services.AddCommandHandlers();
             services.AddEventHandlers();
-            services.AddFacade();
             services.AddRepositories();
             services.AddServices();
+            services.AddFacade();
         }
 
         private static void AddBehaviors(this IServiceCollection services)
@@ -54,7 +54,7 @@ namespace AzureDevOpsJanitor.Application
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
         }
 
-        private static void AddCache(this IServiceCollection services)
+        private static void AddCaching(this IServiceCollection services)
         {
             services.AddSingleton<IMemoryCache, ApplicationCache>();
         }

@@ -11,10 +11,10 @@ namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Events
         public void CanBeConstructed()
         {
             //Arrange
-            TeamProjectDto sut;
+            ProjectDto sut;
 
             //Act
-            sut = new TeamProjectDto();
+            sut = new ProjectDto();
 
             //Assert
             Assert.NotNull(sut);
@@ -24,7 +24,7 @@ namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Events
         public void CanBeSerialized()
         {
             //Arrange
-            var sut = new TeamProjectDto()
+            var sut = new ProjectDto()
             {
                 Id = Guid.NewGuid(),
                 Name = "MyName",
@@ -44,10 +44,10 @@ namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Events
         public void CanBeDeserialized()
         {
             //Arrange
-            TeamProjectDto sut;
+            ProjectDto sut;
 
             //Act
-            sut = JsonSerializer.Deserialize<TeamProjectDto>("{\"id\": \"db6af750-1f7b-474d-af65-f7c6106604ec\",\"name\":\"MyName\",\"description\":\"MyDescription\",\"state\":\"MyState\",\"url\":\"https://my-team-project-url\"}");
+            sut = JsonSerializer.Deserialize<ProjectDto>("{\"id\": \"db6af750-1f7b-474d-af65-f7c6106604ec\",\"name\":\"MyName\",\"description\":\"MyDescription\",\"state\":\"MyState\",\"url\":\"https://my-team-project-url\"}");
 
             //Assert
             Assert.NotNull(sut);

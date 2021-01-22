@@ -9,9 +9,9 @@ namespace AzureDevOpsJanitor.Application.Services
     public sealed class ProfileService : IProfileService
     {
         private readonly IMapper _mapper;
-        private readonly IVstsRestClient _client;
+        private readonly IVstsClient _client;
 
-        public ProfileService(IMapper mapper, IVstsRestClient client)
+        public ProfileService(IMapper mapper, IVstsClient client)
         {
             _mapper = mapper;
             _client = client;

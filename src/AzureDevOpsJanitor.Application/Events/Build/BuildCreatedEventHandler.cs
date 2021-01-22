@@ -11,9 +11,9 @@ namespace AzureDevOpsJanitor.Application.Events.Build
     public sealed class BuildCreatedEventHandler : IEventHandler<BuildCreatedEvent>
     {
         private readonly IMapper _mapper;
-        private readonly IVstsRestClient _restClient;
+        private readonly IVstsClient _restClient;
 
-        public BuildCreatedEventHandler(IMapper mapper, IVstsRestClient restClient)
+        public BuildCreatedEventHandler(IMapper mapper, IVstsClient restClient)
         {
             _mapper = mapper;
             _restClient = restClient;
@@ -21,7 +21,7 @@ namespace AzureDevOpsJanitor.Application.Events.Build
 
         public async Task Handle(BuildCreatedEvent @event, CancellationToken cancellationToken = default)
         {
-            await _restClient.CreateDefinition("dfds", "CloudEngineering", _mapper.Map<DefinitionReferenceDto>(@event.Build.Definition));
+            await _restClient.CreateDefinition("dfds", "CloudEngineering", _mapper.Map<DefinitionDto>(@event.Build.Definition));
         }
     }
 }

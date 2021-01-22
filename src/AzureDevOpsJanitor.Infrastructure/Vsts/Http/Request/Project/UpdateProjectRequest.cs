@@ -5,9 +5,9 @@ using System.Text.Json;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Project
 {
-    public sealed class UpdateProjectRequest : BaseRequest
+    public sealed class UpdateProjectRequest : ApiRequest
     {
-        public UpdateProjectRequest(string organization, TeamProjectDto project) : this(organization, project.Id.ToString())
+        public UpdateProjectRequest(string organization, ProjectDto project) : this(organization, project.Id.ToString())
         {
             Content = new StringContent(JsonSerializer.Serialize(project));
         }

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using AzureDevOpsJanitor.Infrastructure.Kafka.Behaviors;
+using AzureDevOpsJanitor.Infrastructure.Kafka.Strategies;
 using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
 using Confluent.Kafka;
 using ResourceProvisioning.Abstractions.Aggregates;
@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts.Kafka
 {
-    public sealed class VstsWebHookConsumptionStrategy : AbstractConsumtionStrategy
+    public sealed class WebHookConsumptionStrategy : ConsumtionStrategy
     {
-        public VstsWebHookConsumptionStrategy(IMapper mapper, IFacade applicationFacade) : base(mapper, applicationFacade)
+        public WebHookConsumptionStrategy(IMapper mapper, IFacade applicationFacade) : base(mapper, applicationFacade)
         {
         }
 

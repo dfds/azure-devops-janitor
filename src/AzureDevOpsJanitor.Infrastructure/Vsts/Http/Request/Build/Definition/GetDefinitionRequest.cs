@@ -3,7 +3,7 @@ using System.Net.Http;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Build.Definition
 {
-    public sealed class GetDefinitionRequest : BaseRequest
+    public sealed class GetDefinitionRequest : ApiRequest
     {
         public GetDefinitionRequest(string organization, string project, int definitionId)
         {

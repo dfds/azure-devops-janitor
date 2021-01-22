@@ -1,12 +1,13 @@
 ﻿using AzureDevOpsJanitor.Domain.Events.Build;
 using AzureDevOpsJanitor.Domain.ValueObjects;
+using ResourceProvisioning.Abstractions.Aggregates;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace AzureDevOpsJanitor.Domain.Aggregates.Build
 {
-    public sealed class BuildRoot : AbstractRoot<int>
+    public sealed class BuildRoot : AggregateRoot<int>
     {
         private BuildStatus _status;
 #pragma warning disable IDE0052 // Remove unread private members

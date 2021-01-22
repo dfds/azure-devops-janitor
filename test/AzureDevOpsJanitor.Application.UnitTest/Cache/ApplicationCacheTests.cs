@@ -1,4 +1,4 @@
-﻿using AzureDevOpsJanitor.Application.Cache;
+﻿using AzureDevOpsJanitor.Application.Caching;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using Moq;
