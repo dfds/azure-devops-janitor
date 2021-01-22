@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using AzureDevOpsJanitor.Application.Commands.Build;
 using AzureDevOpsJanitor.Application.Commands.Project;
-using AzureDevOpsJanitor.Application.Mappings.Converters;
+using AzureDevOpsJanitor.Application.Mapping.Converters;
 using AzureDevOpsJanitor.Domain.Aggregates.Build;
 using AzureDevOpsJanitor.Domain.Aggregates.Project;
 using ResourceProvisioning.Abstractions.Aggregates;
@@ -9,7 +9,7 @@ using ResourceProvisioning.Abstractions.Commands;
 using System;
 using Xunit;
 
-namespace AzureDevOpsJanitor.Application.UnitTest.Mappings.Converters
+namespace AzureDevOpsJanitor.Application.UnitTest.Mapping.Converters
 {
     public class AggregateRootToCommandConverterTests
     {

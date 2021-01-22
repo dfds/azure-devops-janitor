@@ -10,8 +10,8 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Filters
 {
     public class ApiKeyAuthorizeAsyncFilter : IAsyncAuthorizationFilter
     {
-        public const string ApiKeyHeaderName = "x-apiKey";
-        public const string ClientIdHeaderName = "x-clientId";
+        public const string ApiKeyHeaderName = "x-dfds-eventforwarder-apiKey";
+        public const string ClientIdHeaderName = "x-dfds-eventforwarder-clientId";
 
         private readonly ILogger<ApiKeyAuthorizeAsyncFilter> _logger;
         private readonly IApiKeyService _apiKeyService;

@@ -47,7 +47,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             request.Headers.Authorization = GetAuthZHeader();
 
             var response = await SendAsync(new GetProfileRequest(profileId), cancellationToken);
-            var responseData = await response.Content.ReadAsStringAsync();
+            var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
             var profileDto = JsonSerializer.Deserialize<ProfileDto>(responseData);
 
             return profileDto;
@@ -60,7 +60,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             request.Headers.Authorization = GetAuthZHeader();
 
             var response = await SendAsync(request, cancellationToken);
-            var responseData = await response.Content.ReadAsStringAsync();
+            var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
             var definitionDto = JsonSerializer.Deserialize<DefinitionDto>(responseData);
 
             return definitionDto;
@@ -73,7 +73,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             request.Headers.Authorization = GetAuthZHeader();
 
             var response = await SendAsync(new GetDefinitionRequest(organization, project, definitionId), cancellationToken);
-            var responseData = await response.Content.ReadAsStringAsync();
+            var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
             var definitionDto = JsonSerializer.Deserialize<DefinitionDto>(responseData);
 
             return definitionDto;
@@ -86,7 +86,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             request.Headers.Authorization = GetAuthZHeader();
 
             var response = await SendAsync(new GetDefinitionYamlRequest(organization, project, definitionId), cancellationToken);
-            var responseData = await response.Content.ReadAsStringAsync();
+            var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
 
             return responseData;
         }
@@ -98,7 +98,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             request.Headers.Authorization = GetAuthZHeader();
 
             var response = await SendAsync(new CreateDefinitionRequest(organization, project, definition), cancellationToken);
-            var responseData = await response.Content.ReadAsStringAsync();
+            var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
             var definitionDto = JsonSerializer.Deserialize<DefinitionDto>(responseData);
 
             return definitionDto;
@@ -111,7 +111,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             request.Headers.Authorization = GetAuthZHeader();
 
             var response = await SendAsync(new QueueBuildRequest(organization, project, definition), cancellationToken);
-            var responseData = await response.Content.ReadAsStringAsync();
+            var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
             var definitionDto = JsonSerializer.Deserialize<BuildDto>(responseData);
 
             return definitionDto;
@@ -124,7 +124,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             request.Headers.Authorization = GetAuthZHeader();
 
             var response = await SendAsync(request, cancellationToken);
-            var responseData = await response.Content.ReadAsStringAsync();
+            var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
             var definitionDto = JsonSerializer.Deserialize<BuildDto>(responseData);
 
             return definitionDto;
@@ -137,7 +137,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             request.Headers.Authorization = GetAuthZHeader();
 
             var response = await SendAsync(request, cancellationToken);
-            var responseData = await response.Content.ReadAsStringAsync();
+            var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
             var operationReferenceDto = JsonSerializer.Deserialize<OperationDto>(responseData);
 
             return operationReferenceDto;
@@ -150,7 +150,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             request.Headers.Authorization = GetAuthZHeader();
 
             var response = await SendAsync(request, cancellationToken);
-            var responseData = await response.Content.ReadAsStringAsync();
+            var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
             var operationReferenceDto = JsonSerializer.Deserialize<OperationDto>(responseData);
 
             return operationReferenceDto;
@@ -163,7 +163,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             request.Headers.Authorization = GetAuthZHeader();
 
             var response = await SendAsync(request, cancellationToken);
-            var responseData = await response.Content.ReadAsStringAsync();
+            var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
             var definitionDtos = JsonSerializer.Deserialize<VstsListResult<List<ProjectDto>>>(responseData);
 
             return definitionDtos.Value;
@@ -176,7 +176,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             request.Headers.Authorization = GetAuthZHeader();
 
             var response = await SendAsync(request, cancellationToken);
-            var responseData = await response.Content.ReadAsStringAsync();
+            var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
             var definitionDto = JsonSerializer.Deserialize<BuildDto>(responseData);
 
             return definitionDto;
@@ -205,7 +205,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             request.Headers.Authorization = GetAuthZHeader();
 
             var response = await SendAsync(request, cancellationToken);
-            var responseData = await response.Content.ReadAsStringAsync();
+            var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
             var buildDto = JsonSerializer.Deserialize<BuildDto>(responseData);
 
             return buildDto;
@@ -218,7 +218,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             request.Headers.Authorization = GetAuthZHeader();
 
             var response = await SendAsync(request, cancellationToken);
-            var responseData = await response.Content.ReadAsStringAsync();
+            var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
             var definitionDtos = JsonSerializer.Deserialize<VstsListResult<List<ChangeDto>>>(responseData);
 
             return definitionDtos.Value;
@@ -231,7 +231,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             request.Headers.Authorization = GetAuthZHeader();
 
             var response = await SendAsync(request, cancellationToken);
-            var responseData = await response.Content.ReadAsStringAsync();
+            var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
             var definitionDtos = JsonSerializer.Deserialize<VstsListResult<List<WorkItemDto>>>(responseData);
 
             return definitionDtos.Value;

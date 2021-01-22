@@ -7,10 +7,8 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Events
 {
     public class ForwardContentEvent : IntegrationEvent
     {
-        public ForwardContentEvent(JsonElement payload, IEnumerable<string> topics) : base("forward", payload, Guid.NewGuid(), Guid.NewGuid(), DateTime.Now, 1)
+        public ForwardContentEvent(string type, JsonElement payload, Guid id, Guid correlationId, DateTime createDate, int version = 1, IEnumerable<string> topics = default) : base(type, payload, id, correlationId, createDate, version, topics)
         {
-            Topics = topics;
-            Payload = payload;
         }
     }
 }

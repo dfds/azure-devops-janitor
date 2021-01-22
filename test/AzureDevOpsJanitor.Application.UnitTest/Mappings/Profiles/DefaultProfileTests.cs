@@ -1,7 +1,7 @@
-﻿using AzureDevOpsJanitor.Application.Mappings.Profiles;
+﻿using AzureDevOpsJanitor.Application.Mapping.Profiles;
 using Xunit;
 
-namespace AzureDevOpsJanitor.Application.UnitTest.Mappings.Profiles
+namespace AzureDevOpsJanitor.Application.UnitTest.Mapping.Profiles
 {
     public class DefaultProfileTests
     {

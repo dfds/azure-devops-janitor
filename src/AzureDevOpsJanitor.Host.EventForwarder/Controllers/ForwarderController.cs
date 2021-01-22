@@ -1,7 +1,7 @@
-using AzureDevOpsJanitor.Host.EventForwarder.Attributes;
 using AzureDevOpsJanitor.Host.EventForwarder.Events;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.IO;
 using System.Text;
 using System.Text.Json;
@@ -22,12 +22,13 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Forward([FromHeader(Name = "x-topic")] string topic)
+        public async Task<IActionResult> Forward([FromHeader(Name = "x-dfds-eventforwarder-topic")] string topic)
         {
             using (var reader = new StreamReader(Request.Body, Encoding.UTF8))
             {
                 var content = await reader.ReadToEndAsync();
-                var @event = new ForwardContentEvent(JsonDocument.Parse(content).RootElement, new[] { topic });                
+                var payload = JsonDocument.Parse(content).RootElement;
+                var @event = new ForwardContentEvent(nameof(JsonElement), payload, Guid.NewGuid(), Guid.NewGuid(), DateTime.UtcNow, 1, new[] { topic });                
 
                 await _mediator.Publish(@event);
             }

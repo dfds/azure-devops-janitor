@@ -25,13 +25,14 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.Kafka
                 var payload = JsonSerializer.Deserialize<IIntegrationEvent>(target.Message.Value);
                 IAggregateRoot aggregate;
 
-                //TODO: Finish switch 
+                //TODO: Finish switch or create a automapper type converter that can figure out how to convert JsonElement to any dto.
                 switch (payload.Type)
                 {
+                    case nameof(JsonElement):
                     default:
-                        var dto = JsonSerializer.Deserialize<BuildDto>(payload.Payload?.GetString());
+                        var jsonElement = JsonSerializer.Deserialize<JsonElement>(payload.Payload?.GetString());
 
-                        aggregate = _mapper.Map<IAggregateRoot>(dto);
+                        aggregate = _mapper.Map<IAggregateRoot>(jsonElement);
                         break;
                 }
 
