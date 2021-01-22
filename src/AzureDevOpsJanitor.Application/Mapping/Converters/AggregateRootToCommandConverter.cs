@@ -7,7 +7,7 @@ using ResourceProvisioning.Abstractions.Aggregates;
 using ResourceProvisioning.Abstractions.Commands;
 using System;
 
-namespace AzureDevOpsJanitor.Application.Mappings.Converters
+namespace AzureDevOpsJanitor.Application.Mapping.Converters
 {
     public class AggregateRootToCommandConverter : ITypeConverter<IAggregateRoot, ICommand<IAggregateRoot>>
     {
