@@ -10,17 +10,17 @@ namespace AzureDevOpsJanitor.Infrastructure.Kafka.Events
     public class DefaultIntegrationEventHandler : IEventHandler<IIntegrationEvent>
     {
         private readonly IOptions<KafkaOptions> _options;
-        private readonly IProducer<Ignore, IIntegrationEvent> _producer;
+        private readonly IProducer<string, IIntegrationEvent> _producer;
 
-        public DefaultIntegrationEventHandler(IProducer<Ignore, IIntegrationEvent> producer, IOptions<KafkaOptions> options)
+        public DefaultIntegrationEventHandler(IProducer<string, IIntegrationEvent> producer, IOptions<KafkaOptions> options)
         {
-            _producer = producer ?? throw new ArgumentException(null, nameof(producer)); ;
-            _options = options ?? throw new ArgumentException(null, nameof(options)); ;
+            _producer = producer ?? throw new ArgumentException(null, nameof(producer));
+            _options = options ?? throw new ArgumentException(null, nameof(options));
         }
 
-        public async Task Handle(IIntegrationEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(IIntegrationEvent notification, CancellationToken cancellationToken = default)
         {
-            var message = new Message<Ignore, IIntegrationEvent>()
+            var message = new Message<string, IIntegrationEvent>()
             {
                 Value = notification
             };

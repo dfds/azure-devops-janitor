@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Infrastructure.Kafka.Strategies
 {
-    public abstract class ConsumtionStrategy : IStrategy<ConsumeResult<Ignore, string>>
+    public abstract class ConsumtionStrategy : IStrategy<ConsumeResult<string, string>>
     {
         protected readonly IFacade _applicationFacade;
         protected readonly IMapper _mapper;
@@ -19,6 +19,6 @@ namespace AzureDevOpsJanitor.Infrastructure.Kafka.Strategies
             _applicationFacade = applicationFacade ?? throw new ArgumentException(null, nameof(applicationFacade));
         }
 
-        public abstract ValueTask<ConsumeResult<Ignore, string>> Apply(ConsumeResult<Ignore, string> target, CancellationToken cancellationToken);
+        public abstract ValueTask<ConsumeResult<string, string>> Apply(ConsumeResult<string, string> target, CancellationToken cancellationToken);
     }
 }

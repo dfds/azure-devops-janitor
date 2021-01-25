@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using AzureDevOpsJanitor.Infrastructure.Kafka.Strategies;
-using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
 using Confluent.Kafka;
 using ResourceProvisioning.Abstractions.Aggregates;
 using ResourceProvisioning.Abstractions.Commands;
@@ -18,7 +17,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.Kafka
         {
         }
 
-        public override ValueTask<ConsumeResult<Ignore, string>> Apply(ConsumeResult<Ignore, string> target, CancellationToken cancellationToken)
+        public override ValueTask<ConsumeResult<string, string>> Apply(ConsumeResult<string, string> target, CancellationToken cancellationToken)
         {
             if (!string.IsNullOrEmpty(target.Message.Value))
             {
@@ -44,7 +43,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.Kafka
                 }
             }
 
-            return new ValueTask<ConsumeResult<Ignore, string>>(target);
+            return new ValueTask<ConsumeResult<string, string>>(target);
         }
     }
 }

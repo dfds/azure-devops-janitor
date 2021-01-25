@@ -1,6 +1,5 @@
 using AzureDevOpsJanitor.Host.EventForwarder.Enablers.ApiKey;
 using AzureDevOpsJanitor.Infrastructure;
-using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

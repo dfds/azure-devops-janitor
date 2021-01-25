@@ -1,6 +1,7 @@
 ﻿using AzureDevOpsJanitor.Infrastructure.EntityFramework;
 using AzureDevOpsJanitor.Infrastructure.Kafka;
 using AzureDevOpsJanitor.Infrastructure.Kafka.Events;
+using AzureDevOpsJanitor.Infrastructure.Kafka.Serialization;
 using AzureDevOpsJanitor.Infrastructure.Vsts;
 using Confluent.Kafka;
 using MediatR;
@@ -47,15 +48,17 @@ namespace AzureDevOpsJanitor.Infrastructure
             services.AddTransient(p =>
             {
                 var logger = p.GetService<ILogger<IProducer<Ignore, IIntegrationEvent>>>();
-                var producerOptions = p.GetService<KafkaOptions>();
-                var producerBuilder = new ProducerBuilder<Ignore, IIntegrationEvent>(producerOptions.Configuration);
-                var producer = producerBuilder.SetErrorHandler((_, e) => logger.LogError($"Error: {e.Reason}", e))
+                var producerOptions = p.GetService<IOptions<KafkaOptions>>();
+                var producerBuilder = new ProducerBuilder<string, IIntegrationEvent>(producerOptions.Value.Configuration);
+                var producer = producerBuilder.SetErrorHandler((_, e) => logger.LogError($"Error: {e?.Reason}", e))
                                             .SetStatisticsHandler((_, json) => logger.LogDebug($"Statistics: {json}"))
+                                            .SetValueSerializer(new DefaultValueSerializer<IIntegrationEvent>())
                                             .Build();
 
                 return producer;
             });
 
+            //TODO: Figure out why this isnt registered even if no classes us it (yes, we tried a singleton)
             services.AddTransient<INotificationHandler<IIntegrationEvent>, DefaultIntegrationEventHandler>();
             services.AddTransient<IEventHandler<IIntegrationEvent>, DefaultIntegrationEventHandler>();
         }

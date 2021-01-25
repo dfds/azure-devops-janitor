@@ -16,7 +16,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Kafka.Strategies
         {
         }
 
-        public override ValueTask<ConsumeResult<Ignore, string>> Apply(ConsumeResult<Ignore, string> target, CancellationToken cancellationToken)
+        public override ValueTask<ConsumeResult<string, string>> Apply(ConsumeResult<string, string> target, CancellationToken cancellationToken)
         {
             if (!string.IsNullOrEmpty(target.Message.Value))
             {
@@ -30,7 +30,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Kafka.Strategies
                 }
             }
 
-            return new ValueTask<ConsumeResult<Ignore, string>>(target);
+            return new ValueTask<ConsumeResult<string, string>>(target);
         }
     }
 }

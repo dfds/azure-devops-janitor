@@ -28,8 +28,8 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Controllers
             {
                 var content = await reader.ReadToEndAsync();
                 var payload = JsonDocument.Parse(content).RootElement;
-                var @event = new ForwardContentEvent(nameof(JsonElement), payload, Guid.NewGuid(), Guid.NewGuid(), DateTime.UtcNow, 1, new[] { topic });                
-
+                var @event = new ForwardContentEvent(nameof(JsonElement), payload, Guid.NewGuid(), Guid.NewGuid(), DateTime.UtcNow, 1, new[] { topic });
+                                
                 await _mediator.Publish(@event);
             }
 

@@ -15,14 +15,14 @@ namespace AzureDevOpsJanitor.Infrastructure.Kafka
     public class KafkaConsumerService : BackgroundService
     {
         protected readonly ILogger<KafkaConsumerService> _logger;
-        private readonly IStrategy<ConsumeResult<Ignore, string>> _consumptionStrategy;
+        private readonly IStrategy<ConsumeResult<string, string>> _consumptionStrategy;
         protected readonly IOptions<KafkaOptions> _options;
 
         public KafkaConsumerService(ILogger<KafkaConsumerService> logger, IOptions<KafkaOptions> options, IMapper mapper, IFacade applicationFacade) : this(logger, options, new DefaultConsumptionStrategy(mapper, applicationFacade)) 
         {
         }
 
-        public KafkaConsumerService(ILogger<KafkaConsumerService> logger, IOptions<KafkaOptions> options, IStrategy<ConsumeResult<Ignore, string>> consumptionStrategy)
+        public KafkaConsumerService(ILogger<KafkaConsumerService> logger, IOptions<KafkaOptions> options, IStrategy<ConsumeResult<string, string>> consumptionStrategy)
         {
             _logger = logger ?? throw new ArgumentException(null, nameof(logger));
             _options = options ?? throw new ArgumentException(null, nameof(options));
@@ -37,7 +37,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Kafka
                 StatisticsIntervalMs = _options.Value.StatisticsIntervalMs
             };
 
-            using var consumer = new ConsumerBuilder<Ignore, string>(config)
+            using var consumer = new ConsumerBuilder<string, string>(config)
             .SetErrorHandler((_, e) => _logger.LogError($"Error: {e.Reason}", e))
             .SetStatisticsHandler((_, json) => _logger.LogDebug($"Statistics: {json}"))
             .SetPartitionsAssignedHandler((c, partitions) =>
