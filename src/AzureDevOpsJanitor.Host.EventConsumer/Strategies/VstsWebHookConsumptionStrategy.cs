@@ -1,19 +1,15 @@
 ﻿using AutoMapper;
 using AzureDevOpsJanitor.Infrastructure.Kafka.Strategies;
 using Confluent.Kafka;
-using ResourceProvisioning.Abstractions.Aggregates;
-using ResourceProvisioning.Abstractions.Commands;
-using ResourceProvisioning.Abstractions.Events;
 using ResourceProvisioning.Abstractions.Facade;
-using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AzureDevOpsJanitor.Infrastructure.Vsts.Kafka
+namespace AzureDevOpsJanitor.Host.EventConsumer.Strategies
 {
-    public sealed class WebHookConsumptionStrategy : ConsumtionStrategy
+    public sealed class VstsWebHookConsumptionStrategy : ConsumtionStrategy
     {
-        public WebHookConsumptionStrategy(IMapper mapper, IFacade applicationFacade) : base(mapper, applicationFacade)
+        public VstsWebHookConsumptionStrategy(IMapper mapper, IFacade applicationFacade) : base(mapper, applicationFacade)
         {
         }
 

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AzureDevOpsJanitor.Host.EventConsumer.Strategies;
 using AzureDevOpsJanitor.Infrastructure.Kafka;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -10,7 +11,7 @@ namespace AzureDevOpsJanitor.Host.EventConsumer
 {
     public class Worker : KafkaConsumerService
     {
-        public Worker(ILogger<KafkaConsumerService> logger, IOptions<KafkaOptions> options, IMapper mapper, IFacade applicationFacade) : base(logger, options, mapper, applicationFacade)
+        public Worker(ILogger<KafkaConsumerService> logger, IOptions<KafkaOptions> options, IMapper mapper, IFacade applicationFacade) : base(logger, options, new VstsWebHookConsumptionStrategy(mapper, applicationFacade))
         {
         }
 
