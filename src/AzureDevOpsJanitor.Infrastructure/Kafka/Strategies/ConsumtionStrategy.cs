@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Confluent.Kafka;
-using ResourceProvisioning.Abstractions.Strategies;
 using ResourceProvisioning.Abstractions.Facade;
+using ResourceProvisioning.Abstractions.Strategies;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,6 +19,6 @@ namespace AzureDevOpsJanitor.Infrastructure.Kafka.Strategies
             _applicationFacade = applicationFacade ?? throw new ArgumentException(null, nameof(applicationFacade));
         }
 
-        public abstract ValueTask<ConsumeResult<string, string>> Apply(ConsumeResult<string, string> target, CancellationToken cancellationToken);
+        public abstract ValueTask<ConsumeResult<string, string>> Apply(ConsumeResult<string, string> target, CancellationToken cancellationToken = default);
     }
 }

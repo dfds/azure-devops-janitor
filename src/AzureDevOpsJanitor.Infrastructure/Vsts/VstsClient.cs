@@ -10,8 +10,8 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Text;
-using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -47,8 +47,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             request.Headers.Authorization = GetAuthZHeader();
 
             var response = await SendAsync(new GetProfileRequest(profileId), cancellationToken);
-            var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
-            var profileDto = JsonSerializer.Deserialize<ProfileDto>(responseData);
+            var profileDto = await response.Content.ReadFromJsonAsync<ProfileDto>(null, cancellationToken);
 
             return profileDto;
         }
@@ -60,8 +59,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             request.Headers.Authorization = GetAuthZHeader();
 
             var response = await SendAsync(request, cancellationToken);
-            var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
-            var definitionDto = JsonSerializer.Deserialize<DefinitionDto>(responseData);
+            var definitionDto = await response.Content.ReadFromJsonAsync<DefinitionDto>(null, cancellationToken);
 
             return definitionDto;
         }
@@ -73,8 +71,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             request.Headers.Authorization = GetAuthZHeader();
 
             var response = await SendAsync(new GetDefinitionRequest(organization, project, definitionId), cancellationToken);
-            var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
-            var definitionDto = JsonSerializer.Deserialize<DefinitionDto>(responseData);
+            var definitionDto = await response.Content.ReadFromJsonAsync<DefinitionDto>(null, cancellationToken);
 
             return definitionDto;
         }
@@ -98,8 +95,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             request.Headers.Authorization = GetAuthZHeader();
 
             var response = await SendAsync(new CreateDefinitionRequest(organization, project, definition), cancellationToken);
-            var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
-            var definitionDto = JsonSerializer.Deserialize<DefinitionDto>(responseData);
+            var definitionDto = await response.Content.ReadFromJsonAsync<DefinitionDto>(null, cancellationToken);
 
             return definitionDto;
         }
@@ -111,10 +107,9 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             request.Headers.Authorization = GetAuthZHeader();
 
             var response = await SendAsync(new QueueBuildRequest(organization, project, definition), cancellationToken);
-            var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
-            var definitionDto = JsonSerializer.Deserialize<BuildDto>(responseData);
+            var buildDto = await response.Content.ReadFromJsonAsync<BuildDto>(null, cancellationToken);
 
-            return definitionDto;
+            return buildDto;
         }
 
         public async Task<BuildDto> QueueBuild(string organization, string project, int definitionId, CancellationToken cancellationToken = default)
@@ -124,10 +119,9 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             request.Headers.Authorization = GetAuthZHeader();
 
             var response = await SendAsync(request, cancellationToken);
-            var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
-            var definitionDto = JsonSerializer.Deserialize<BuildDto>(responseData);
+            var buildDto = await response.Content.ReadFromJsonAsync<BuildDto>(null, cancellationToken);
 
-            return definitionDto;
+            return buildDto;
         }
 
         public async Task<OperationDto> CreateProject(string organization, ProjectDto project, CancellationToken cancellationToken = default)
@@ -137,8 +131,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             request.Headers.Authorization = GetAuthZHeader();
 
             var response = await SendAsync(request, cancellationToken);
-            var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
-            var operationReferenceDto = JsonSerializer.Deserialize<OperationDto>(responseData);
+            var operationReferenceDto = await response.Content.ReadFromJsonAsync<OperationDto>(null, cancellationToken);
 
             return operationReferenceDto;
         }
@@ -150,8 +143,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             request.Headers.Authorization = GetAuthZHeader();
 
             var response = await SendAsync(request, cancellationToken);
-            var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
-            var operationReferenceDto = JsonSerializer.Deserialize<OperationDto>(responseData);
+            var operationReferenceDto = await response.Content.ReadFromJsonAsync<OperationDto>(null, cancellationToken);
 
             return operationReferenceDto;
         }
@@ -163,8 +155,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             request.Headers.Authorization = GetAuthZHeader();
 
             var response = await SendAsync(request, cancellationToken);
-            var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
-            var definitionDtos = JsonSerializer.Deserialize<VstsListResult<List<ProjectDto>>>(responseData);
+            var definitionDtos = await response.Content.ReadFromJsonAsync<VstsListResult<List<ProjectDto>>>(null, cancellationToken);
 
             return definitionDtos.Value;
         }
@@ -176,10 +167,9 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             request.Headers.Authorization = GetAuthZHeader();
 
             var response = await SendAsync(request, cancellationToken);
-            var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
-            var definitionDto = JsonSerializer.Deserialize<BuildDto>(responseData);
+            var buildDto = await response.Content.ReadFromJsonAsync<BuildDto>(null, cancellationToken);
 
-            return definitionDto;
+            return buildDto;
         }
 
         public async Task DeleteBuild(string organization, string project, int buildId, CancellationToken cancellationToken = default)
@@ -205,8 +195,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             request.Headers.Authorization = GetAuthZHeader();
 
             var response = await SendAsync(request, cancellationToken);
-            var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
-            var buildDto = JsonSerializer.Deserialize<BuildDto>(responseData);
+            var buildDto = await response.Content.ReadFromJsonAsync<BuildDto>(null, cancellationToken);
 
             return buildDto;
         }
@@ -218,10 +207,9 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             request.Headers.Authorization = GetAuthZHeader();
 
             var response = await SendAsync(request, cancellationToken);
-            var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
-            var definitionDtos = JsonSerializer.Deserialize<VstsListResult<List<ChangeDto>>>(responseData);
+            var changeDtos = await response.Content.ReadFromJsonAsync<VstsListResult<List<ChangeDto>>>(null, cancellationToken);
 
-            return definitionDtos.Value;
+            return changeDtos.Value;
         }
 
         public async Task<IEnumerable<WorkItemDto>> GetBuildWorkItemRefs(string organization, string project, int buildId, CancellationToken cancellationToken = default)
@@ -231,10 +219,9 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             request.Headers.Authorization = GetAuthZHeader();
 
             var response = await SendAsync(request, cancellationToken);
-            var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
-            var definitionDtos = JsonSerializer.Deserialize<VstsListResult<List<WorkItemDto>>>(responseData);
+            var workItemDtos = await response.Content.ReadFromJsonAsync<VstsListResult<List<WorkItemDto>>>(null, cancellationToken);
 
-            return definitionDtos.Value;
+            return workItemDtos.Value;
         }
 
         private class VstsListResult<T>

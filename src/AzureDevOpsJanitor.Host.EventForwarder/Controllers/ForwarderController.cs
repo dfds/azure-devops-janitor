@@ -1,6 +1,7 @@
 using AzureDevOpsJanitor.Host.EventForwarder.Events;
-using MediatR;
+using Confluent.Kafka;
 using Microsoft.AspNetCore.Mvc;
+using ResourceProvisioning.Abstractions.Events;
 using System;
 using System.IO;
 using System.Text;
@@ -14,11 +15,11 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Controllers
     //[ApiKeyAuthorize]
     public class ForwarderController : Controller
     {
-        private readonly IMediator _mediator;
+        private readonly IProducer<string, IIntegrationEvent> _producer;
 
-        public ForwarderController(IMediator mediator)
+        public ForwarderController(IProducer<string, IIntegrationEvent> producer)
         {
-            _mediator = mediator;
+            _producer = producer;
         }
 
         [HttpPost]
@@ -27,10 +28,13 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Controllers
             using (var reader = new StreamReader(Request.Body, Encoding.UTF8))
             {
                 var content = await reader.ReadToEndAsync();
-                var payload = JsonDocument.Parse(content).RootElement;
-                var @event = new ForwardContentEvent(nameof(JsonElement), payload, Guid.NewGuid(), Guid.NewGuid(), DateTime.UtcNow, 1, new[] { topic });
-                                
-                await _mediator.Publish(@event);
+                var json = JsonDocument.Parse(content).RootElement;
+                var message = new Message<string, IIntegrationEvent>()
+                {
+                    Value = new ForwardContentEvent(nameof(JsonElement), json, Guid.NewGuid(), Guid.NewGuid(), DateTime.UtcNow, 1, new[] { topic })
+                };
+                
+                await _producer.ProduceAsync(topic, message);
             }
 
             return new OkResult();

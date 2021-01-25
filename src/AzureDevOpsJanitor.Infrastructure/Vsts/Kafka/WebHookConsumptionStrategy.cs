@@ -21,26 +21,30 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.Kafka
         {
             if (!string.IsNullOrEmpty(target.Message.Value))
             {
-                var payload = JsonSerializer.Deserialize<IIntegrationEvent>(target.Message.Value);
-                IAggregateRoot aggregate;
+                //TODO: Rewire this -
+                //1) Deserialize string to integration event
+                //2) Extract aggregate from envelope
+                //3) Map agg to cmd
+                //var payload = target.Message.Value;
+                //IAggregateRoot aggregate;
 
-                //TODO: Finish switch or create a automapper type converter that can figure out how to convert JsonElement to any dto.
-                switch (payload.Type)
-                {
-                    case nameof(JsonElement):
-                    default:
-                        var jsonElement = JsonSerializer.Deserialize<JsonElement>(payload.Payload?.GetString());
+                ////TODO: Finish switch or create a automapper type converter that can figure out how to convert JsonElement to any dto.
+                //switch (@event.Type)
+                //{
+                //    case nameof(JsonElement):
+                //    default:
+                //        var jsonElement = JsonSerializer.Deserialize<JsonElement>(payload.GetString());
 
-                        aggregate = _mapper.Map<IAggregateRoot>(jsonElement);
-                        break;
-                }
+                //        aggregate = _mapper.Map<IAggregateRoot>(jsonElement);
+                //        break;
+                //}
 
-                var command = _mapper.Map<IAggregateRoot, ICommand<IAggregateRoot>>(aggregate);
+                //var command = _mapper.Map<IAggregateRoot, ICommand<IAggregateRoot>>(aggregate);
 
-                if (command != null)
-                {
-                    _applicationFacade.Execute(command, cancellationToken);
-                }
+                //if (command != null)
+                //{
+                //    _applicationFacade.Execute(command, cancellationToken);
+                //}
             }
 
             return new ValueTask<ConsumeResult<string, string>>(target);
