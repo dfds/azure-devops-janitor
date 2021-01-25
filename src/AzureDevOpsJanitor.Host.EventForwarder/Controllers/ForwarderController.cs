@@ -1,3 +1,4 @@
+using AzureDevOpsJanitor.Host.EventForwarder.Attributes;
 using AzureDevOpsJanitor.Host.EventForwarder.Events;
 using Confluent.Kafka;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +13,7 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Controllers
 {
     [ApiController]
     [Route("/api/forwarder")]
-    //[ApiKeyAuthorize]
+    [ApiKeyAuthorize]
     public class ForwarderController : Controller
     {
         private readonly IProducer<string, IIntegrationEvent> _producer;
