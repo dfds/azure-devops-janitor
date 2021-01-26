@@ -16,7 +16,7 @@ namespace AzureDevOpsJanitor.Host.EventConsumer
         Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder(args)
         .ConfigureServices((hostContext, services) =>
         {
-            services.AddHostedService<Worker>();
+            services.AddHostedService<VstsWebHookEventWorker>();
 
             DependencyInjection.AddApplication(services, hostContext.Configuration);
         })

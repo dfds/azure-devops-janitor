@@ -2,6 +2,7 @@
 using AzureDevOpsJanitor.Infrastructure.Kafka.Strategies;
 using Confluent.Kafka;
 using ResourceProvisioning.Abstractions.Facade;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,10 +18,14 @@ namespace AzureDevOpsJanitor.Host.EventConsumer.Strategies
         {
             if (!string.IsNullOrEmpty(target.Message.Value))
             {
+                //var @event = JsonSerializer.Deserialize<IntegrationEvent>
+
+
                 //TODO: Rewire this -
                 //1) Deserialize string to integration event
-                //2) Extract aggregate from envelope
-                //3) Map agg to cmd
+                //2) Extract dto from envelope
+                //3) Map aggregate from dto
+                //4) Map agg to cmd
                 //var payload = target.Message.Value;
                 //IAggregateRoot aggregate;
 

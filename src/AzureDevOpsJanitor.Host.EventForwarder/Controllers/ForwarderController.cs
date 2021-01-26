@@ -32,7 +32,7 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Controllers
                 var json = JsonDocument.Parse(content).RootElement;
                 var message = new Message<string, IIntegrationEvent>()
                 {
-                    Value = new ForwardContentEvent(nameof(JsonElement), json, Guid.NewGuid(), Guid.NewGuid(), DateTime.UtcNow, 1, new[] { topic })
+                    Value = new ForwardContentEvent(nameof(JsonElement), json, Guid.NewGuid(), Guid.NewGuid(), DateTime.UtcNow, 1)
                 };
                 
                 await _producer.ProduceAsync(topic, message);
