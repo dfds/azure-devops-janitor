@@ -1,9 +1,7 @@
 using AzureDevOpsJanitor.Host.EventForwarder.Attributes;
-using AzureDevOpsJanitor.Host.EventForwarder.Events;
 using Confluent.Kafka;
 using Microsoft.AspNetCore.Mvc;
 using ResourceProvisioning.Abstractions.Events;
-using System;
 using System.IO;
 using System.Text;
 using System.Text.Json;
@@ -13,7 +11,7 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Controllers
 {
     [ApiController]
     [Route("/api/forwarder")]
-    [ApiKeyAuthorize]
+    //[ApiKeyAuthorize]
     public class ForwarderController : Controller
     {
         private readonly IProducer<string, IIntegrationEvent> _producer;
@@ -32,9 +30,13 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Controllers
                 var json = JsonDocument.Parse(content).RootElement;
                 var message = new Message<string, IIntegrationEvent>()
                 {
-                    Value = new ForwardContentEvent(nameof(JsonElement), json, Guid.NewGuid(), Guid.NewGuid(), DateTime.UtcNow, 1)
+                    Value = new IntegrationEvent()
+                    {
+                        Type = nameof(JsonElement),
+                        Payload = json
+                    }
                 };
-                
+
                 await _producer.ProduceAsync(topic, message);
             }
 

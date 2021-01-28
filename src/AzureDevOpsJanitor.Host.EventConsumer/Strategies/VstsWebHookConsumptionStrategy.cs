@@ -1,6 +1,10 @@
 ﻿using AutoMapper;
 using AzureDevOpsJanitor.Infrastructure.Kafka.Strategies;
+using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
 using Confluent.Kafka;
+using ResourceProvisioning.Abstractions.Aggregates;
+using ResourceProvisioning.Abstractions.Commands;
+using ResourceProvisioning.Abstractions.Events;
 using ResourceProvisioning.Abstractions.Facade;
 using System.Text.Json;
 using System.Threading;
@@ -14,41 +18,30 @@ namespace AzureDevOpsJanitor.Host.EventConsumer.Strategies
         {
         }
 
-        public override ValueTask<ConsumeResult<string, string>> Apply(ConsumeResult<string, string> target, CancellationToken cancellationToken)
+        public override Task Apply(ConsumeResult<string, string> target, CancellationToken cancellationToken)
         {
-            if (!string.IsNullOrEmpty(target.Message.Value))
+            var payload = target.Message.Value;
+
+            if (!string.IsNullOrEmpty(payload))
             {
-                //var @event = JsonSerializer.Deserialize<IntegrationEvent>
+                var @event = JsonSerializer.Deserialize<IntegrationEvent>(payload);
 
+                //TODO: Implement IntegrationEventToDtoConverter
+                //var dto = _mapper.Map<BuildDto>(@event);
 
-                //TODO: Rewire this -
-                //1) Deserialize string to integration event
-                //2) Extract dto from envelope
-                //3) Map aggregate from dto
-                //4) Map agg to cmd
-                //var payload = target.Message.Value;
-                //IAggregateRoot aggregate;
+                //TODO: Implement DtoToAggregateRootConverter
+               // var aggregateRoot = _mapper.Map<IAggregateRoot>(dto);
 
-                ////TODO: Finish switch or create a automapper type converter that can figure out how to convert JsonElement to any dto.
-                //switch (@event.Type)
-                //{
-                //    case nameof(JsonElement):
-                //    default:
-                //        var jsonElement = JsonSerializer.Deserialize<JsonElement>(payload.GetString());
+                //TODO: Finalize AggregateRootToCommandConverter
+               // var command = _mapper.Map<IAggregateRoot, ICommand<IAggregateRoot>>(aggregateRoot);
 
-                //        aggregate = _mapper.Map<IAggregateRoot>(jsonElement);
-                //        break;
-                //}
-
-                //var command = _mapper.Map<IAggregateRoot, ICommand<IAggregateRoot>>(aggregate);
-
-                //if (command != null)
-                //{
+               // if (command != null)
+               // {
                 //    _applicationFacade.Execute(command, cancellationToken);
                 //}
             }
 
-            return new ValueTask<ConsumeResult<string, string>>(target);
+            return Task.CompletedTask;
         }
     }
 }

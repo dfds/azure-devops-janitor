@@ -12,9 +12,9 @@ namespace AzureDevOpsJanitor.Infrastructure.Kafka.Strategies
         {
         }
 
-        public override ValueTask<ConsumeResult<string, string>> Apply(ConsumeResult<string, string> target, CancellationToken cancellationToken = default)
+        public override Task Apply(ConsumeResult<string, string> target, CancellationToken cancellationToken = default)
         {
-            return new ValueTask<ConsumeResult<string, string>>(target);
+            return Task.CompletedTask;
         }
     }
 }

@@ -25,4 +25,8 @@
       <ProjectReference Include="..\..\src\AzureDevOpsJanitor.Infrastructure\AzureDevOpsJanitor.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Kafka\" />
+    </ItemGroup>
+
 </Project>

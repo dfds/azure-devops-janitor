@@ -19,6 +19,6 @@ namespace AzureDevOpsJanitor.Infrastructure.Kafka.Strategies
             _applicationFacade = applicationFacade ?? throw new ArgumentException(null, nameof(applicationFacade));
         }
 
-        public abstract ValueTask<ConsumeResult<string, string>> Apply(ConsumeResult<string, string> target, CancellationToken cancellationToken = default);
+        public abstract Task Apply(ConsumeResult<string, string> target, CancellationToken cancellationToken = default);
     }
 }
