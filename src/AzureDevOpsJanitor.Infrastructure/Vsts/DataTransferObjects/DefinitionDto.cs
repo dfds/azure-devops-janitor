@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects
 {
-    public sealed class DefinitionDto
+    public sealed class DefinitionDto : VstsDto
     {
         [JsonPropertyName("id")]
         public int Id { get; set; }

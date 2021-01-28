@@ -2,7 +2,7 @@
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects
 {
-    public sealed class StsDto
+    public sealed class StsDto : VstsDto
     {
         [JsonPropertyName("access_token")]
         public string AccessToken { get; set; }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AzureDevOpsJanitor.Infrastructure.Kafka.Strategies;
 using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
+using AzureDevOpsJanitor.Infrastructure.Vsts.Events;
 using Confluent.Kafka;
 using ResourceProvisioning.Abstractions.Aggregates;
 using ResourceProvisioning.Abstractions.Commands;
@@ -16,6 +17,7 @@ namespace AzureDevOpsJanitor.Host.EventConsumer.Strategies
     {
         public VstsWebHookConsumptionStrategy(IMapper mapper, IFacade applicationFacade) : base(mapper, applicationFacade)
         {
+            
         }
 
         public override Task Apply(ConsumeResult<string, string> target, CancellationToken cancellationToken)
@@ -25,20 +27,16 @@ namespace AzureDevOpsJanitor.Host.EventConsumer.Strategies
             if (!string.IsNullOrEmpty(payload))
             {
                 var @event = JsonSerializer.Deserialize<IntegrationEvent>(payload);
+                var envelope = JsonSerializer.Deserialize<BuildCompletedEvent>(@event.Payload.Value.GetRawText());
+                var dto = JsonSerializer.Deserialize<BuildDto>(envelope.Resource.Value.GetRawText());
 
-                //TODO: Implement IntegrationEventToDtoConverter
-                //var dto = _mapper.Map<BuildDto>(@event);
+                var aggregateRoot = _mapper.Map<IAggregateRoot>(dto);
+                var command = _mapper.Map<IAggregateRoot, ICommand<IAggregateRoot>>(aggregateRoot);
 
-                //TODO: Implement DtoToAggregateRootConverter
-               // var aggregateRoot = _mapper.Map<IAggregateRoot>(dto);
-
-                //TODO: Finalize AggregateRootToCommandConverter
-               // var command = _mapper.Map<IAggregateRoot, ICommand<IAggregateRoot>>(aggregateRoot);
-
-               // if (command != null)
-               // {
-                //    _applicationFacade.Execute(command, cancellationToken);
-                //}
+                if (command != null)
+                {
+                    _applicationFacade.Execute(command, cancellationToken);
+                }
             }
 
             return Task.CompletedTask;

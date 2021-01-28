@@ -35,7 +35,5 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.Events
         public string Type => EventType;
 
         public JsonElement? Payload => Message;
-
-        public IEnumerable<string> Topics { get; init; }
     }
 }
