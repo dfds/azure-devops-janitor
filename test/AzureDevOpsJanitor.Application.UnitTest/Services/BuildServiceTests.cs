@@ -71,6 +71,7 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Services
 
             var sut = new BuildService(mockBuildRepository.Object);
 
+            var x = await sut.GetAsync();
             //Act
             await sut.DeleteAsync(buildId);
 
