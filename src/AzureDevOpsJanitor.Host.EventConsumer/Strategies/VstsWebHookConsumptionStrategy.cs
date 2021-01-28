@@ -27,10 +27,9 @@ namespace AzureDevOpsJanitor.Host.EventConsumer.Strategies
             if (!string.IsNullOrEmpty(payload))
             {
                 var @event = JsonSerializer.Deserialize<IntegrationEvent>(payload);
-                var envelope = JsonSerializer.Deserialize<BuildCompletedEvent>(@event.Payload.Value.GetRawText());
-                var dto = JsonSerializer.Deserialize<BuildDto>(envelope.Resource.Value.GetRawText());
-
-                var aggregateRoot = _mapper.Map<IAggregateRoot>(dto);
+                var webHookEvent = _mapper.Map<WebHookEvent>(@event.Payload.Value);
+                var vstsDto = _mapper.Map<VstsDto>(webHookEvent);
+                var aggregateRoot = _mapper.Map<IAggregateRoot>(vstsDto);
                 var command = _mapper.Map<IAggregateRoot, ICommand<IAggregateRoot>>(aggregateRoot);
 
                 if (command != null)

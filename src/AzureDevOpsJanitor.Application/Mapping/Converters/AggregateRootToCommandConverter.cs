@@ -13,6 +13,7 @@ namespace AzureDevOpsJanitor.Application.Mapping.Converters
     {
         public ICommand<IAggregateRoot> Convert(IAggregateRoot source, ICommand<IAggregateRoot> destination = default, ResolutionContext context = default)
         {
+            //TODO: Implement support for all required aggregates (consider merging Create and Update commands.
             switch (source)
             {
                 case BuildRoot build:

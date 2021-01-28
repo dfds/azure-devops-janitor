@@ -1,12 +1,11 @@
 ﻿using ResourceProvisioning.Abstractions.Events;
 using System;
-using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts.Events
 {
-    public abstract class WebHookEvent : IIntegrationEvent
+    public class WebHookEvent : IIntegrationEvent
     {
         [JsonPropertyName("id")]
         public Guid Id { get; init; }
@@ -26,6 +25,12 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.Events
         [JsonPropertyName("resource")]
         public JsonElement? Resource { get; init; }
 
+        [JsonPropertyName("resourceVersion")]
+        public string ResourceVersion { get; init; }
+
+        [JsonPropertyName("resourceContainers")]
+        public JsonElement? ResourceContainers { get; init; }
+
         public Guid CorrelationId => Id;
 
         public DateTime CreationDate => DateTime.Now;
@@ -34,6 +39,6 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.Events
 
         public string Type => EventType;
 
-        public JsonElement? Payload => Message;
+        public JsonElement? Payload => Resource;
     }
 }

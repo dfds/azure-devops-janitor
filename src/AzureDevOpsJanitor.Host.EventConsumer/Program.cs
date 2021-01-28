@@ -1,9 +1,7 @@
-using AutoMapper;
 using AzureDevOpsJanitor.Application;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using System.Reflection;
 
 namespace AzureDevOpsJanitor.Host.EventConsumer
 {
@@ -21,8 +19,6 @@ namespace AzureDevOpsJanitor.Host.EventConsumer
             services.AddHostedService<VstsWebHookEventWorker>();
 
             DependencyInjection.AddApplication(services, hostContext.Configuration);
-
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
         })
         .ConfigureLogging(logBuilder =>
         {

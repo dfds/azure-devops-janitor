@@ -1,4 +1,5 @@
-﻿using AzureDevOpsJanitor.Infrastructure.EntityFramework;
+﻿using AutoMapper;
+using AzureDevOpsJanitor.Infrastructure.EntityFramework;
 using AzureDevOpsJanitor.Infrastructure.Kafka;
 using AzureDevOpsJanitor.Infrastructure.Kafka.Serialization;
 using AzureDevOpsJanitor.Infrastructure.Vsts;
@@ -20,6 +21,8 @@ namespace AzureDevOpsJanitor.Infrastructure
     {
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
             services.AddMediator();
             services.AddEntityFramework(configuration);
             services.AddVsts(configuration);
