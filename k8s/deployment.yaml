@@ -63,3 +63,12 @@ spec:
           limits:
             memory: "400Mi"
             cpu: "200m"
+      - name: azure-devops-janitor-event-forwarder
+        image: 640590921355.dkr.ecr.eu-west-1.amazonaws.com/{ECR_REPO}:$(Build.BuildId)
+        resources:
+          requests:
+            memory: "200Mi"
+            cpu: "100m"
+          limits:
+            memory: "400Mi"
+            cpu: "200m"
