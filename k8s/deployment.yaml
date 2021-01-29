@@ -1,29 +1,65 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: segment-ui-beorp-kafka-consume-relay-deployment
+  name: azure-devops-janitor
+  namespace: developerautomation-xavgy
+  labels:
+    project: developerautomation
+    department: cloudengineering
+    app: azure-devops-janitor
+    component: azure-devops-janitor
 spec:
-  replicas: 1  
+  replicas: 1
   selector:
     matchLabels:
-      app: nodejs
+      app: azure-devops-janitor
   template:
     metadata:
       labels:
-        app: nodejs
+        app: azure-devops-janitor
+        project: developerautomation
+        department: cloudengineering
+        logging_dfds_cloud_format_json: "true"
+      annotations:
+        prometheus.io/port: "8080"
+        prometheus.io/scrape: "true"
     spec:
+      priorityClassName: selfservice
       containers:
-      - name: segment-kafka-consumer-relay
-        image: 825548240362.dkr.ecr.eu-central-1.amazonaws.com/segment:$(Build.BuildNumber)
+      - name: azure-devops-janitor-api
+        image: 640590921355.dkr.ecr.eu-west-1.amazonaws.com/{ECR_REPO}:$(Build.BuildId)
+        ports:
+        - containerPort: 54323
+          name: web
+        - containerPort: 8080
+          name: metrics
         resources:
           requests:
-            memory: "300Mi"
+            memory: "200Mi"
             cpu: "100m"
           limits:
-            memory: "500Mi"
+            memory: "400Mi"
             cpu: "200m"
-        env:
-          - name: KAFKA_USERNAME
-            value: $(KAFKA_USERNAME)
-          - name: KAFKA_PASSWORD
-            value: $(KAFKA_PASSWORD)
+        livenessProbe:
+          initialDelaySeconds: 5
+          periodSeconds: 60
+          timeoutSeconds: 5
+          httpGet:
+            port: web
+            path: /healthz
+        readinessProbe:
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 5
+          httpGet:
+            port: web
+            path: /healthz
+      - name: azure-devops-janitor-event-consumer
+        image: 640590921355.dkr.ecr.eu-west-1.amazonaws.com/{ECR_REPO}:$(Build.BuildId)
+        resources:
+          requests:
+            memory: "200Mi"
+            cpu: "100m"
+          limits:
+            memory: "400Mi"
+            cpu: "200m"

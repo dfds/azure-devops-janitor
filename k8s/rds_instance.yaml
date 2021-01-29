@@ -1,8 +1,8 @@
 apiVersion: database.aws.crossplane.io/v1beta1
 kind: RDSInstance
 metadata:
-  name: sequ-ns
-  namespace: sequoiia
+  name: azure-devops-janitor-rds
+  namespace: developerautomation-xavgy
 spec:
   forProvider:
     region: eu-west-1
@@ -13,5 +13,5 @@ spec:
     engineVersion: "11"
     skipFinalSnapshotBeforeDeletion: true
   writeConnectionSecretToRef:
-    namespace: sequoiia
+    namespace: developerautomation-xavgy
     name: aws-rdspostgresql-conn

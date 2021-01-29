@@ -2,11 +2,11 @@
 apiVersion: aws.crossplane.io/v1beta1
 kind: ProviderConfig
 metadata:
-  name: default
+  name: azure-devops-janitor-provider-config
 spec:
   credentials:
     source: Secret
     secretRef:
-      namespace: crossplane-system
+      namespace: developerautomation-xavgy
       name: aws-creds
       key: key

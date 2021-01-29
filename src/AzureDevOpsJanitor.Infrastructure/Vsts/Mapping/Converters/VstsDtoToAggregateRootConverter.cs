@@ -3,6 +3,7 @@ using AzureDevOpsJanitor.Domain.Aggregates.Build;
 using AzureDevOpsJanitor.Domain.ValueObjects;
 using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
 using ResourceProvisioning.Abstractions.Aggregates;
+using System;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts.Mapping.Converters
 {
@@ -10,7 +11,6 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.Mapping.Converters
     {
         public IAggregateRoot Convert(VstsDto source, IAggregateRoot destination, ResolutionContext context)
         {
-            //TODO: Implement support for all required VstsDtos
             switch (source)
             {
                 case BuildDto build:
@@ -19,8 +19,25 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.Mapping.Converters
 
                     return buildRoot;
 
-                default:
+                case ChangeDto change:
+                    throw new NotImplementedException();
 
+                case DefinitionDto definition:
+                    throw new NotImplementedException();
+
+                case OperationDto operation:
+                    throw new NotImplementedException();
+
+                case ProfileDto profile:
+                    throw new NotImplementedException();
+
+                case ProjectDto project:
+                    throw new NotImplementedException();
+
+                case WorkItemDto workItem:
+                    throw new NotImplementedException();
+
+                default:
                     return null;
             }
         }

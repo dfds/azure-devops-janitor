@@ -35,6 +35,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".k8s", ".k8s", "{E6ADC65C-D
 		k8s\aws_provider.yaml = k8s\aws_provider.yaml
 		k8s\deployment.yaml = k8s\deployment.yaml
 		k8s\rds_instance.yaml = k8s\rds_instance.yaml
+		k8s\service.yaml = k8s\service.yaml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hosts", "Hosts", "{FF970998-6D4B-4411-A956-79BC34A60177}"
