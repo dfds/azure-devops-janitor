@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
 using AzureDevOpsJanitor.Domain.Aggregates.Build;
+using AzureDevOpsJanitor.Domain.Aggregates.Project;
+using AzureDevOpsJanitor.Domain.Aggregates.Release;
 using AzureDevOpsJanitor.Domain.ValueObjects;
 using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
 using ResourceProvisioning.Abstractions.Aggregates;
-using System;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts.Mapping.Converters
 {
@@ -19,23 +20,16 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.Mapping.Converters
 
                     return buildRoot;
 
-                case ChangeDto change:
-                    throw new NotImplementedException();
-
-                case DefinitionDto definition:
-                    throw new NotImplementedException();
-
-                case OperationDto operation:
-                    throw new NotImplementedException();
-
-                case ProfileDto profile:
-                    throw new NotImplementedException();
-
                 case ProjectDto project:
-                    throw new NotImplementedException();
+                    var projectRoot = new ProjectRoot(project.Name);
 
-                case WorkItemDto workItem:
-                    throw new NotImplementedException();
+                    return projectRoot;
+
+                case ReleaseDto release:
+                    //TODO: Finish mapping this object once VSTS Release APIs are integrated
+                    var releaseRoot = new ReleaseRoot(release.Name);
+
+                    return releaseRoot;
 
                 default:
                     return null;

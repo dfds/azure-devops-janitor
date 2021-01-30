@@ -5,14 +5,14 @@ using System.Text.Json;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Build
 {
-    public sealed class UpdateDefinitionRequest : ApiRequest
+    public sealed class UpdateBuildDefinitionRequest : ApiRequest
     {
-        public UpdateDefinitionRequest(string organization, string project, DefinitionDto definition) : this(organization, project, definition.Id)
+        public UpdateBuildDefinitionRequest(string organization, string project, BuildDefinitionDto definition) : this(organization, project, definition.Id)
         {
             Content = new StringContent(JsonSerializer.Serialize(definition));
         }
 
-        public UpdateDefinitionRequest(string organization, string project, int definitionId)
+        public UpdateBuildDefinitionRequest(string organization, string project, int definitionId)
         {
             ApiVersion = "6.1-preview.7";
             Method = HttpMethod.Put;

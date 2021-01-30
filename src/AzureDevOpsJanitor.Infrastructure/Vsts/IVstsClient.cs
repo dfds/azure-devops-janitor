@@ -16,13 +16,13 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
 
         Task<ProfileDto> GetProfile(string profileId, CancellationToken cancellationToken = default);
 
-        Task<DefinitionDto> GetDefinition(string organization, string project, int definitionId, CancellationToken cancellationToken = default);
+        Task<BuildDefinitionDto> GetDefinition(string organization, string project, int definitionId, CancellationToken cancellationToken = default);
 
         Task<string> GetDefinitionYaml(string organization, string project, int definitionId, CancellationToken cancellationToken = default);
 
-        Task<DefinitionDto> CreateDefinition(string organization, string project, DefinitionDto definition, CancellationToken cancellationToken = default);
+        Task<BuildDefinitionDto> CreateDefinition(string organization, string project, BuildDefinitionDto definition, CancellationToken cancellationToken = default);
 
-        Task<DefinitionDto> UpdateDefinition(string organization, string project, DefinitionDto definition, CancellationToken cancellationToken = default);
+        Task<BuildDefinitionDto> UpdateDefinition(string organization, string project, BuildDefinitionDto definition, CancellationToken cancellationToken = default);
 
         Task<BuildDto> GetBuild(string organization, string project, int buildId, CancellationToken cancellationToken = default);
 
@@ -36,6 +36,6 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
 
         Task<BuildDto> QueueBuild(string organization, string project, int definitionId, CancellationToken cancellationToken = default);
 
-        Task<BuildDto> QueueBuild(string organization, string project, DefinitionDto definition, CancellationToken cancellationToken = default);
+        Task<BuildDto> QueueBuild(string organization, string project, BuildDefinitionDto definition, CancellationToken cancellationToken = default);
     }
 }

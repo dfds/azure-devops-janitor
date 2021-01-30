@@ -3,9 +3,9 @@ using System.Net.Http;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Build.Definition
 {
-    public sealed class GetDefinitionRequest : ApiRequest
+    public sealed class GetBuildDefinitionRequest : ApiRequest
     {
-        public GetDefinitionRequest(string organization, string project, int definitionId)
+        public GetBuildDefinitionRequest(string organization, string project, int definitionId)
         {
             ApiVersion = "6.1-preview.7";
             Method = HttpMethod.Get;

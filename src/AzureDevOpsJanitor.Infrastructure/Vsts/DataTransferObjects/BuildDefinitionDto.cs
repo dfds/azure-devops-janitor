@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects
 {
-    public sealed class DefinitionDto : VstsDto
+    public sealed class BuildDefinitionDto : VstsDto
     {
         [JsonPropertyName("id")]
         public int Id { get; set; }
@@ -25,5 +26,8 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects
 
         [JsonPropertyName("queueStatus")]
         public string QueueStatus { get; set; }
+
+        [JsonPropertyName("tags")]
+        public IEnumerable<string> Tags { get; set; }
     }
 }

@@ -21,7 +21,7 @@ namespace AzureDevOpsJanitor.Application.Events.Build
 
         public async Task Handle(BuildCreatedEvent @event, CancellationToken cancellationToken = default)
         {
-            await _restClient.CreateDefinition("dfds", "CloudEngineering", _mapper.Map<DefinitionDto>(@event.Build.Definition));
+            await _restClient.CreateDefinition("dfds", "CloudEngineering", _mapper.Map<BuildDefinitionDto>(@event.Build.Definition));
         }
     }
 }

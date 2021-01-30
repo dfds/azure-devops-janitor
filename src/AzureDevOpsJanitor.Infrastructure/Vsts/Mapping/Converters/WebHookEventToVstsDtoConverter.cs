@@ -13,15 +13,15 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.Mapping.Converters
             switch(source.EventType)
             {
                 case BuildCompletedEvent.EventIdentifier:
-                    var dto = JsonSerializer.Deserialize<BuildDto>(source.Payload.Value.GetRawText());
+                    var buildDto = JsonSerializer.Deserialize<BuildDto>(source.Payload.Value.GetRawText());
                     var projectId = source.ResourceContainers.Value.GetProperty("project").GetProperty("id").GetGuid();
 
-                    dto.Project = new ProjectDto()
+                    buildDto.Project = new ProjectDto()
                     {
                         Id = projectId
                     };
 
-                    return dto;
+                    return buildDto;
 
                 case ReleaseCreatedEvent.EventIdentifier:
                     throw new NotImplementedException();

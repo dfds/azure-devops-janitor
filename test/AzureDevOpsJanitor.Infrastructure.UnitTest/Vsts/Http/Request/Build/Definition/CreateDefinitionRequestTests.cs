@@ -13,17 +13,17 @@ namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Http.Request.Build.Def
         public async Task CanBeConstructed()
         {
             //Arrange
-            CreateDefinitionRequest sut;
+            CreateBuildDefinitionRequest sut;
 
             //Act
-            sut = new CreateDefinitionRequest("my-org", "my-project", new DefinitionDto());
+            sut = new CreateBuildDefinitionRequest("my-org", "my-project", new BuildDefinitionDto());
 
             //Assert
             Assert.NotNull(sut);
             Assert.Equal("6.1-preview.7", sut.ApiVersion);
             Assert.Equal(HttpMethod.Post, sut.Method);
             Assert.Equal("https://dev.azure.com/my-org/my-project/_apis/build/definitions?api-version=6.1-preview.7", sut.RequestUri.AbsoluteUri);
-            Assert.True(await new StringContent(JsonSerializer.Serialize(new DefinitionDto())).ReadAsStringAsync() == await sut.Content.ReadAsStringAsync());
+            Assert.True(await new StringContent(JsonSerializer.Serialize(new BuildDefinitionDto())).ReadAsStringAsync() == await sut.Content.ReadAsStringAsync());
         }
     }
 }

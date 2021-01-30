@@ -14,7 +14,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.Mapping.Profiles
             CreateMap<ProfileDto, UserProfile>()
             .ReverseMap();
 
-            CreateMap<DefinitionDto, BuildDefinition>()
+            CreateMap<BuildDefinitionDto, BuildDefinition>()
             .ReverseMap();
 
             CreateMap<JsonElement, WebHookEvent>()

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 
-namespace AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Build.Definition
+namespace AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Build
 {
     public sealed class DeleteBuildRequest : ApiRequest
     {

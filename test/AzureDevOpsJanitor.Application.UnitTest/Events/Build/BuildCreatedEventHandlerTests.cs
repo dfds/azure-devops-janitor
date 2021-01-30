@@ -38,7 +38,7 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Events.Build
             //Arrange
             var mockMapper = new Mock<IMapper>();
             var mockVstsRestClient = new Mock<IVstsClient>();
-            var fakeVstsPayload = new DefinitionDto()
+            var fakeVstsPayload = new BuildDefinitionDto()
             {
                 Id = 1,
                 Name = "my-def",
@@ -47,7 +47,7 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Events.Build
                 Revision = 1
             };
 
-            mockMapper.Setup(m => m.Map<DefinitionDto>(It.IsAny<BuildDefinition>())).Returns(fakeVstsPayload);
+            mockMapper.Setup(m => m.Map<BuildDefinitionDto>(It.IsAny<BuildDefinition>())).Returns(fakeVstsPayload);
             mockVstsRestClient.Setup(m => m.CreateDefinition(It.IsAny<string>(), It.IsAny<string>(), fakeVstsPayload, It.IsAny<CancellationToken>()));
 
             var sut = new BuildCreatedEventHandler(mockMapper.Object, mockVstsRestClient.Object);

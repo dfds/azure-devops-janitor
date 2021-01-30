@@ -20,7 +20,7 @@ namespace AzureDevOpsJanitor.Application.Events.Build
         }
         public async Task Handle(BuildQueuedEvent @event, CancellationToken cancellationToken = default)
         {
-            await _restClient.QueueBuild("dfds", "CloudEngineering", _mapper.Map<DefinitionDto>(@event.Build.Definition));
+            await _restClient.QueueBuild("dfds", "CloudEngineering", _mapper.Map<BuildDefinitionDto>(@event.Build.Definition));
         }
     }
 }

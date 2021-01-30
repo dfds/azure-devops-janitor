@@ -10,10 +10,10 @@ namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Http.Request.Build.Def
         public void CanBeConstructed()
         {
             //Arrange
-            GetDefinitionRequest sut;
+            GetBuildDefinitionRequest sut;
 
             //Act
-            sut = new GetDefinitionRequest("my-org", "my-project", 1);
+            sut = new GetBuildDefinitionRequest("my-org", "my-project", 1);
 
             //Assert
             Assert.NotNull(sut);

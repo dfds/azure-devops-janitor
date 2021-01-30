@@ -4,6 +4,7 @@ using ResourceProvisioning.Abstractions.Aggregates;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace AzureDevOpsJanitor.Domain.Aggregates.Build
 {
@@ -13,7 +14,9 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Build
 #pragma warning disable IDE0052 // Remove unread private members
         private int _statusId;
 #pragma warning restore IDE0052 // Remove unread private members
-
+        
+        private readonly List<Tag> _tags;
+        
         public string CapabilityIdentifier { get; init; }
 
         public Guid ProjectId { get; private set; }
@@ -33,18 +36,22 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Build
             }
         }
 
+        public IEnumerable<Tag> Tags => _tags.AsReadOnly();
+
         private BuildRoot() : base()
         {
             Status = BuildStatus.Created;
+            _tags ??= new List<Tag>();
 
             AddDomainEvent(new BuildCreatedEvent(this));
         }
 
-        public BuildRoot(Guid projectId, string capabilityIdentifier, BuildDefinition definition) : this()
+        public BuildRoot(Guid projectId, string capabilityIdentifier, BuildDefinition definition, IEnumerable<Tag> tags = default) : this()
         {
             CapabilityIdentifier = capabilityIdentifier;
             ProjectId = projectId;
             Definition = definition;
+            _tags = tags?.ToList();
         }
 
         public void Queue()
@@ -105,6 +112,16 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Build
             Status = BuildStatus.Partial;
 
             AddDomainEvent(new BuildCompletedEvent(this));
+        }
+
+        public void AddTag(Tag tag)
+        {
+            _tags.Add(tag);
+        }
+
+        public void RemoveTag(Tag tag)
+        {
+            _tags.Remove(tag);
         }
 
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

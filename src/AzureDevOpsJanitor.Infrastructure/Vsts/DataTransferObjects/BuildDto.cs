@@ -19,7 +19,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects
         public Uri Uri { get; set; }
 
         [JsonPropertyName("definition")]
-        public DefinitionDto Definition { get; set; }
+        public BuildDefinitionDto Definition { get; set; }
 
         [JsonPropertyName("tags")]
         public IEnumerable<string> Tags { get; set; }

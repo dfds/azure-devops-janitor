@@ -52,57 +52,57 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             return profileDto;
         }
 
-        public async Task<DefinitionDto> UpdateDefinition(string organization, string project, DefinitionDto definition, CancellationToken cancellationToken = default)
+        public async Task<BuildDefinitionDto> UpdateDefinition(string organization, string project, BuildDefinitionDto definition, CancellationToken cancellationToken = default)
         {
-            var request = new UpdateDefinitionRequest(organization, project, definition);
+            var request = new UpdateBuildDefinitionRequest(organization, project, definition);
 
             request.Headers.Authorization = GetAuthZHeader();
 
             var response = await SendAsync(request, cancellationToken);
-            var definitionDto = await response.Content.ReadFromJsonAsync<DefinitionDto>(null, cancellationToken);
+            var definitionDto = await response.Content.ReadFromJsonAsync<BuildDefinitionDto>(null, cancellationToken);
 
             return definitionDto;
         }
 
-        public async Task<DefinitionDto> GetDefinition(string organization, string project, int definitionId, CancellationToken cancellationToken = default)
+        public async Task<BuildDefinitionDto> GetDefinition(string organization, string project, int definitionId, CancellationToken cancellationToken = default)
         {
-            var request = new GetDefinitionRequest(organization, project, definitionId);
+            var request = new GetBuildDefinitionRequest(organization, project, definitionId);
 
             request.Headers.Authorization = GetAuthZHeader();
 
-            var response = await SendAsync(new GetDefinitionRequest(organization, project, definitionId), cancellationToken);
-            var definitionDto = await response.Content.ReadFromJsonAsync<DefinitionDto>(null, cancellationToken);
+            var response = await SendAsync(new GetBuildDefinitionRequest(organization, project, definitionId), cancellationToken);
+            var definitionDto = await response.Content.ReadFromJsonAsync<BuildDefinitionDto>(null, cancellationToken);
 
             return definitionDto;
         }
 
         public async Task<string> GetDefinitionYaml(string organization, string project, int definitionId, CancellationToken cancellationToken = default)
         {
-            var request = new GetDefinitionYamlRequest(organization, project, definitionId);
+            var request = new GetBuildDefinitionYamlRequest(organization, project, definitionId);
 
             request.Headers.Authorization = GetAuthZHeader();
 
-            var response = await SendAsync(new GetDefinitionYamlRequest(organization, project, definitionId), cancellationToken);
+            var response = await SendAsync(new GetBuildDefinitionYamlRequest(organization, project, definitionId), cancellationToken);
             var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
 
             return responseData;
         }
 
-        public async Task<DefinitionDto> CreateDefinition(string organization, string project, DefinitionDto definition, CancellationToken cancellationToken = default)
+        public async Task<BuildDefinitionDto> CreateDefinition(string organization, string project, BuildDefinitionDto definition, CancellationToken cancellationToken = default)
         {
-            var request = new UpdateDefinitionRequest(organization, project, definition);
+            var request = new UpdateBuildDefinitionRequest(organization, project, definition);
 
             request.Headers.Authorization = GetAuthZHeader();
 
-            var response = await SendAsync(new CreateDefinitionRequest(organization, project, definition), cancellationToken);
-            var definitionDto = await response.Content.ReadFromJsonAsync<DefinitionDto>(null, cancellationToken);
+            var response = await SendAsync(new CreateBuildDefinitionRequest(organization, project, definition), cancellationToken);
+            var definitionDto = await response.Content.ReadFromJsonAsync<BuildDefinitionDto>(null, cancellationToken);
 
             return definitionDto;
         }
 
-        public async Task<BuildDto> QueueBuild(string organization, string project, DefinitionDto definition, CancellationToken cancellationToken = default)
+        public async Task<BuildDto> QueueBuild(string organization, string project, BuildDefinitionDto definition, CancellationToken cancellationToken = default)
         {
-            var request = new UpdateDefinitionRequest(organization, project, definition);
+            var request = new UpdateBuildDefinitionRequest(organization, project, definition);
 
             request.Headers.Authorization = GetAuthZHeader();
 

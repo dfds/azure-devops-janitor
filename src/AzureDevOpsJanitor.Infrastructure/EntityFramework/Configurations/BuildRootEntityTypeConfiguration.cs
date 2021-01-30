@@ -25,6 +25,8 @@ namespace AzureDevOpsJanitor.Infrastructure.EntityFramework.Configurations
             configuration.Ignore(b => b.DomainEvents);
             configuration.Property<int>("StatusId").IsRequired();
 
+            configuration.OwnsMany(o => o.Tags);
+
             configuration.HasOne(o => o.Status)
                 .WithMany()
                 .HasForeignKey("StatusId");

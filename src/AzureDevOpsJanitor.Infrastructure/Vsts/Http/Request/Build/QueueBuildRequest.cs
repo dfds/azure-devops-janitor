@@ -7,7 +7,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Build
 {
     public sealed class QueueBuildRequest : ApiRequest
     {
-        public QueueBuildRequest(string organization, string project, DefinitionDto definition) : this(organization, project, definition.Id)
+        public QueueBuildRequest(string organization, string project, BuildDefinitionDto definition) : this(organization, project, definition.Id)
         {
             Content = new StringContent(JsonSerializer.Serialize(definition));
         }
