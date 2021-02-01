@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects
 {
-    //TODO: Finalize DTO based on MS documentation
     public sealed class ReleaseDefinitionDto : VstsDto
     {
         [JsonPropertyName("id")]
@@ -12,10 +10,7 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects
         [JsonPropertyName("name")]
         public string Name { get; set; }
 
-        [JsonPropertyName("tags")]
-        public IEnumerable<string> Tags { get; set; }
-
-        [JsonPropertyName("variables")]
-        public IEnumerable<string> Variables { get; set; }
+        [JsonPropertyName("url")]
+        public string Url { get; set; }
     }
 }
