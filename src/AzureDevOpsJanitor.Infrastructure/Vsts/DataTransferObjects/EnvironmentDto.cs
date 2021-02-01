@@ -6,5 +6,8 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects
     {
         [JsonPropertyName("name")]
         public string Name { get; set; }
+
+        [JsonPropertyName("status")]
+        public string Status { get; set; }
     }
 }
