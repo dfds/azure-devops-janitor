@@ -1,5 +1,6 @@
 ﻿using AzureDevOpsJanitor.Domain.Aggregates.Build;
 using AzureDevOpsJanitor.Domain.Aggregates.Project;
+using AzureDevOpsJanitor.Domain.Aggregates.Release;
 using AzureDevOpsJanitor.Domain.ValueObjects;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,8 @@ namespace AzureDevOpsJanitor.Infrastructure.EntityFramework
         public const string DEFAULT_SCHEMA = nameof(DomainContext);
         private readonly IMediator _mediator;
         private readonly IDictionary<Type, IEnumerable<IMaterializedView>> _seedData;
+        
+        public DbSet<ReleaseRoot> Release { get; set; }
 
         public DbSet<ProjectRoot> Project { get; set; }
 

@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using AzureDevOpsJanitor.Application.Commands.Build;
 using AzureDevOpsJanitor.Application.Commands.Project;
+using AzureDevOpsJanitor.Application.Commands.Release;
 using AzureDevOpsJanitor.Domain.Aggregates.Build;
 using AzureDevOpsJanitor.Domain.Aggregates.Project;
+using AzureDevOpsJanitor.Domain.Aggregates.Release;
 using ResourceProvisioning.Abstractions.Aggregates;
 using ResourceProvisioning.Abstractions.Commands;
 using System;
@@ -13,7 +15,6 @@ namespace AzureDevOpsJanitor.Application.Mapping.Converters
     {
         public ICommand<IAggregateRoot> Convert(IAggregateRoot source, ICommand<IAggregateRoot> destination = default, ResolutionContext context = default)
         {
-            //TODO: Implement support for all required aggregates (consider merging Create and Update commands.
             switch (source)
             {
                 case BuildRoot build:
@@ -33,6 +34,15 @@ namespace AzureDevOpsJanitor.Application.Mapping.Converters
                     else
                     {
                         return new UpdateProjectCommand(project);
+                    }
+                case ReleaseRoot release:
+                    if (release.Id == 0)
+                    {
+                        return new CreateReleaseCommand(release.Name);
+                    }
+                    else
+                    {
+                        return new UpdateReleaseCommand(release);
                     }
 
                 case null:

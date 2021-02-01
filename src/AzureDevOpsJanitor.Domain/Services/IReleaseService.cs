@@ -1,7 +1,5 @@
-﻿using AzureDevOpsJanitor.Domain.Aggregates.Project;
-using AzureDevOpsJanitor.Domain.Aggregates.Release;
+﻿using AzureDevOpsJanitor.Domain.Aggregates.Release;
 using ResourceProvisioning.Abstractions.Services;
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,12 +10,12 @@ namespace AzureDevOpsJanitor.Domain.Services
     {
         Task<IEnumerable<ReleaseRoot>> GetAsync();
 
-        Task<ReleaseRoot> GetAsync(Guid releaseId);
+        Task<ReleaseRoot> GetAsync(int releaseId);
 
         Task<ReleaseRoot> AddAsync(string name, CancellationToken cancellationToken = default);
 
-        Task<ReleaseRoot> UpdateAsync(ProjectRoot project, CancellationToken cancellationToken = default);
+        Task<ReleaseRoot> UpdateAsync(ReleaseRoot release, CancellationToken cancellationToken = default);
 
-        Task DeleteAsync(Guid releaseId, CancellationToken cancellationToken = default);
+        Task DeleteAsync(int releaseId, CancellationToken cancellationToken = default);
     }
 }

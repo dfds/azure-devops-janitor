@@ -1,26 +1,26 @@
-﻿using AzureDevOpsJanitor.Domain.Aggregates.Project;
+﻿using AzureDevOpsJanitor.Domain.Aggregates.Release;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Collections.Generic;
 
 namespace AzureDevOpsJanitor.Infrastructure.EntityFramework.Configurations
 {
-    public class ProjectEntityTypeConfiguration : IEntityTypeConfiguration<ProjectRoot>
+    public class ReleaseRootEntityTypeConfiguration : IEntityTypeConfiguration<ReleaseRoot>
     {
-        private readonly IEnumerable<ProjectRoot> _seed;
+        private readonly IEnumerable<ReleaseRoot> _seed;
 
-        public ProjectEntityTypeConfiguration()
+        public ReleaseRootEntityTypeConfiguration()
         {
         }
 
-        public ProjectEntityTypeConfiguration(IEnumerable<ProjectRoot> seed)
+        public ReleaseRootEntityTypeConfiguration(IEnumerable<ReleaseRoot> seed)
         {
             _seed = seed;
         }
 
-        public void Configure(EntityTypeBuilder<ProjectRoot> configuration)
+        public void Configure(EntityTypeBuilder<ReleaseRoot> configuration)
         {
-            configuration.ToTable("Project");
+            configuration.ToTable("Release");
             configuration.HasKey(o => o.Id);
             configuration.Ignore(b => b.DomainEvents);
 

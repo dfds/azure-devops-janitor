@@ -1,14 +1,13 @@
 ﻿using AzureDevOpsJanitor.Domain.Events.Release;
 using AzureDevOpsJanitor.Domain.ValueObjects;
 using ResourceProvisioning.Abstractions.Aggregates;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace AzureDevOpsJanitor.Domain.Aggregates.Release
 {
-    public sealed class ReleaseRoot : AggregateRoot<Guid>
+    public sealed class ReleaseRoot : AggregateRoot<int>
     {
         private readonly List<Artifact> _artifacts;
         private readonly List<BuildEnvironment> _environments;
