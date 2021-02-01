@@ -21,6 +21,8 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.Mapping.Converters
                         Id = projectId
                     };
 
+                    //TODO: Figure out how to get tags without having to make a call to VSTS
+
                     return buildDto;
 
                 case ReleaseCreatedEvent.EventIdentifier:

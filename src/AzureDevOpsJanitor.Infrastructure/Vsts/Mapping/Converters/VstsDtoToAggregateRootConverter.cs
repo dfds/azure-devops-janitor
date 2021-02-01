@@ -26,7 +26,6 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.Mapping.Converters
                     return projectRoot;
 
                 case ReleaseDto release:
-                    //TODO: Finish mapping this object once VSTS Release APIs are integrated.
                     var releaseRoot = new ReleaseRoot(release.Name);
 
                     return releaseRoot;
