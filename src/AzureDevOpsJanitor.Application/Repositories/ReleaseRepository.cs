@@ -2,8 +2,10 @@
 using AzureDevOpsJanitor.Domain.Repository;
 using AzureDevOpsJanitor.Infrastructure.EntityFramework;
 using AzureDevOpsJanitor.Infrastructure.EntityFramework.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -16,14 +18,22 @@ namespace AzureDevOpsJanitor.Application.Repositories
 
         }
 
-        public Task<ReleaseRoot> GetAsync(Guid releaseId)
+        public override async Task<IEnumerable<ReleaseRoot>> GetAsync(Expression<Func<ReleaseRoot, bool>> filter)
         {
-            throw new NotImplementedException();
+            return await Task.Factory.StartNew(() =>
+            {
+                return _context.Release
+                             .AsNoTracking()
+                             .Where(filter)
+                             .AsEnumerable();
+            });
         }
 
-        public override Task<IEnumerable<ReleaseRoot>> GetAsync(Expression<Func<ReleaseRoot, bool>> filter)
+        public async Task<ReleaseRoot> GetAsync(Guid releaseId)
         {
-            throw new NotImplementedException();
+            var project = await _context.Release.FindAsync(releaseId);
+
+            return project;
         }
     }
 }

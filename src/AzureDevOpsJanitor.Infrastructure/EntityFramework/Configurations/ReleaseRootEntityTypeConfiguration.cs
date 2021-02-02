@@ -24,6 +24,9 @@ namespace AzureDevOpsJanitor.Infrastructure.EntityFramework.Configurations
             configuration.HasKey(o => o.Id);
             configuration.Ignore(b => b.DomainEvents);
 
+            configuration.OwnsMany(o => o.Artifacts);
+            configuration.OwnsMany(o => o.Environments);
+
             if (_seed != null)
             {
                 configuration.HasData(_seed);

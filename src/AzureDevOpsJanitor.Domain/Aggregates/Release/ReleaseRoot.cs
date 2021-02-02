@@ -18,13 +18,16 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Release
 
         public IEnumerable<BuildEnvironment> Environments => _environments.AsReadOnly();
 
-        public ReleaseRoot(string name, IEnumerable<Artifact> artifacts = default, IEnumerable<BuildEnvironment> environments = default)
+        private ReleaseRoot() : base()
+        {
+            AddDomainEvent(new ReleaseCreatedEvent(this));
+        }
+
+        public ReleaseRoot(string name, IEnumerable<Artifact> artifacts = default, IEnumerable<BuildEnvironment> environments = default) : this()
         {
             Name = name;
             _artifacts = artifacts.ToList() ?? new List<Artifact>();
             _environments = environments.ToList() ?? new List<BuildEnvironment>();
-
-            AddDomainEvent(new ReleaseCreatedEvent(this));
         }
 
         public void AddArtifact(Artifact artifact)

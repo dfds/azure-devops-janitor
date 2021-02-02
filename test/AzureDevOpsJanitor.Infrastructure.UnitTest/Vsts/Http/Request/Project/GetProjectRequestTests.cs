@@ -4,16 +4,16 @@ using Xunit;
 
 namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Http.Request.Project
 {
-    public class GetProjectRequestTests
+    public class GetProjectsRequestTests
     {
         [Fact]
         public void CanBeConstructed()
         {
             //Arrange
-            GetProjectRequest sut;
+            GetProjectsRequest sut;
 
             //Act
-            sut = new GetProjectRequest("my-org");
+            sut = new GetProjectsRequest("my-org");
 
             //Assert
             Assert.NotNull(sut);

@@ -8,27 +8,26 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.Mapping.Converters
 {
     public class WebHookEventToVstsDtoConverter : ITypeConverter<WebHookEvent, VstsDto>
     {
+        private readonly IVstsClient _vstsClient;
+
+        public WebHookEventToVstsDtoConverter(IVstsClient vstsClient) 
+        {
+            _vstsClient = vstsClient;
+        }
+
         public VstsDto Convert(WebHookEvent source, VstsDto destination, ResolutionContext context)
         {
             switch(source.EventType)
             {
                 case BuildCompletedEvent.EventIdentifier:
-                    var buildDto = JsonSerializer.Deserialize<BuildDto>(source.Payload.Value.GetRawText());
-                    var projectId = source.ResourceContainers?.GetProperty("project").GetProperty("id").GetGuid();
+                    var eventBuildDto = JsonSerializer.Deserialize<BuildDto>(source.Payload.Value.GetRawText());
+                    var projectId = source.ResourceContainers?.GetProperty("project").GetProperty("id").GetString();
 
-                    if(projectId.HasValue)
-                    { 
-                        buildDto.Project = new ProjectDto()
-                        {
-                            Id = projectId.Value
-                        };
-                    }
+                    var fetchUpdatedBuildDtoTask = _vstsClient.GetBuild(projectId, eventBuildDto.Id);
 
-                    //TODO: Figure out how to map to capability identifier via tags without having to make a call to VSTS 
-                    //We could enrich it from the db, this would create orphans when builds are started directly from the portal, 
-                    //but then again even with a direct call this could happen if people forget the capability identifier tag.
-
-                    return buildDto;
+                    fetchUpdatedBuildDtoTask.Wait();
+                    
+                    return fetchUpdatedBuildDtoTask.Result;
 
                 case ReleaseCreatedEvent.EventIdentifier:
                     throw new NotImplementedException();

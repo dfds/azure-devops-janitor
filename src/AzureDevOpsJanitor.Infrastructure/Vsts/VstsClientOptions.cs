@@ -14,6 +14,8 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
 
         public Uri RedirectUri { get; set; }
 
+        public string DefaultOrganization { get; set; } = "dfds";
+
         public string ClientSecret { get; set; }
     }
 }
