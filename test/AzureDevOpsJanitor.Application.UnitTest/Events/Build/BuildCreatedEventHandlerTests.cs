@@ -54,7 +54,7 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Events.Build
             var fakeProjectPayload = new ProjectRoot("foo");
 
             mockMapper.Setup(m => m.Map<BuildDefinitionDto>(It.IsAny<BuildDefinition>())).Returns(fakeVstsPayload);
-            mockVstsRestClient.Setup(m => m.CreateDefinition(fakeProjectPayload.Name, fakeVstsPayload, It.IsAny<string>(), It.IsAny<CancellationToken>()));
+            mockVstsRestClient.Setup(m => m.CreateBuildDefinition(fakeProjectPayload.Name, fakeVstsPayload, It.IsAny<string>(), It.IsAny<CancellationToken>()));
             mockProjectService.Setup(m => m.GetAsync(It.IsAny<Guid>())).Returns(Task.FromResult(fakeProjectPayload));
 
             var sut = new BuildCreatedEventHandler(mockMapper.Object, mockVstsRestClient.Object, mockProjectService.Object);

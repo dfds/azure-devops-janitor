@@ -52,7 +52,7 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Events.Build
             var sut = new BuildQueuedEventHandler(mockMapper.Object, mockVstsRestClient.Object, mockProjectService.Object);
 
             mockMapper.Setup(m => m.Map<BuildDefinitionDto>(It.IsAny<BuildDefinition>())).Returns(fakeVstsPayload);
-            mockVstsRestClient.Setup(m => m.CreateDefinition(fakeProjectPayload.Name, fakeVstsPayload, It.IsAny<string>(), It.IsAny<CancellationToken>()));
+            mockVstsRestClient.Setup(m => m.CreateBuildDefinition(fakeProjectPayload.Name, fakeVstsPayload, It.IsAny<string>(), It.IsAny<CancellationToken>()));
             mockProjectService.Setup(m => m.GetAsync(It.IsAny<Guid>())).Returns(Task.FromResult(fakeProjectPayload));
 
             //Act

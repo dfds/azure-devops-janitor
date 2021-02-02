@@ -3,6 +3,7 @@ using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Build;
 using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Build.Definition;
 using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Profile;
 using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Project;
+using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Release;
 using Microsoft.Extensions.Options;
 using ResourceProvisioning.Abstractions.Protocols.Http;
 using System;
@@ -19,6 +20,7 @@ using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts
 {
+    //TODO: Implement Facade & Command patterns to break up class before it turns into Godzilla
     public sealed class VstsClient : RestClient, IVstsClient
     {
         private readonly IOptions<VstsClientOptions> _options;
@@ -40,9 +42,21 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             }
         }
 
-        public async Task<ProfileDto> GetProfile(string profileId, CancellationToken cancellationToken = default)
+        public async Task<ReleaseDto> GetRelease(string projectIdentifier, int releaseId, string organization = default, CancellationToken cancellationToken = default)
         {
-            var request = new GetProfileRequest(profileId);
+            var request = new GetReleaseRequest(organization ?? _options.Value.DefaultOrganization, projectIdentifier, releaseId);
+
+            request.Headers.Authorization = GetAuthZHeader();
+
+            var response = await SendAsync(request, cancellationToken);
+            var releaseDto = await response.Content.ReadFromJsonAsync<ReleaseDto>(null, cancellationToken);
+
+            return releaseDto;
+        }
+
+        public async Task<ProfileDto> GetProfile(string profileIdentifier, CancellationToken cancellationToken = default)
+        {
+            var request = new GetProfileRequest(profileIdentifier);
 
             request.Headers.Authorization = GetAuthZHeader();
 
@@ -52,9 +66,9 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             return profileDto;
         }
 
-        public async Task<BuildDefinitionDto> UpdateDefinition(string project, BuildDefinitionDto definition, string organization = default, CancellationToken cancellationToken = default)
+        public async Task<BuildDefinitionDto> UpdateBuildDefinition(string projectIdentifier, BuildDefinitionDto definition, string organization = default, CancellationToken cancellationToken = default)
         {
-            var request = new UpdateBuildDefinitionRequest(organization ?? _options.Value.DefaultOrganization, project, definition);
+            var request = new UpdateBuildDefinitionRequest(organization ?? _options.Value.DefaultOrganization, projectIdentifier, definition);
 
             request.Headers.Authorization = GetAuthZHeader();
 
@@ -64,9 +78,9 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             return definitionDto;
         }
 
-        public async Task<BuildDefinitionDto> GetDefinition(string project, int definitionId, string organization = default, CancellationToken cancellationToken = default)
+        public async Task<BuildDefinitionDto> GetBuildDefinition(string projectIdentifier, int definitionId, string organization = default, CancellationToken cancellationToken = default)
         {
-            var request = new GetBuildDefinitionRequest(organization ?? _options.Value.DefaultOrganization, project, definitionId);
+            var request = new GetBuildDefinitionRequest(organization ?? _options.Value.DefaultOrganization, projectIdentifier, definitionId);
 
             request.Headers.Authorization = GetAuthZHeader();
 
@@ -76,9 +90,9 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             return definitionDto;
         }
 
-        public async Task<string> GetDefinitionYaml(string project, int definitionId, string organization = default, CancellationToken cancellationToken = default)
+        public async Task<string> GetBuildDefinitionYaml(string projectIdentifier, int definitionId, string organization = default, CancellationToken cancellationToken = default)
         {
-            var request = new GetBuildDefinitionYamlRequest(organization ?? _options.Value.DefaultOrganization, project, definitionId);
+            var request = new GetBuildDefinitionYamlRequest(organization ?? _options.Value.DefaultOrganization, projectIdentifier, definitionId);
 
             request.Headers.Authorization = GetAuthZHeader();
 
@@ -88,9 +102,9 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             return responseData;
         }
 
-        public async Task<BuildDefinitionDto> CreateDefinition(string project, BuildDefinitionDto definition, string organization = default, CancellationToken cancellationToken = default)
+        public async Task<BuildDefinitionDto> CreateBuildDefinition(string projectIdentifier, BuildDefinitionDto definition, string organization = default, CancellationToken cancellationToken = default)
         {
-            var request = new UpdateBuildDefinitionRequest(organization ?? _options.Value.DefaultOrganization, project, definition);
+            var request = new UpdateBuildDefinitionRequest(organization ?? _options.Value.DefaultOrganization, projectIdentifier, definition);
 
             request.Headers.Authorization = GetAuthZHeader();
 
@@ -100,9 +114,9 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             return definitionDto;
         }
 
-        public async Task<BuildDto> QueueBuild(string project, BuildDefinitionDto definition, string organization = default, CancellationToken cancellationToken = default)
+        public async Task<BuildDto> QueueBuild(string projectIdentifier, BuildDefinitionDto definition, string organization = default, CancellationToken cancellationToken = default)
         {
-            var request = new UpdateBuildDefinitionRequest(organization ?? _options.Value.DefaultOrganization, project, definition);
+            var request = new UpdateBuildDefinitionRequest(organization ?? _options.Value.DefaultOrganization, projectIdentifier, definition);
 
             request.Headers.Authorization = GetAuthZHeader();
 
@@ -112,9 +126,9 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             return buildDto;
         }
 
-        public async Task<BuildDto> QueueBuild(string project, int definitionId, string organization = default, CancellationToken cancellationToken = default)
+        public async Task<BuildDto> QueueBuild(string projectIdentifier, int definitionId, string organization = default, CancellationToken cancellationToken = default)
         {
-            var request = new QueueBuildRequest(organization ?? _options.Value.DefaultOrganization, project, definitionId);
+            var request = new QueueBuildRequest(organization ?? _options.Value.DefaultOrganization, projectIdentifier, definitionId);
 
             request.Headers.Authorization = GetAuthZHeader();
 
@@ -172,9 +186,9 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             return projectDtos.Value;
         }
 
-        public async Task<BuildDto> GetBuild(string project, int buildId, string organization = default, CancellationToken cancellationToken = default)
+        public async Task<BuildDto> GetBuild(string projectIdentifier, int buildId, string organization = default, CancellationToken cancellationToken = default)
         {
-            var request = new GetBuildRequest(organization ?? _options.Value.DefaultOrganization, project, buildId);
+            var request = new GetBuildRequest(organization ?? _options.Value.DefaultOrganization, projectIdentifier, buildId);
 
             request.Headers.Authorization = GetAuthZHeader();
 
@@ -184,9 +198,9 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             return buildDto;
         }
 
-        public async Task DeleteBuild(string project, int buildId, string organization = default, CancellationToken cancellationToken = default)
+        public async Task DeleteBuild(string projectIdentifier, int buildId, string organization = default, CancellationToken cancellationToken = default)
         {
-            var request = new GetBuildRequest(organization ?? _options.Value.DefaultOrganization, project, buildId);
+            var request = new GetBuildRequest(organization ?? _options.Value.DefaultOrganization, projectIdentifier, buildId);
 
             request.Headers.Authorization = GetAuthZHeader();
 
@@ -200,9 +214,9 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             return;
         }
 
-        public async Task<BuildDto> UpdateBuild(string project, BuildDto build, string organization = default, CancellationToken cancellationToken = default)
+        public async Task<BuildDto> UpdateBuild(string projectIdentifier, BuildDto build, string organization = default, CancellationToken cancellationToken = default)
         {
-            var request = new UpdateBuildRequest(organization ?? _options.Value.DefaultOrganization, project, build);
+            var request = new UpdateBuildRequest(organization ?? _options.Value.DefaultOrganization, projectIdentifier, build);
 
             request.Headers.Authorization = GetAuthZHeader();
 
@@ -212,9 +226,9 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             return buildDto;
         }
 
-        public async Task<IEnumerable<ChangeDto>> GetBuildChanges(string project, int fromBuildId, int toBuildId, string organization = default, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<ChangeDto>> GetBuildChanges(string projectIdentifier, int fromBuildId, int toBuildId, string organization = default, CancellationToken cancellationToken = default)
         {
-            var request = new GetChangesBetweenBuilds(organization ?? _options.Value.DefaultOrganization, project, fromBuildId, toBuildId);
+            var request = new GetChangesBetweenBuilds(organization ?? _options.Value.DefaultOrganization, projectIdentifier, fromBuildId, toBuildId);
 
             request.Headers.Authorization = GetAuthZHeader();
 
@@ -224,9 +238,9 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts
             return changeDtos.Value;
         }
 
-        public async Task<IEnumerable<WorkItemDto>> GetBuildWorkItemRefs(string project, int buildId, string organization = default, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<WorkItemDto>> GetBuildWorkItemRefs(string projectIdentifier, int buildId, string organization = default, CancellationToken cancellationToken = default)
         {
-            var request = new GetBuildWorkItemRefs(organization ?? _options.Value.DefaultOrganization, project, buildId);
+            var request = new GetBuildWorkItemRefs(organization ?? _options.Value.DefaultOrganization, projectIdentifier, buildId);
 
             request.Headers.Authorization = GetAuthZHeader();
 

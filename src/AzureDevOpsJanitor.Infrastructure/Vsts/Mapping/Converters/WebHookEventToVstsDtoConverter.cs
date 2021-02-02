@@ -2,7 +2,6 @@
 using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
 using AzureDevOpsJanitor.Infrastructure.Vsts.Events;
 using System;
-using System.Text.Json;
 
 namespace AzureDevOpsJanitor.Infrastructure.Vsts.Mapping.Converters
 {
@@ -17,32 +16,31 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.Mapping.Converters
 
         public VstsDto Convert(WebHookEvent source, VstsDto destination, ResolutionContext context)
         {
+            Guid? projectId;
+
             switch(source.EventType)
             {
                 case BuildCompletedEvent.EventIdentifier:
-                    var eventBuildDto = JsonSerializer.Deserialize<BuildDto>(source.Payload.Value.GetRawText());
-                    var projectId = source.ResourceContainers?.GetProperty("project").GetProperty("id").GetString();
-
-                    var fetchUpdatedBuildDtoTask = _vstsClient.GetBuild(projectId, eventBuildDto.Id);
+                    var buildId = source.Resource?.GetProperty("id").GetInt32();
+                    projectId = source.ResourceContainers?.GetProperty("project").GetProperty("id").GetGuid();
+                    var fetchUpdatedBuildDtoTask = _vstsClient.GetBuild(projectId.Value.ToString(), buildId.Value);
 
                     fetchUpdatedBuildDtoTask.Wait();
                     
                     return fetchUpdatedBuildDtoTask.Result;
 
                 case ReleaseCreatedEvent.EventIdentifier:
-                    throw new NotImplementedException();
-
                 case ReleaseCompletedEvent.EventIdentifier:
-                    throw new NotImplementedException();
-
                 case ReleaseAbandonedEvent.EventIdentifier:
-                    throw new NotImplementedException();
-
                 case ReleaseApprovalPendingEvent.EventIdentifier:
-                    throw new NotImplementedException();
-
                 case ReleaseApprovalCompletedEvent.EventIdentifier:
-                    throw new NotImplementedException();
+                    var releaseId = source.Resource?.GetProperty("release").GetProperty("id").GetInt32();
+                    projectId = source.Resource?.GetProperty("project").GetProperty("id").GetGuid();
+                    var fetchUpdatedReleaseDtoTask = _vstsClient.GetRelease(projectId.Value.ToString(), releaseId.Value);
+
+                    fetchUpdatedReleaseDtoTask.Wait();
+
+                    return fetchUpdatedReleaseDtoTask.Result;
 
                 default:
                     return null;
