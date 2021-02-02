@@ -23,17 +23,30 @@ namespace AzureDevOpsJanitor.Application.Repositories
             return await Task.Factory.StartNew(() =>
             {
                 return _context.Release
-                             .AsNoTracking()
-                             .Where(filter)
-                             .AsEnumerable();
+                            .AsNoTracking()
+                            .Where(filter)
+                            .Include(i => i.Artifacts)
+                            .Include(i => i.Environments)
+                            .AsEnumerable();
             });
         }
 
         public async Task<ReleaseRoot> GetAsync(Guid releaseId)
         {
-            var project = await _context.Release.FindAsync(releaseId);
+            var release = await _context.Release.FindAsync(releaseId);
 
-            return project;
+            if (release != null)
+            {
+                var entry = _context.Entry(release);
+
+                if (entry != null)
+                {
+                    await entry.Reference(i => i.Artifacts).LoadAsync();
+                    await entry.Reference(i => i.Environments).LoadAsync();
+                }
+            }
+
+            return release;
         }
     }
 }
