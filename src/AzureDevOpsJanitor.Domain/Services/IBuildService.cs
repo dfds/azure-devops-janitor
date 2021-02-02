@@ -16,7 +16,7 @@ namespace AzureDevOpsJanitor.Domain.Services
 
         Task<IEnumerable<BuildRoot>> GetAsync(Guid projectId);
 
-        Task<BuildRoot> AddAsync(Guid projectId, string capabilityIdentifier, BuildDefinition definition, CancellationToken cancellationToken = default);
+        Task<BuildRoot> AddAsync(Guid projectId, string capabilityIdentifier, BuildDefinition definition, IEnumerable<Tag> tags = default, CancellationToken cancellationToken = default);
 
         Task<BuildRoot> UpdateAsync(BuildRoot build, CancellationToken cancellationToken = default);
 

@@ -51,7 +51,16 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Build
             CapabilityIdentifier = capabilityIdentifier;
             ProjectId = projectId;
             Definition = definition;
-            _tags = tags?.ToList();
+
+            if(tags != null)
+            { 
+                _tags = tags.ToList();
+            }
+
+            if(!_tags.Any(o => o.Value == CapabilityIdentifier))
+            { 
+                _tags.Add(new Tag(CapabilityIdentifier));
+            }
         }
 
         public void Queue()

@@ -3,6 +3,7 @@ using AzureDevOpsJanitor.Domain.Events.Build;
 using AzureDevOpsJanitor.Infrastructure.Vsts;
 using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
 using ResourceProvisioning.Abstractions.Events;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,7 +21,11 @@ namespace AzureDevOpsJanitor.Application.Events.Build
         }
         public async Task Handle(BuildQueuedEvent @event, CancellationToken cancellationToken = default)
         {
-            await _restClient.QueueBuild("dfds", "CloudEngineering", _mapper.Map<BuildDefinitionDto>(@event.Build.Definition));
+            var buildDef = _mapper.Map<BuildDefinitionDto>(@event.Build.Definition);
+
+            buildDef.Tags = @event.Build.Tags.Select(x => x.Value);
+            
+            await _restClient.QueueBuild("dfds", "CloudEngineering", buildDef);
         }
     }
 }

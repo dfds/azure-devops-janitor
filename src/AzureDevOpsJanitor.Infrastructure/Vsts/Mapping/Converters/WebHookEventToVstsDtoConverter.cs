@@ -14,14 +14,19 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.Mapping.Converters
             {
                 case BuildCompletedEvent.EventIdentifier:
                     var buildDto = JsonSerializer.Deserialize<BuildDto>(source.Payload.Value.GetRawText());
-                    var projectId = source.ResourceContainers.Value.GetProperty("project").GetProperty("id").GetGuid();
+                    var projectId = source.ResourceContainers?.GetProperty("project").GetProperty("id").GetGuid();
 
-                    buildDto.Project = new ProjectDto()
-                    {
-                        Id = projectId
-                    };
+                    if(projectId.HasValue)
+                    { 
+                        buildDto.Project = new ProjectDto()
+                        {
+                            Id = projectId.Value
+                        };
+                    }
 
-                    //TODO: Figure out how to get tags without having to make a call to VSTS
+                    //TODO: Figure out how to map to capability identifier via tags without having to make a call to VSTS 
+                    //We could enrich it from the db, this would create orphans when builds are started directly from the portal, 
+                    //but then again even with a direct call this could happen if people forget the capability identifier tag.
 
                     return buildDto;
 

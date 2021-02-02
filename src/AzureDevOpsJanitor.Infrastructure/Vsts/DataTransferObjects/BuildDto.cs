@@ -15,6 +15,9 @@ namespace AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects
         [JsonPropertyName("buildNumber")]
         public string BuildNumber { get; set; }
 
+        [JsonPropertyName("status")]
+        public string Status { get; set; }
+
         [JsonPropertyName("uri")]
         public Uri Uri { get; set; }
 

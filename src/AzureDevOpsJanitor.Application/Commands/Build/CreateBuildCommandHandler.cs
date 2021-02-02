@@ -18,7 +18,7 @@ namespace AzureDevOpsJanitor.Application.Commands.Build
 
         public async Task<BuildRoot> Handle(CreateBuildCommand command, CancellationToken cancellationToken = default)
         {
-            var build = await _buildService.AddAsync(command.ProjectId, command.CapabilityId, command.BuildDefinition, cancellationToken);
+            var build = await _buildService.AddAsync(command.ProjectId, command.CapabilityId, command.BuildDefinition, command.Tags, cancellationToken);
 
             await _buildService.QueueAsync(build.Id, cancellationToken);
 

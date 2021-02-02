@@ -33,9 +33,9 @@ namespace AzureDevOpsJanitor.Application.Services
             return await _buildRepository.GetAsync(projectId);
         }
 
-        public async Task<BuildRoot> AddAsync(Guid projectId, string capabilityId, BuildDefinition definition, CancellationToken cancellationToken = default)
+        public async Task<BuildRoot> AddAsync(Guid projectId, string capabilityId, BuildDefinition definition, IEnumerable<Tag> tags = default, CancellationToken cancellationToken = default)
         {
-            var build = _buildRepository.Add(new BuildRoot(projectId, capabilityId, definition));
+            var build = _buildRepository.Add(new BuildRoot(projectId, capabilityId, definition, tags));
 
             await _buildRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 

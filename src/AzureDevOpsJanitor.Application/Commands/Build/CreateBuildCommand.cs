@@ -2,6 +2,7 @@
 using AzureDevOpsJanitor.Domain.ValueObjects;
 using ResourceProvisioning.Abstractions.Commands;
 using System;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace AzureDevOpsJanitor.Application.Commands.Build
@@ -17,12 +18,16 @@ namespace AzureDevOpsJanitor.Application.Commands.Build
         [JsonPropertyName("buildDefinition")]
         public BuildDefinition BuildDefinition { get; init; }
 
+        [JsonPropertyName("tags")]
+        public IEnumerable<Tag> Tags { get; init; }
+
         [JsonConstructor]
-        public CreateBuildCommand(Guid projectId, string capabilityId, BuildDefinition buildDefinition)
+        public CreateBuildCommand(Guid projectId, string capabilityId, BuildDefinition buildDefinition, IEnumerable<Tag> tags = default)
         {
             ProjectId = projectId;
             CapabilityId = capabilityId;
             BuildDefinition = buildDefinition;
+            Tags = tags;
         }
     }
 }

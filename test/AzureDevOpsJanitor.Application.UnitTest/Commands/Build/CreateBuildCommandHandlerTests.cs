@@ -4,6 +4,7 @@ using AzureDevOpsJanitor.Domain.Services;
 using AzureDevOpsJanitor.Domain.ValueObjects;
 using Moq;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -36,13 +37,15 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Commands.Build
             var mockBuildService = new Mock<IBuildService>();
             var buildRoot = new BuildRoot(Guid.NewGuid(), "my-capability-identifier-or-guid", new BuildDefinition("name", "yaml", 1));
 
-            mockBuildService.Setup(m => m.AddAsync(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<BuildDefinition>(), It.IsAny<CancellationToken>())).Returns(Task.FromResult(buildRoot));
+            buildRoot.AddTag(new Tag("foo"));
+
+            mockBuildService.Setup(m => m.AddAsync(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<BuildDefinition>(), It.IsAny<IEnumerable<Tag>>(), It.IsAny<CancellationToken>())).Returns(Task.FromResult(buildRoot));
             mockBuildService.Setup(m => m.QueueAsync(It.IsAny<int>(), It.IsAny<CancellationToken>()));
 
             var sut = new CreateBuildCommandHandler(mockBuildService.Object);
 
             //Act
-            var result = await sut.Handle(new CreateBuildCommand(Guid.NewGuid(), Guid.NewGuid().ToString(), new BuildDefinition("name", "yaml", 1)));
+            var result = await sut.Handle(new CreateBuildCommand(buildRoot.ProjectId, buildRoot.CapabilityIdentifier, buildRoot.Definition, buildRoot.Tags));
 
             //Assert
             Assert.Equal(result, buildRoot);
