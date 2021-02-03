@@ -21,7 +21,7 @@ namespace AzureDevOpsJanitor.Infrastructure.EntityFramework
     {
         public const string DEFAULT_SCHEMA = nameof(DomainContext);
         private readonly IMediator _mediator;
-        private readonly IDictionary<Type, IEnumerable<IMaterializedView>> _seedData;
+        private readonly IDictionary<Type, IEnumerable<IView>> _seedData;
 
         public DbSet<BuildEnvironment> Environments { get; set; }
 
@@ -41,7 +41,7 @@ namespace AzureDevOpsJanitor.Infrastructure.EntityFramework
 
         public DomainContext() : this(new DbContextOptions<DomainContext>()) { }
 
-        public DomainContext(DbContextOptions options, IMediator mediator = default, IDictionary<Type, IEnumerable<IMaterializedView>> seedData = default) : base(options)
+        public DomainContext(DbContextOptions options, IMediator mediator = default, IDictionary<Type, IEnumerable<IView>> seedData = default) : base(options)
         {
             _mediator = mediator;
             _seedData = seedData;
@@ -54,9 +54,9 @@ namespace AzureDevOpsJanitor.Infrastructure.EntityFramework
             foreach (var configurationType in configurationTypes)
             {
                 var entityType = configurationType.GetInterface("IEntityTypeConfiguration`1").GenericTypeArguments.SingleOrDefault();
-                var materializedViewData = _seedData?.SingleOrDefault(v => v.Key == entityType).Value;
-                var configurationCtorArgTypes = (materializedViewData != null) ? new[] { materializedViewData.GetType() } : Array.Empty<Type>();
-                var configurationCtorArgs = (materializedViewData != null) ? new[] { materializedViewData } : null;
+                var viewData = _seedData?.SingleOrDefault(v => v.Key == entityType).Value;
+                var configurationCtorArgTypes = (viewData != null) ? new[] { viewData.GetType() } : Array.Empty<Type>();
+                var configurationCtorArgs = (viewData != null) ? new[] { viewData } : null;
                 var configurationCtor = configurationType.GetConstructor(BindingFlags.Public | BindingFlags.Instance, null, configurationCtorArgTypes, null);
                 dynamic configuration = configurationCtor.Invoke(configurationCtorArgs);
 
