@@ -1,5 +1,6 @@
 ﻿using AzureDevOpsJanitor.Application.Commands.Project;
 using AzureDevOpsJanitor.Domain.Aggregates.Project;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ResourceProvisioning.Abstractions.Facade;
 using System;
@@ -10,6 +11,7 @@ namespace AzureDevOpsJanitor.Host.Api.Controllers.V1
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public sealed class ProjectController : ControllerBase
     {
         private readonly IFacade _applicationFacade;
