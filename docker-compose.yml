@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  azuredevopsjanitor.host.api:
+    build:
+      context: .
+      dockerfile: src/AzureDevOpsJanitor.Host.Api/Dockerfile
+      args:
+        - PAT=$(System.AccessToken)
+  azuredevopsjanitor.host.eventconsumer:
+    build:
+      context: .
+      dockerfile: src/AzureDevOpsJanitor.Host.EventConsumer/Dockerfile
+      args:
+        - PAT=$(System.AccessToken)
+  azuredevopsjanitor.host.eventforwarder:
+    build:
+      context: .
+      dockerfile: src/AzureDevOpsJanitor.Host.EventForwarder/Dockerfile
+      args:
+        - PAT=$(System.AccessToken)
