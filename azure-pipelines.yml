@@ -20,7 +20,7 @@ steps:
 - task: ECRPushImage@1
   inputs:
     awsCredentials: 'DeveloperAutomation ECR'
-    regionName: 'eu-central-1'
+    regionName: 'eu-west-1'
     imageSource: 'imagename'
     sourceImageName: 'azure-devops-janitor-api'
     repositoryName: 'dfds.developerautomation-xavgy.azure-devops-janitor'
