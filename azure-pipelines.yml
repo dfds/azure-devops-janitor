@@ -11,13 +11,15 @@ pool:
 
 steps:
 - task: DockerCompose@0
+  displayName: 'Build azure-devops-janitor images'
   inputs:
     containerregistrytype: 'Container Registry'
     dockerComposeFile: '**/docker-compose.yml'
     action: 'Run a Docker Compose command'
     dockerComposeCommand: 'build'
     arguments: '--build-arg PAT=$(System.AccessToken)'
-- task: ECRPushImage@1
+- task: ECRPushImage@1  
+  displayName: 'Push azure-devops-janitor-api image to ECR'
   inputs:
     awsCredentials: 'DeveloperAutomation ECR'
     regionName: 'eu-west-1'
@@ -26,6 +28,7 @@ steps:
     repositoryName: 'dfds.developerautomation-xavgy.azure-devops-janitor'
     pushTag: 'azure-devops-janitor-api-$(Build.BuildId)'
 - task: ECRPushImage@1
+  displayName: 'Push azure-devops-janitor-event-consumer image to ECR'
   inputs:
     awsCredentials: 'DeveloperAutomation ECR'
     regionName: 'eu-west-1'
@@ -34,6 +37,7 @@ steps:
     repositoryName: 'dfds.developerautomation-xavgy.azure-devops-janitor'
     pushTag: 'azure-devops-janitor-event-consumer-$(Build.BuildId)'
 - task: ECRPushImage@1
+  displayName: 'Push azure-devops-janitor-event-forwarder image to ECR'
   inputs:
     awsCredentials: 'DeveloperAutomation ECR'
     regionName: 'eu-west-1'
@@ -44,7 +48,7 @@ steps:
                       
 # Replace token values in yaml files with pipeline variables
 - task: qetza.replacetokens.replacetokens-task.replacetokens@3
-  displayName: 'Replace tokens in yaml files'
+  displayName: 'Replace tokens in k8s manifests'
   inputs:
     rootDirectory: '$(Build.SourcesDirectory)/k8s/'
     targetFiles: '*.yaml'
@@ -53,7 +57,7 @@ steps:
 
 # Apply Kubernetes manifests
 - task: Kubernetes@1
-  displayName: 'Apply manifests'
+  displayName: 'Apply k8s manifests'
   inputs:
     connectionType: Kubernetes Service Connection
     kubernetesServiceEndpoint: 'Kubernetes-Developer-Automation-Deploy'
