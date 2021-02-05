@@ -17,3 +17,10 @@ steps:
     action: 'Run a Docker Compose command'
     dockerComposeCommand: 'build'
     arguments: '--build-arg PAT=$(System.AccessToken)'
+- task: ECRPushImage@1
+  inputs:
+    awsCredentials: 'DeveloperAutomation ECR'
+    imageSource: 'imagename'
+    sourceImageName: 'azure-devops-janitor-api'
+    repositoryName: 'dfds.developerautomation-xavgy.azure-devops-janitor'
+    pushTag: '$(Build.BuildId)'
