@@ -41,3 +41,22 @@ steps:
     sourceImageName: 'azure-devops-janitor-event-forwarder'
     repositoryName: 'dfds.developerautomation-xavgy.azure-devops-janitor'
     pushTag: 'azure-devops-janitor-event-forwarder-$(Build.BuildId)'
+                      
+# Replace token values in yaml files with pipeline variables
+- task: qetza.replacetokens.replacetokens-task.replacetokens@3
+  displayName: 'Replace tokens in yaml files'
+  inputs:
+    rootDirectory: '$(Build.SourcesDirectory)/k8s/'
+    targetFiles: '*.yaml'
+    tokenPrefix: '$('
+    tokenSuffix: ')'
+
+# Apply Kubernetes manifests
+- task: Kubernetes@1
+  displayName: 'Apply manifests'
+  inputs:
+    connectionType: Kubernetes Service Connection
+    kubernetesServiceEndpoint: 'Kubernetes-Developer-Automation-Deploy'
+    namespace: 'developerautomation-xavgy'
+    command: apply
+    arguments: '-f $(Build.SourcesDirectory)/k8s/'
