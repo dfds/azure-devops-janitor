@@ -25,3 +25,19 @@ steps:
     sourceImageName: 'azure-devops-janitor-api'
     repositoryName: 'dfds.developerautomation-xavgy.azure-devops-janitor'
     pushTag: '$(Build.BuildId)'
+- task: ECRPushImage@1
+  inputs:
+    awsCredentials: 'DeveloperAutomation ECR'
+    regionName: 'eu-west-1'
+    imageSource: 'imagename'
+    sourceImageName: 'azure-devops-janitor-event-consumer'
+    repositoryName: 'dfds.developerautomation-xavgy.azure-devops-janitor'
+    pushTag: '$(Build.BuildId)'
+- task: ECRPushImage@1
+  inputs:
+    awsCredentials: 'DeveloperAutomation ECR'
+    regionName: 'eu-west-1'
+    imageSource: 'imagename'
+    sourceImageName: 'azure-devops-janitor-event-forwarder'
+    repositoryName: 'dfds.developerautomation-xavgy.azure-devops-janitor'
+    pushTag: '$(Build.BuildId)'
