@@ -1,5 +1,5 @@
 #Setup build image
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build-env
 
 # Build arg to hold ADO PAT for restoring private feed packages
 ARG PAT
