@@ -24,7 +24,7 @@ steps:
     imageSource: 'imagename'
     sourceImageName: 'azure-devops-janitor-api'
     repositoryName: 'dfds.developerautomation-xavgy.azure-devops-janitor'
-    pushTag: '$(Build.BuildId)'
+    pushTag: 'api-$(Build.BuildId)'
 - task: ECRPushImage@1
   inputs:
     awsCredentials: 'DeveloperAutomation ECR'
@@ -32,7 +32,7 @@ steps:
     imageSource: 'imagename'
     sourceImageName: 'azure-devops-janitor-event-consumer'
     repositoryName: 'dfds.developerautomation-xavgy.azure-devops-janitor'
-    pushTag: '$(Build.BuildId)'
+    pushTag: 'consumer-$(Build.BuildId)'
 - task: ECRPushImage@1
   inputs:
     awsCredentials: 'DeveloperAutomation ECR'
@@ -40,4 +40,4 @@ steps:
     imageSource: 'imagename'
     sourceImageName: 'azure-devops-janitor-event-forwarder'
     repositoryName: 'dfds.developerautomation-xavgy.azure-devops-janitor'
-    pushTag: '$(Build.BuildId)'
+    pushTag: 'forwarder-$(Build.BuildId)'
