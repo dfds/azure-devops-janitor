@@ -1,13 +1,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: azure-devops-janitor-event-consumer
+  name: azure-devops-janitor-event-consumer-deployment
   namespace: developerautomation-xavgy
   labels:
     project: developerautomation
     department: cloudengineering
-    app: azure-devops-janitor-event-consumer
     component: azure-devops-janitor
+    app: azure-devops-janitor-event-consumer
 spec:
   replicas: 1
   selector:
@@ -16,15 +16,15 @@ spec:
   template:
     metadata:
       labels:
-        app: azure-devops-janitor-event-consumer
         project: developerautomation
         department: cloudengineering
-        logging_dfds_cloud_format_json: "true"
-      annotations:
-        prometheus.io/port: "8080"
-        prometheus.io/scrape: "true"
+        app: azure-devops-janitor-event-consumer
+#        logging_dfds_cloud_format_json: "true"
+#      annotations:
+#        prometheus.io/port: "8080"
+#        prometheus.io/scrape: "true"
     spec:
-        name: azure-devops-janitor-event-consumer
+      - name: azure-devops-janitor-event-consumer
         image: 642375522597.dkr.ecr.eu-west-1.amazonaws.com/dfds.developerautomation-xavgy.azure-devops-janitor:azure-devops-janitor-event-consumer-$(Build.BuildId)
         resources:
           requests:

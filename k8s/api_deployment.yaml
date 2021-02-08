@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: azure-devops-janitor-api
+  name: azure-devops-janitor-api-deployment
   namespace: developerautomation-xavgy
   labels:
     project: developerautomation
@@ -9,24 +9,24 @@ metadata:
     component: azure-devops-janitor
     app: azure-devops-janitor-api
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: azure-devops-janitor-api
   template:
     metadata:
       labels:
-        app: azure-devops-janitor-api
         project: developerautomation
         department: cloudengineering
-        logging_dfds_cloud_format_json: "true"
-      annotations:
-        prometheus.io/port: "8080"
-        prometheus.io/scrape: "true"
+        app: azure-devops-janitor-api
+#        logging_dfds_cloud_format_json: "true"
+#      annotations:
+#        prometheus.io/port: "8080"
+#        prometheus.io/scrape: "true"
     spec:
       priorityClassName: selfservice
       containers:
-        name: azure-devops-janitor-api
+      - name: azure-devops-janitor-api
         image: 642375522597.dkr.ecr.eu-west-1.amazonaws.com/dfds.developerautomation-xavgy.azure-devops-janitor:azure-devops-janitor-api-$(Build.BuildId)
         ports:
         - containerPort: 54323

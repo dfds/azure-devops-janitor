@@ -1,13 +1,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: azure-devops-janitor
+  name: azure-devops-janitor-event-forwarder-deployment
   namespace: developerautomation-xavgy
   labels:
     project: developerautomation
     department: cloudengineering
-    app: azure-devops-janitor-event-forwarder
     component: azure-devops-janitor
+    app: azure-devops-janitor-event-forwarder
 spec:
   replicas: 1
   selector:
@@ -16,17 +16,17 @@ spec:
   template:
     metadata:
       labels:
-        app: azure-devops-janitor-event-forwarder
         project: developerautomation
         department: cloudengineering
-        logging_dfds_cloud_format_json: "true"
-      annotations:
-        prometheus.io/port: "8080"
-        prometheus.io/scrape: "true"
+        app: azure-devops-janitor-event-forwarder
+#        logging_dfds_cloud_format_json: "true"
+#      annotations:
+#        prometheus.io/port: "8080"
+#        prometheus.io/scrape: "true"
     spec:
       priorityClassName: selfservice
       containers:
-        name: azure-devops-janitor-event-forwarder
+      - name: azure-devops-janitor-event-forwarder
         image: 642375522597.dkr.ecr.eu-west-1.amazonaws.com/dfds.developerautomation-xavgy.azure-devops-janitor:azure-devops-janitor-event-forwarder-$(Build.BuildId)
         resources:
           requests:
