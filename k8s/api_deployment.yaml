@@ -26,7 +26,7 @@ spec:
     spec:
       priorityClassName: selfservice
       containers:
-      - name: azure-devops-janitor-api
+        name: azure-devops-janitor-api
         image: 642375522597.dkr.ecr.eu-west-1.amazonaws.com/dfds.developerautomation-xavgy.azure-devops-janitor:azure-devops-janitor-api-$(Build.BuildId)
         ports:
         - containerPort: 54323

@@ -26,7 +26,7 @@ spec:
     spec:
       priorityClassName: selfservice
       containers:
-      - name: azure-devops-janitor-event-forwarder
+        name: azure-devops-janitor-event-forwarder
         image: 642375522597.dkr.ecr.eu-west-1.amazonaws.com/dfds.developerautomation-xavgy.azure-devops-janitor:azure-devops-janitor-event-forwarder-$(Build.BuildId)
         resources:
           requests:
