@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AzureDevOpsJanitor.Infrastructure.EntityFramework.Migrations
 {
     [DbContext(typeof(DomainContext))]
-    [Migration("20210203033045_V1")]
+    [Migration("20210208145045_V1")]
     partial class V1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

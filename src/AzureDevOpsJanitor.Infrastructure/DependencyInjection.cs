@@ -96,7 +96,7 @@ namespace AzureDevOpsJanitor.Infrastructure
 
                 using var context = new DomainContext(dbOptions, serviceProvider.GetService<IMediator>());
 
-                if (!context.Database.EnsureCreated())
+                if (context.Database.EnsureCreated())
                 {
                     return;
                 }

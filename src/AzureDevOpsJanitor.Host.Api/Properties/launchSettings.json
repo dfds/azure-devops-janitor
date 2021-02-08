@@ -4,7 +4,7 @@
 		"AzureDevOpsJanitor.Host.Api": {
 			"commandName": "Project",
 			"launchBrowser": true,
-			"launchUrl": "https://app.vssps.visualstudio.com/oauth2/authorize?client_id=5DCB9F8E-9B19-4509-8A69-2DCB985DECF8&response_type=Assertion&state=123456&scope=vso.build_execute&redirect_uri=https%3A%2F%2Flocalhost%3A5001%2Fcallback%2Foauth2%2Fvsts",
+			"launchUrl": "https://localhost:5001/build",
 			"environmentVariables": {
 				"ASPNETCORE_ENVIRONMENT": "Development"
 			},

@@ -12,7 +12,7 @@ namespace AzureDevOpsJanitor.Host.Api.Controllers.V1
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
+    //[Authorize]
     public sealed class BuildController : ControllerBase
     {
         private readonly IFacade _applicationFacade;
