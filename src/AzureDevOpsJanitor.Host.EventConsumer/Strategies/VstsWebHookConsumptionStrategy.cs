@@ -17,7 +17,7 @@ namespace AzureDevOpsJanitor.Host.EventConsumer.Strategies
     {
         public VstsWebHookConsumptionStrategy(IMapper mapper, IFacade applicationFacade) : base(mapper, applicationFacade)
         {
-            
+
         }
 
         public override Task Apply(ConsumeResult<string, string> target, CancellationToken cancellationToken)

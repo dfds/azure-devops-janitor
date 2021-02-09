@@ -34,10 +34,11 @@ namespace AzureDevOpsJanitor.Host.Api
             {
                 endpoints.MapControllers();
             });
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Broker API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "AzureDevOpsJanitor API V1");
             });
         }
 
@@ -61,7 +62,7 @@ namespace AzureDevOpsJanitor.Host.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "Broker API",
+                    Title = "AzureDevOpsJanitor API",
                     Version = "v1"
                 });
             });

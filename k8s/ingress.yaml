@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: azure-devops-janitor-ingress
+  namespace: $(kubernetes-namespace)
+  annotations:
+    traefik.frontend.rule.type: PathPrefixStrip
+spec:
+  rules:
+    - host: api.hellman.oxygen.dfds.cloud
+      http:
+        paths:
+          - path: /azuredevops
+            backend:
+              serviceName: azure-devops-janitor-service
+              servicePort: external
