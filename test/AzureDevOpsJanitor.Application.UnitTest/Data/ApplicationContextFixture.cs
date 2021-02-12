@@ -1,17 +1,17 @@
-﻿using AzureDevOpsJanitor.Infrastructure.EntityFramework;
+﻿using AzureDevOpsJanitor.Application.Data;
 using MediatR;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace AzureDevOpsJanitor.Infrastructure.UnitTest.EntityFramework
+namespace AzureDevOpsJanitor.Application.UnitTest.Data
 {
-    public class DomainContextFixture : IDisposable
+    public class ApplicationContextFixture : IDisposable
     {
         private readonly DbContextOptions _options;
         private readonly SqliteConnection _connection;
 
-        public DomainContextFixture()
+        public ApplicationContextFixture()
         {
             _connection = new SqliteConnection("Filename=:memory:;");
 
@@ -26,9 +26,9 @@ namespace AzureDevOpsJanitor.Infrastructure.UnitTest.EntityFramework
             _connection.Dispose();
         }
 
-        public DomainContext GetDbContext(IMediator mediator = default)
+        public ApplicationContext GetDbContext(IMediator mediator = default)
         {
-            return new DomainContext(_options, mediator);
+            return new ApplicationContext(_options, mediator);
         }
     }
 }

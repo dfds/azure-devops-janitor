@@ -3,24 +3,24 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Collections.Generic;
 
-namespace AzureDevOpsJanitor.Infrastructure.EntityFramework.Configurations
+namespace AzureDevOpsJanitor.Application.Data.Configurations
 {
-    public class ArtifactEntityTypeConfiguration : IEntityTypeConfiguration<Artifact>
+    public class BuildDefinitionEntityTypeConfiguration : IEntityTypeConfiguration<BuildDefinition>
     {
-        private readonly IEnumerable<Artifact> _seed;
+        private readonly IEnumerable<BuildDefinition> _seed;
 
-        public ArtifactEntityTypeConfiguration()
+        public BuildDefinitionEntityTypeConfiguration()
         {
         }
 
-        public ArtifactEntityTypeConfiguration(IEnumerable<Artifact> seed)
+        public BuildDefinitionEntityTypeConfiguration(IEnumerable<BuildDefinition> seed)
         {
             _seed = seed;
         }
 
-        public void Configure(EntityTypeBuilder<Artifact> configuration)
+        public void Configure(EntityTypeBuilder<BuildDefinition> configuration)
         {
-            configuration.ToTable("Artifact");
+            configuration.ToTable("BuildDefinition");
             configuration.HasKey(o => o.Name);
             configuration.Property(o => o.Name).ValueGeneratedNever();
 

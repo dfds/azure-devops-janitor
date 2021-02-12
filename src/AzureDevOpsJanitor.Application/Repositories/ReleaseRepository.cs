@@ -1,6 +1,6 @@
-﻿using AzureDevOpsJanitor.Domain.Aggregates.Release;
+﻿using AzureDevOpsJanitor.Application.Data;
+using AzureDevOpsJanitor.Domain.Aggregates.Release;
 using AzureDevOpsJanitor.Domain.Repository;
-using AzureDevOpsJanitor.Infrastructure.EntityFramework;
 using AzureDevOpsJanitor.Infrastructure.EntityFramework.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Application.Repositories
 {
-    public sealed class ReleaseRepository : EntityFrameworkRepository<ReleaseRoot>, IReleaseRepository
+    public sealed class ReleaseRepository : EntityFrameworkRepository<ReleaseRoot, ApplicationContext>, IReleaseRepository
     {
-        public ReleaseRepository(DomainContext context) : base(context)
+        public ReleaseRepository(ApplicationContext context) : base(context)
         {
 
         }

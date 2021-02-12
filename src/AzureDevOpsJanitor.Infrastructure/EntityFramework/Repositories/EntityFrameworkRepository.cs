@@ -4,10 +4,11 @@ using ResourceProvisioning.Abstractions.Repositories;
 
 namespace AzureDevOpsJanitor.Infrastructure.EntityFramework.Repositories
 {
-    public abstract class EntityFrameworkRepository<TAggregate> : Repository<DomainContext, TAggregate>
+    public abstract class EntityFrameworkRepository<TAggregate, TContext> : Repository<TContext, TAggregate>
         where TAggregate : class, IAggregateRoot
+        where TContext : EntityContext
     {
-        protected EntityFrameworkRepository(DomainContext context) : base(context)
+        protected EntityFrameworkRepository(TContext context) : base(context)
         {
 
         }

@@ -8,12 +8,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using AzureDevOpsJanitor.Application.Data;
 
 namespace AzureDevOpsJanitor.Application.Repositories
 {
-    public sealed class ProjectRepository : EntityFrameworkRepository<ProjectRoot>, IProjectRepository
+    public sealed class ProjectRepository : EntityFrameworkRepository<ProjectRoot, ApplicationContext>, IProjectRepository
     {
-        public ProjectRepository(DomainContext context) : base(context)
+        public ProjectRepository(ApplicationContext context) : base(context)
         {
 
         }

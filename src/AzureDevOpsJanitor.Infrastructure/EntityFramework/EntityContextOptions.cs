@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AzureDevOpsJanitor.Infrastructure.EntityFramework
 {
-    public class DomainContextOptions
+    public class EntityContextOptions
     {
         [Required]
         public IConfigurationSection ConnectionStrings { get; set; }

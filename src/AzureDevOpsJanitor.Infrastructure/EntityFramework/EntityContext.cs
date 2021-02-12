@@ -1,8 +1,4 @@
-﻿using AzureDevOpsJanitor.Domain.Aggregates.Build;
-using AzureDevOpsJanitor.Domain.Aggregates.Project;
-using AzureDevOpsJanitor.Domain.Aggregates.Release;
-using AzureDevOpsJanitor.Domain.ValueObjects;
-using MediatR;
+﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using ResourceProvisioning.Abstractions.Data;
@@ -17,62 +13,72 @@ using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Infrastructure.EntityFramework
 {
-    public sealed class DomainContext : DbContext, IUnitOfWork
+    public abstract class EntityContext : DbContext, IUnitOfWork
     {
-        public const string DEFAULT_SCHEMA = nameof(DomainContext);
-        private readonly IMediator _mediator;
-        private readonly IDictionary<Type, IEnumerable<IView>> _seedData;
-
-        public DbSet<BuildEnvironment> Environments { get; set; }
-
-        public DbSet<Artifact> Artifacts { get; set; }
-
-        public DbSet<ReleaseRoot> Release { get; set; }
-
-        public DbSet<ProjectRoot> Project { get; set; }
-
-        public DbSet<BuildRoot> Build { get; set; }
-
-        public DbSet<BuildStatus> BuildStatus { get; set; }
-
-        public DbSet<BuildDefinition> BuildDefinition { get; set; }
+        protected readonly IMediator _mediator;
+        protected readonly IDictionary<Type, IEnumerable<IView>> _seedData;
 
         public IDbContextTransaction GetCurrentTransaction { get; private set; }
 
-        public DomainContext() : this(new DbContextOptions<DomainContext>()) { }
+        public Assembly ModelConfigurationAssembly { get; set; }
 
-        public DomainContext(DbContextOptions options, IMediator mediator = default, IDictionary<Type, IEnumerable<IView>> seedData = default) : base(options)
+        protected EntityContext() : this(new DbContextOptions<EntityContext>()) { }
+
+        protected EntityContext(DbContextOptions options, IMediator mediator = default, IDictionary<Type, IEnumerable<IView>> seedData = default) : base(options)
         {
             _mediator = mediator;
             _seedData = seedData;
-        }
 
+            if (ModelConfigurationAssembly == null)
+            {
+                ModelConfigurationAssembly = Assembly.GetCallingAssembly();
+            }
+        }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var configurationTypes = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.GetInterface("IEntityTypeConfiguration`1") != null);
+            if (ModelConfigurationAssembly == null) return;
+
+            var configurationTypes = ModelConfigurationAssembly.GetTypes().Where(t => t.GetInterface("IEntityTypeConfiguration`1") != null);
 
             foreach (var configurationType in configurationTypes)
             {
                 var entityType = configurationType.GetInterface("IEntityTypeConfiguration`1").GenericTypeArguments.SingleOrDefault();
                 var viewData = _seedData?.SingleOrDefault(v => v.Key == entityType).Value;
-                var configurationCtorArgTypes = (viewData != null) ? new[] { viewData.GetType() } : Array.Empty<Type>();
-                var configurationCtorArgs = (viewData != null) ? new[] { viewData } : null;
-                var configurationCtor = configurationType.GetConstructor(BindingFlags.Public | BindingFlags.Instance, null, configurationCtorArgTypes, null);
-                dynamic configuration = configurationCtor.Invoke(configurationCtorArgs);
+                var configurationCtorArgTypes = new List<Type>();
+                var configurationCtorArgs = new List<object>();
+
+                if (viewData != null)
+                {
+                    configurationCtorArgTypes.Add(viewData.GetType());
+                    configurationCtorArgs.Add(viewData);
+                }
+                
+                var configurationCtor = configurationType.GetConstructor(BindingFlags.Public | BindingFlags.Instance, null, configurationCtorArgTypes.ToArray(), null);
+                
+                dynamic configuration = configurationCtor?.Invoke(configurationCtorArgs.ToArray());
+
+                if (configuration == null)
+                {
+                    throw new EntityContextException($"Could not find configuration for entity: ${entityType} in model configuration assembly: ${ModelConfigurationAssembly}");
+                }
 
                 modelBuilder.ApplyConfiguration(configuration);
             }
         }
 
-        public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default)
         {
             // Dispatch Domain Events collection. 
             // Choices:
             // A) Right BEFORE committing data (EF SaveChanges) into the DB will make a single transaction including  
             // side effects from the domain event handlers which are using the same DbContext with "InstancePerLifetimeScope" or "scoped" lifetime
             // B) Right AFTER committing data (EF SaveChanges) into the DB will make multiple transactions. 
-            // You will need to handle eventual consistency and compensatory actions in case of failures in any of the Handlers. 
-            await _mediator?.DispatchDomainEventsAsync(this);
+            // You will need to handle eventual consistency and compensatory actions in case of failures in any of the Handlers.
+            if (_mediator != null)
+            {
+                await _mediator.DispatchDomainEventsAsync(this);
+            }
 
             // After executing this line all the changes (from the Command Handler and Domain Event Handlers) 
             // performed through the DbContext will be committed
@@ -91,23 +97,22 @@ namespace AzureDevOpsJanitor.Infrastructure.EntityFramework
                 var validationContext = new ValidationContext(entity);
                 var results = new List<ValidationResult>();
 
-                if (!Validator.TryValidateObject(entity, validationContext, results, true))
-                {
-                    var messages = results.Select(r => r.ErrorMessage).ToList().Aggregate((message, nextMessage) => message + ", " + nextMessage);
+                if (Validator.TryValidateObject(entity, validationContext, results, true)) continue;
+
+                var messages = results.Select(r => r.ErrorMessage).ToList().Aggregate((message, nextMessage) => message + ", " + nextMessage);
                     
-                    throw new DomainContextException($"Unable to save changes for {entity.GetType().FullName} due to error(s): {messages}");
-                }
+                throw new EntityContextException($"Unable to save changes for {entity.GetType().FullName} due to error(s): {messages}");
             }
 
             return await base.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task BeginTransactionAsync()
+        public virtual async Task BeginTransactionAsync()
         {
             GetCurrentTransaction ??= await Database.BeginTransactionAsync(IsolationLevel.ReadCommitted);
         }
 
-        public async Task CommitTransactionAsync()
+        public virtual async Task CommitTransactionAsync()
         {
             try
             {
@@ -132,7 +137,7 @@ namespace AzureDevOpsJanitor.Infrastructure.EntityFramework
             }
         }
 
-        public void RollbackTransaction()
+        public virtual void RollbackTransaction()
         {
             try
             {

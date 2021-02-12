@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace AzureDevOpsJanitor.Infrastructure.EntityFramework.Migrations
+namespace AzureDevOpsJanitor.Application.Data.Migrations
 {
-    public partial class V1 : Migration
+    public partial class v1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

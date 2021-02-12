@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Collections.Generic;
 
-namespace AzureDevOpsJanitor.Infrastructure.EntityFramework.Configurations
+namespace AzureDevOpsJanitor.Application.Data.Configurations
 {
     public class ProjectRootEntityTypeConfiguration : IEntityTypeConfiguration<ProjectRoot>
     {

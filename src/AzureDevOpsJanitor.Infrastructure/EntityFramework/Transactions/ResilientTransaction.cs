@@ -18,7 +18,7 @@ namespace AzureDevOpsJanitor.Infrastructure.EntityFramework.Transactions
 
             await strategy.ExecuteAsync(async () =>
             {
-                using var transaction = _context.Database.BeginTransaction();
+                await using var transaction = _context.Database.BeginTransaction();
 
                 await action();
 

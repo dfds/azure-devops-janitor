@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AzureDevOpsJanitor.Infrastructure.EntityFramework.Configurations
+namespace AzureDevOpsJanitor.Application.Data.Configurations
 {
     public class BuildStatusEntityTypeConfiguration : IEntityTypeConfiguration<BuildStatus>
     {

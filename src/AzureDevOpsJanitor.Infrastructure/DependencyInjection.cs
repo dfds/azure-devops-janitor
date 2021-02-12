@@ -5,13 +5,10 @@ using AzureDevOpsJanitor.Infrastructure.Kafka.Serialization;
 using AzureDevOpsJanitor.Infrastructure.Vsts;
 using Confluent.Kafka;
 using MediatR;
-using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using ResourceProvisioning.Abstractions.Data;
 using ResourceProvisioning.Abstractions.Events;
 using System.Reflection;
 
@@ -63,51 +60,7 @@ namespace AzureDevOpsJanitor.Infrastructure
 
         private static void AddEntityFramework(this IServiceCollection services, IConfiguration configuration)
         {
-            services.Configure<DomainContextOptions>(configuration);
-
-            services.AddDbContext<DomainContext>(options =>
-            {
-                var serviceProvider = services.BuildServiceProvider();
-                var dbContextOptions = serviceProvider.GetService<IOptions<DomainContextOptions>>();
-                var callingAssemblyName = Assembly.GetExecutingAssembly().GetName().Name;
-                var connectionString = dbContextOptions.Value.ConnectionStrings?.GetValue<string>(nameof(DomainContext));
-
-                if (string.IsNullOrEmpty(connectionString))
-                {
-                    return;
-                }
-
-                services.AddSingleton(factory =>
-                {
-                    var connection = new SqliteConnection(connectionString);
-
-                    connection.Open();
-
-                    return connection;
-                });
-
-                var dbOptions = options.UseSqlite(services.BuildServiceProvider().GetService<SqliteConnection>(),
-                    sqliteOptions =>
-                    {
-                        sqliteOptions.MigrationsAssembly(callingAssemblyName);
-                        sqliteOptions.MigrationsHistoryTable(callingAssemblyName + "_MigrationHistory");
-
-                    }).Options;
-
-                using var context = new DomainContext(dbOptions, serviceProvider.GetService<IMediator>());
-
-                if (context.Database.EnsureCreated())
-                {
-                    return;
-                }
-
-                if (dbContextOptions.Value.EnableAutoMigrations)
-                {
-                    context.Database.Migrate();
-                }
-            });
-
-            services.AddScoped<IUnitOfWork>(factory => factory.GetRequiredService<DomainContext>());
+            services.Configure<EntityContextOptions>(configuration);
         }
     }
 }

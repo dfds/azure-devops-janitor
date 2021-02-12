@@ -11,9 +11,9 @@ namespace AzureDevOpsJanitor.Application.Behaviors
     public sealed class TransactionBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {
         private readonly ILogger<TransactionBehaviour<TRequest, TResponse>> _logger;
-        private readonly DomainContext _dbContext;
+        private readonly EntityContext _dbContext;
 
-        public TransactionBehaviour(DomainContext dbContext,
+        public TransactionBehaviour(EntityContext dbContext,
             ILogger<TransactionBehaviour<TRequest, TResponse>> logger)
         {
             _dbContext = dbContext ?? throw new ArgumentException(null, nameof(dbContext));

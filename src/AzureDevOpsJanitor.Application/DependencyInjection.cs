@@ -24,6 +24,12 @@ using ResourceProvisioning.Abstractions.Facade;
 using ResourceProvisioning.Abstractions.Repositories;
 using System.Collections.Generic;
 using System.Reflection;
+using AzureDevOpsJanitor.Application.Data;
+using AzureDevOpsJanitor.Infrastructure.EntityFramework;
+using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using ResourceProvisioning.Abstractions.Data;
 
 namespace AzureDevOpsJanitor.Application
 {
@@ -39,6 +45,7 @@ namespace AzureDevOpsJanitor.Application
             services.AddInfrastructure(configuration);
 
             //Application dependencies
+            services.AddApplicationContext(configuration);
             services.AddBehaviors();
             services.AddCaching();
             services.AddCommandHandlers();
@@ -46,6 +53,55 @@ namespace AzureDevOpsJanitor.Application
             services.AddRepositories();
             services.AddServices();
             services.AddFacade();
+        }
+
+        private static void AddApplicationContext(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<EntityContextOptions>(configuration);
+
+            services.AddDbContext<ApplicationContext>(options =>
+            {
+                var serviceProvider = services.BuildServiceProvider();
+                var dbContextOptions = serviceProvider.GetService<IOptions<EntityContextOptions>>();
+                var callingAssemblyName = Assembly.GetExecutingAssembly().GetName().Name;
+                var connectionString = dbContextOptions.Value.ConnectionStrings?.GetValue<string>(nameof(ApplicationContext));
+
+                if (string.IsNullOrEmpty(connectionString))
+                {
+                    return;
+                }
+
+                services.AddSingleton(factory =>
+                {
+                    var connection = new SqliteConnection(connectionString);
+
+                    connection.Open();
+
+                    return connection;
+                });
+
+                var dbOptions = options.UseSqlite(services.BuildServiceProvider().GetService<SqliteConnection>(),
+                    sqliteOptions =>
+                    {
+                        sqliteOptions.MigrationsAssembly(callingAssemblyName);
+                        sqliteOptions.MigrationsHistoryTable(callingAssemblyName + "_MigrationHistory");
+
+                    }).Options;
+
+                using var context = new ApplicationContext(dbOptions, serviceProvider.GetService<IMediator>());
+
+                if (context.Database.EnsureCreated())
+                {
+                    return;
+                }
+
+                if (dbContextOptions.Value.EnableAutoMigrations)
+                {
+                    context.Database.Migrate();
+                }
+            });
+
+            services.AddScoped<IUnitOfWork>(factory => factory.GetRequiredService<ApplicationContext>());
         }
 
         private static void AddBehaviors(this IServiceCollection services)

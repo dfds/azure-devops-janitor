@@ -3,22 +3,24 @@ using Microsoft.EntityFrameworkCore;
 using ResourceProvisioning.Abstractions.Entities;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace AzureDevOpsJanitor.Infrastructure.EntityFramework
 {
-    static class MediatorExtension
+    internal static class MediatorExtension
     {
         public static async Task DispatchDomainEventsAsync<T>(this IMediator mediator, T ctx) where T : DbContext
         {
-            var domainEntities = ctx.ChangeTracker
+            var entities = ctx.ChangeTracker
                 .Entries<IEntity>()
                 .Where(x => x.Entity.DomainEvents != null && x.Entity.DomainEvents.Any());
 
-            var domainEvents = domainEntities
+            var entityEntries = entities as EntityEntry<IEntity>[] ?? entities.ToArray();
+            var domainEvents = entityEntries
                 .SelectMany(x => x.Entity.DomainEvents)
                 .ToList();
 
-            domainEntities.ToList().ForEach(entity => entity.Entity.ClearDomainEvents());
+            entityEntries.ToList().ForEach(entity => entity.Entity.ClearDomainEvents());
 
             var tasks = domainEvents
                 .Select(async (domainEvent) =>
