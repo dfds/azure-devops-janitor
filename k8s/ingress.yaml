@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: azure-devops-janitor-ingress
-  namespace: $(kubernetes-namespace)
+  namespace: developerautomation-xavgy
   annotations:
     traefik.frontend.rule.type: PathPrefixStrip
 spec:
