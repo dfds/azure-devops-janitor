@@ -3,7 +3,7 @@ using AzureDevOpsJanitor.Domain.Aggregates.Build;
 using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
 using System.Linq;
 
-namespace AzureDevOpsJanitor.Application.Mapping.Converters
+namespace AzureDevOpsJanitor.Infrastructure.Vsts.Mapping.Converters
 {
     public class BuildRootToBuildDefinitionDtoConverter : ITypeConverter<BuildRoot, BuildDefinitionDto>
     {
