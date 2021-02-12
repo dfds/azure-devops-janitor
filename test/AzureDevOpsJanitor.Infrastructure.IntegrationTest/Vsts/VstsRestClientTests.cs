@@ -1,7 +1,6 @@
 ﻿using AzureDevOpsJanitor.Infrastructure.Vsts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
 using Xunit;
 

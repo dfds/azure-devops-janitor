@@ -4,7 +4,6 @@ using AzureDevOpsJanitor.Domain.Services;
 using AzureDevOpsJanitor.Infrastructure.Vsts;
 using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
 using ResourceProvisioning.Abstractions.Events;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -25,10 +24,10 @@ namespace AzureDevOpsJanitor.Application.Events.Build
 
         public async Task Handle(BuildCreatedEvent @event, CancellationToken cancellationToken = default)
         {
-            var buildDef = _mapper.Map<BuildDefinitionDto>(@event.Build);
+            var buildDto = _mapper.Map<BuildDto>(@event.Build);
             var project = await _projectService.GetAsync(@event.Build.ProjectId);
-
-            await _restClient.CreateBuildDefinition(project.Name, buildDef, cancellationToken: cancellationToken);
+            
+            await _restClient.CreateBuildDefinition(project.Name, buildDto.Definition, cancellationToken: cancellationToken);
         }
     }
 }
