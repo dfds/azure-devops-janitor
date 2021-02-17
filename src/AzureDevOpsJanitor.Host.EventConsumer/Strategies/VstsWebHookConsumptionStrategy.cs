@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using AzureDevOpsJanitor.Infrastructure.Kafka.Strategies;
-using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
-using AzureDevOpsJanitor.Infrastructure.Vsts.Events;
+using CloudEngineering.CodeOps.Infrastructure.Kafka.Strategies;
+using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects;
+using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.Events;
 using Confluent.Kafka;
-using ResourceProvisioning.Abstractions.Aggregates;
-using ResourceProvisioning.Abstractions.Commands;
-using ResourceProvisioning.Abstractions.Events;
-using ResourceProvisioning.Abstractions.Facade;
+using CloudEngineering.CodeOps.Abstractions.Aggregates;
+using CloudEngineering.CodeOps.Abstractions.Commands;
+using CloudEngineering.CodeOps.Abstractions.Events;
+using CloudEngineering.CodeOps.Abstractions.Facade;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -28,8 +28,8 @@ namespace AzureDevOpsJanitor.Host.EventConsumer.Strategies
             {
                 var @event = JsonSerializer.Deserialize<IntegrationEvent>(payload);
                 var webHookEvent = _mapper.Map<WebHookEvent>(@event.Payload.Value);
-                var vstsDto = _mapper.Map<VstsDto>(webHookEvent);
-                var aggregateRoot = _mapper.Map<IAggregateRoot>(vstsDto);
+                var adoDto = _mapper.Map<AdoDto>(webHookEvent);
+                var aggregateRoot = _mapper.Map<IAggregateRoot>(adoDto);
                 var command = _mapper.Map<IAggregateRoot, ICommand<IAggregateRoot>>(aggregateRoot);
 
                 if (command != null)

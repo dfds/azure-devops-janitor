@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using AzureDevOpsJanitor.Domain.Services;
 using AzureDevOpsJanitor.Domain.ValueObjects;
-using AzureDevOpsJanitor.Infrastructure.Vsts;
+using CloudEngineering.CodeOps.Infrastructure.AzureDevOps;
 using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Application.Services
@@ -9,9 +9,9 @@ namespace AzureDevOpsJanitor.Application.Services
     public sealed class ProfileService : IProfileService
     {
         private readonly IMapper _mapper;
-        private readonly IVstsClient _client;
+        private readonly IAdoClient _client;
 
-        public ProfileService(IMapper mapper, IVstsClient client)
+        public ProfileService(IMapper mapper, IAdoClient client)
         {
             _mapper = mapper;
             _client = client;

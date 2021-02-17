@@ -1,6 +1,6 @@
 ﻿using AzureDevOpsJanitor.Domain.Events.Build;
 using AzureDevOpsJanitor.Domain.ValueObjects;
-using ResourceProvisioning.Abstractions.Aggregates;
+using CloudEngineering.CodeOps.Abstractions.Aggregates;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

@@ -1,6 +1,6 @@
 ﻿using AzureDevOpsJanitor.Domain.Aggregates.Release;
 using AzureDevOpsJanitor.Domain.Services;
-using ResourceProvisioning.Abstractions.Commands;
+using CloudEngineering.CodeOps.Abstractions.Commands;
 using System;
 using System.Threading;
 using System.Threading.Tasks;

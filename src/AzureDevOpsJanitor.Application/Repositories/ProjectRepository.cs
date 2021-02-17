@@ -1,7 +1,7 @@
 ﻿using AzureDevOpsJanitor.Domain.Aggregates.Project;
 using AzureDevOpsJanitor.Domain.Repository;
-using AzureDevOpsJanitor.Infrastructure.EntityFramework;
-using AzureDevOpsJanitor.Infrastructure.EntityFramework.Repositories;
+using CloudEngineering.CodeOps.Infrastructure.EntityFramework;
+using CloudEngineering.CodeOps.Infrastructure.EntityFramework.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

@@ -1,9 +1,10 @@
-﻿using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
+﻿using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects;
 using System;
 using System.Text.Json;
+using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects.Profile;
 using Xunit;
 
-namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Events
+namespace CloudEngineering.CodeOps.Infrastructure.UnitTest.Vsts.Events
 {
     public class ProfileDtoTests
     {

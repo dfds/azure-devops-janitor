@@ -2,7 +2,7 @@
 using AzureDevOpsJanitor.Domain.ValueObjects;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ResourceProvisioning.Abstractions.Facade;
+using CloudEngineering.CodeOps.Abstractions.Facade;
 using System;
 using System.Threading.Tasks;
 

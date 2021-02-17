@@ -3,7 +3,7 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace AzureDevOpsJanitor.Infrastructure.EntityFramework
+namespace CloudEngineering.CodeOps.Infrastructure.EntityFramework
 {
     public sealed class ApplicationContextDesignFactory : IDesignTimeDbContextFactory<ApplicationContext>
     {

@@ -1,8 +1,8 @@
-﻿using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Build.Definition;
+﻿using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.Http.Request.Build.Definition;
 using System.Net.Http;
 using Xunit;
 
-namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Http.Request.Build.Definition
+namespace CloudEngineering.CodeOps.Infrastructure.UnitTest.Vsts.Http.Request.Build.Definition
 {
     public class GetDefinitionYamlRequestTests
     {

@@ -1,5 +1,5 @@
 ﻿using AzureDevOpsJanitor.Domain.Aggregates.Build;
-using ResourceProvisioning.Abstractions.Commands;
+using CloudEngineering.CodeOps.Abstractions.Commands;
 using System.Text.Json.Serialization;
 
 namespace AzureDevOpsJanitor.Application.Commands.Build

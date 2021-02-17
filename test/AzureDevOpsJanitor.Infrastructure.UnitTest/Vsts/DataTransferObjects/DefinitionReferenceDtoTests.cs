@@ -1,9 +1,9 @@
-﻿using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
+﻿using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects.Build;
 using System;
 using System.Text.Json;
 using Xunit;
 
-namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Events
+namespace CloudEngineering.CodeOps.Infrastructure.UnitTest.Vsts.Events
 {
     public class DefinitionReferenceDtoTests
     {

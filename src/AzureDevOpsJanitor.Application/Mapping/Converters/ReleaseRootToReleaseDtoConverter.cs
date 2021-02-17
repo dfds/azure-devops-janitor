@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using AzureDevOpsJanitor.Domain.Aggregates.Release;
-using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
-using ResourceProvisioning.Abstractions.Aggregates;
+using CloudEngineering.CodeOps.Abstractions.Aggregates;
+using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects.Release;
 
 namespace AzureDevOpsJanitor.Application.Mapping.Converters
 {

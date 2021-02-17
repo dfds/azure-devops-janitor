@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using ResourceProvisioning.Abstractions.Facade;
+using CloudEngineering.CodeOps.Abstractions.Facade;
 
 namespace AzureDevOpsJanitor.Application
 {

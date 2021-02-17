@@ -1,4 +1,4 @@
-﻿using ResourceProvisioning.Abstractions.Entities;
+﻿using CloudEngineering.CodeOps.Abstractions.Entities;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;

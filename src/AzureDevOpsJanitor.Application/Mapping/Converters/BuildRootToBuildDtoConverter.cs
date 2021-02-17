@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using AutoMapper;
+﻿using AutoMapper;
 using AzureDevOpsJanitor.Domain.Aggregates.Build;
-using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
+using AzureDevOpsJanitor.Domain.ValueObjects;
+using CloudEngineering.CodeOps.Abstractions.Aggregates;
+using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects.Build;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using AzureDevOpsJanitor.Domain.ValueObjects;
-using ResourceProvisioning.Abstractions.Aggregates;
 
 namespace AzureDevOpsJanitor.Application.Mapping.Converters
 {

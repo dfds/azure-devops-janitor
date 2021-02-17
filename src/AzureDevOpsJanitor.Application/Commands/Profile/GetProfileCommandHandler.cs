@@ -1,6 +1,6 @@
 ﻿using AzureDevOpsJanitor.Domain.Services;
 using AzureDevOpsJanitor.Domain.ValueObjects;
-using ResourceProvisioning.Abstractions.Commands;
+using CloudEngineering.CodeOps.Abstractions.Commands;
 using System.Threading;
 using System.Threading.Tasks;
 

@@ -1,5 +1,5 @@
 ﻿using AzureDevOpsJanitor.Domain.Aggregates.Project;
-using ResourceProvisioning.Abstractions.Repositories;
+using CloudEngineering.CodeOps.Abstractions.Repositories;
 using System;
 using System.Threading.Tasks;
 

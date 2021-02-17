@@ -13,23 +13,23 @@ using AzureDevOpsJanitor.Domain.Events.Build;
 using AzureDevOpsJanitor.Domain.Repository;
 using AzureDevOpsJanitor.Domain.Services;
 using AzureDevOpsJanitor.Domain.ValueObjects;
-using AzureDevOpsJanitor.Infrastructure;
+using CloudEngineering.CodeOps.Infrastructure;
 using MediatR;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ResourceProvisioning.Abstractions.Commands;
-using ResourceProvisioning.Abstractions.Events;
-using ResourceProvisioning.Abstractions.Facade;
-using ResourceProvisioning.Abstractions.Repositories;
+using CloudEngineering.CodeOps.Abstractions.Commands;
+using CloudEngineering.CodeOps.Abstractions.Events;
+using CloudEngineering.CodeOps.Abstractions.Facade;
+using CloudEngineering.CodeOps.Abstractions.Repositories;
 using System.Collections.Generic;
 using System.Reflection;
 using AzureDevOpsJanitor.Application.Data;
-using AzureDevOpsJanitor.Infrastructure.EntityFramework;
+using CloudEngineering.CodeOps.Infrastructure.EntityFramework;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using ResourceProvisioning.Abstractions.Data;
+using CloudEngineering.CodeOps.Abstractions.Data;
 
 namespace AzureDevOpsJanitor.Application
 {

@@ -1,18 +1,18 @@
 ﻿using AutoMapper;
-using AzureDevOpsJanitor.Infrastructure.EntityFramework;
-using AzureDevOpsJanitor.Infrastructure.Kafka;
-using AzureDevOpsJanitor.Infrastructure.Kafka.Serialization;
-using AzureDevOpsJanitor.Infrastructure.Vsts;
+using CloudEngineering.CodeOps.Abstractions.Events;
+using CloudEngineering.CodeOps.Infrastructure.AzureDevOps;
+using CloudEngineering.CodeOps.Infrastructure.EntityFramework;
+using CloudEngineering.CodeOps.Infrastructure.Kafka;
+using CloudEngineering.CodeOps.Infrastructure.Kafka.Serialization;
 using Confluent.Kafka;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using ResourceProvisioning.Abstractions.Events;
 using System.Reflection;
 
-namespace AzureDevOpsJanitor.Infrastructure
+namespace CloudEngineering.CodeOps.Infrastructure
 {
     public static class DependencyInjection
     {
@@ -22,7 +22,7 @@ namespace AzureDevOpsJanitor.Infrastructure
 
             services.AddMediator();
             services.AddEntityFramework(configuration);
-            services.AddVsts(configuration);
+            services.AddAzureDevOps(configuration);
             services.AddKafka(configuration);
         }
 
@@ -33,11 +33,11 @@ namespace AzureDevOpsJanitor.Infrastructure
             services.AddTransient<IMediator>(p => new Mediator(p.GetService<ServiceFactory>()));
         }
 
-        private static void AddVsts(this IServiceCollection services, IConfiguration configuration)
+        private static void AddAzureDevOps(this IServiceCollection services, IConfiguration configuration)
         {
-            services.Configure<VstsClientOptions>(configuration.GetSection(VstsClientOptions.Vsts));
+            services.Configure<AdoClientOptions>(configuration.GetSection(AdoClientOptions.Vsts));
 
-            services.AddTransient<IVstsClient, VstsClient>();
+            services.AddTransient<IAdoClient, AdoClient>();
         }
 
         private static void AddKafka(this IServiceCollection services, IConfiguration configuration)

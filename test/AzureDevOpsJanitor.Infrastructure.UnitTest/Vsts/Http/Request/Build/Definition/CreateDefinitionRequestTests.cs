@@ -1,11 +1,12 @@
-﻿using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
-using AzureDevOpsJanitor.Infrastructure.Vsts.Http.Request.Build.Definition;
+﻿using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects;
+using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.Http.Request.Build.Definition;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects.Build;
 using Xunit;
 
-namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Http.Request.Build.Definition
+namespace CloudEngineering.CodeOps.Infrastructure.UnitTest.Vsts.Http.Request.Build.Definition
 {
     public class CreateDefinitionRequestTests
     {

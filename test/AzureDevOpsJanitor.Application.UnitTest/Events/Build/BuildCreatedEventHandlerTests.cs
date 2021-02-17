@@ -5,12 +5,13 @@ using AzureDevOpsJanitor.Domain.Aggregates.Project;
 using AzureDevOpsJanitor.Domain.Events.Build;
 using AzureDevOpsJanitor.Domain.Services;
 using AzureDevOpsJanitor.Domain.ValueObjects;
-using AzureDevOpsJanitor.Infrastructure.Vsts;
-using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
+using CloudEngineering.CodeOps.Infrastructure.AzureDevOps;
+using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects;
 using Moq;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects.Build;
 using Xunit;
 
 namespace AzureDevOpsJanitor.Application.UnitTest.Events.Build
@@ -22,7 +23,7 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Events.Build
         {
             //Arrange
             var mockMapper = new Mock<IMapper>();
-            var mockVstsRestClient = new Mock<IVstsClient>();
+            var mockVstsRestClient = new Mock<IAdoClient>();
             var mockProjectService = new Mock<IProjectService>();
             var sut = new BuildCreatedEventHandler(mockMapper.Object, mockVstsRestClient.Object, mockProjectService.Object);
 
@@ -41,7 +42,7 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Events.Build
         {
             //Arrange
             var mockMapper = new Mock<IMapper>();
-            var mockVstsRestClient = new Mock<IVstsClient>();
+            var mockVstsRestClient = new Mock<IAdoClient>();
             var mockProjectService = new Mock<IProjectService>();
             var fakeVstsPayload = new BuildDto() 
             {

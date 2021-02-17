@@ -1,8 +1,9 @@
-﻿using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
+﻿using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects;
 using System.Text.Json;
+using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects.Build;
 using Xunit;
 
-namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Events
+namespace CloudEngineering.CodeOps.Infrastructure.UnitTest.Vsts.Events
 {
     public class BuildDtoTests
     {

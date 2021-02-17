@@ -2,7 +2,7 @@
 using System;
 using System.Reflection;
 
-namespace AzureDevOpsJanitor.Infrastructure.IntegrationTest.Vsts
+namespace CloudEngineering.CodeOps.Infrastructure.IntegrationTest.Vsts
 {
     public class ConfigurationFixture : IDisposable
     {

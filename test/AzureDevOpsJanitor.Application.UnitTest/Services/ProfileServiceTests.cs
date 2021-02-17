@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using AzureDevOpsJanitor.Application.Services;
 using AzureDevOpsJanitor.Domain.ValueObjects;
-using AzureDevOpsJanitor.Infrastructure.Vsts;
-using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
+using CloudEngineering.CodeOps.Infrastructure.AzureDevOps;
+using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects;
 using Moq;
 using System.Threading;
 using System.Threading.Tasks;
+using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects.Profile;
 using Xunit;
 
 namespace AzureDevOpsJanitor.Application.UnitTest.Services
@@ -16,7 +17,7 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Services
         public void CanBeConstructed()
         {
             //Arrange
-            var mockVstsRestClient = new Mock<IVstsClient>();
+            var mockVstsRestClient = new Mock<IAdoClient>();
             var mockMapper = new Mock<IMapper>();
             var sut = new ProfileService(mockMapper.Object, mockVstsRestClient.Object);
 
@@ -31,7 +32,7 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Services
         public async Task CanGet()
         {
             //Arrange
-            var mockVstsRestClient = new Mock<IVstsClient>();
+            var mockVstsRestClient = new Mock<IAdoClient>();
             var mockMapper = new Mock<IMapper>();
             var profileIdentifier = "me";
 

@@ -5,8 +5,8 @@ using AzureDevOpsJanitor.Application.Commands.Release;
 using AzureDevOpsJanitor.Domain.Aggregates.Build;
 using AzureDevOpsJanitor.Domain.Aggregates.Project;
 using AzureDevOpsJanitor.Domain.Aggregates.Release;
-using ResourceProvisioning.Abstractions.Aggregates;
-using ResourceProvisioning.Abstractions.Commands;
+using CloudEngineering.CodeOps.Abstractions.Aggregates;
+using CloudEngineering.CodeOps.Abstractions.Commands;
 using System;
 
 namespace AzureDevOpsJanitor.Application.Mapping.Converters

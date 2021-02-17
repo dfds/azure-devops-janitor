@@ -14,7 +14,7 @@ namespace AzureDevOpsJanitor.Domain.UnitTest.Events.Build
             IEnumerable<BuildStatus> sut;
 
             //Act
-            sut = ResourceProvisioning.Abstractions.Entities.EntityEnumeration.GetAll<BuildStatus>();
+            sut = CloudEngineering.CodeOps.Abstractions.Entities.EntityEnumeration.GetAll<BuildStatus>();
 
             //Assert
             Assert.True(sut.Count() == 6);

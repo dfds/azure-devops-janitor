@@ -1,9 +1,9 @@
-﻿using AzureDevOpsJanitor.Infrastructure.Vsts.Events;
+﻿using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.Events;
 using System;
 using System.Text.Json;
 using Xunit;
 
-namespace AzureDevOpsJanitor.Infrastructure.UnitTest.Vsts.Events
+namespace CloudEngineering.CodeOps.Infrastructure.UnitTest.Vsts.Events
 {
     public class BuildCompletedEventTests
     {

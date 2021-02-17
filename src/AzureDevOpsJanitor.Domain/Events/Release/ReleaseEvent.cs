@@ -1,5 +1,5 @@
 ﻿using AzureDevOpsJanitor.Domain.Aggregates.Release;
-using ResourceProvisioning.Abstractions.Events;
+using CloudEngineering.CodeOps.Abstractions.Events;
 
 namespace AzureDevOpsJanitor.Domain.Events.Release
 {

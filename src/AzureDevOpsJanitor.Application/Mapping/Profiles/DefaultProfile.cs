@@ -3,9 +3,13 @@ using AzureDevOpsJanitor.Domain.Aggregates.Build;
 using AzureDevOpsJanitor.Domain.Aggregates.Project;
 using AzureDevOpsJanitor.Domain.Aggregates.Release;
 using AzureDevOpsJanitor.Domain.ValueObjects;
-using AzureDevOpsJanitor.Infrastructure.Vsts.DataTransferObjects;
-using ResourceProvisioning.Abstractions.Aggregates;
-using ResourceProvisioning.Abstractions.Commands;
+using CloudEngineering.CodeOps.Abstractions.Aggregates;
+using CloudEngineering.CodeOps.Abstractions.Commands;
+using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects.Build;
+using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects.Profile;
+using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects.Project;
+using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects.Release;
+using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects.Shared;
 
 namespace AzureDevOpsJanitor.Application.Mapping.Profiles
 {

@@ -1,5 +1,5 @@
 ﻿using AzureDevOpsJanitor.Domain.Aggregates.Project;
-using ResourceProvisioning.Abstractions.Events;
+using CloudEngineering.CodeOps.Abstractions.Events;
 
 namespace AzureDevOpsJanitor.Domain.Events.Project
 {

@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using AzureDevOpsJanitor.Host.EventConsumer.Strategies;
-using AzureDevOpsJanitor.Infrastructure.Kafka;
+using CloudEngineering.CodeOps.Infrastructure.Kafka;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using ResourceProvisioning.Abstractions.Facade;
+using CloudEngineering.CodeOps.Abstractions.Facade;
 using System.Threading;
 using System.Threading.Tasks;
 

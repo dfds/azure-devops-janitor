@@ -6,8 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="MediatR" Version="9.0.0" />
-      <PackageReference Include="ResourceProvisioning.Abstractions" Version="1.0.0-CI-20210205-113543" />
+      <PackageReference Include="CloudEngineering.CodeOps.Abstractions" Version="1.0.0" />
     </ItemGroup>
 
 

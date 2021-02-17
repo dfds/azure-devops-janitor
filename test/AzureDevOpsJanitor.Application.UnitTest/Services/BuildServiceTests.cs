@@ -4,7 +4,7 @@ using AzureDevOpsJanitor.Domain.Events.Build;
 using AzureDevOpsJanitor.Domain.Repository;
 using AzureDevOpsJanitor.Domain.ValueObjects;
 using Moq;
-using ResourceProvisioning.Abstractions.Data;
+using CloudEngineering.CodeOps.Abstractions.Data;
 using System;
 using System.Threading;
 using System.Threading.Tasks;

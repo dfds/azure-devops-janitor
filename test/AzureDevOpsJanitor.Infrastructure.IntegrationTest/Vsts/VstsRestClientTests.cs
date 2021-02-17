@@ -1,10 +1,10 @@
-﻿using AzureDevOpsJanitor.Infrastructure.Vsts;
+﻿using CloudEngineering.CodeOps.Infrastructure.AzureDevOps;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace AzureDevOpsJanitor.Infrastructure.IntegrationTest.Vsts
+namespace CloudEngineering.CodeOps.Infrastructure.IntegrationTest.Vsts
 {
     public class VstsRestClientTests : IClassFixture<ConfigurationFixture>
     {
@@ -19,12 +19,12 @@ namespace AzureDevOpsJanitor.Infrastructure.IntegrationTest.Vsts
         public async Task CanGetProjects()
         {
             //Arrange
-            var options = new VstsClientOptions()
+            var options = new AdoClientOptions()
             {
                 ClientSecret = _fixture.Configuration.GetValue<string>("Vsts:ClientAccessToken")
             };
 
-            var sut = new VstsClient(Options.Create(options));
+            var sut = new AdoClient(Options.Create(options));
 
             //Act
             var projects = await sut.GetProjects("dfds");

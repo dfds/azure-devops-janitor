@@ -1,7 +1,7 @@
 using AzureDevOpsJanitor.Host.EventForwarder.Attributes;
 using Confluent.Kafka;
 using Microsoft.AspNetCore.Mvc;
-using ResourceProvisioning.Abstractions.Events;
+using CloudEngineering.CodeOps.Abstractions.Events;
 using System.IO;
 using System.Text;
 using System.Text.Json;

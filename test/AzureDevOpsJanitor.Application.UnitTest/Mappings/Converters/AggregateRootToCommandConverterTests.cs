@@ -4,8 +4,8 @@ using AzureDevOpsJanitor.Application.Commands.Project;
 using AzureDevOpsJanitor.Application.Mapping.Converters;
 using AzureDevOpsJanitor.Domain.Aggregates.Build;
 using AzureDevOpsJanitor.Domain.Aggregates.Project;
-using ResourceProvisioning.Abstractions.Aggregates;
-using ResourceProvisioning.Abstractions.Commands;
+using CloudEngineering.CodeOps.Abstractions.Aggregates;
+using CloudEngineering.CodeOps.Abstractions.Commands;
 using System;
 using Xunit;
 
