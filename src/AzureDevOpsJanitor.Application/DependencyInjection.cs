@@ -30,6 +30,8 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using CloudEngineering.CodeOps.Abstractions.Data;
+using CloudEngineering.CodeOps.Security.Policies.Handlers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AzureDevOpsJanitor.Application
 {
@@ -45,6 +47,7 @@ namespace AzureDevOpsJanitor.Application
             services.AddInfrastructure(configuration);
 
             //Application dependencies
+            services.AddAuthorization();
             services.AddApplicationContext(configuration);
             services.AddBehaviors();
             services.AddCaching();
@@ -53,6 +56,12 @@ namespace AzureDevOpsJanitor.Application
             services.AddRepositories();
             services.AddServices();
             services.AddFacade();
+        }
+
+        private static void AddAuthorization(this IServiceCollection services)
+        {
+            services.AddSingleton<IAuthorizationHandler, AccessRequirementHandler>();
+            services.AddSingleton<IAuthorizationPolicyProvider, DefaultAuthorizationPolicyProvider>();
         }
 
         private static void AddApplicationContext(this IServiceCollection services, IConfiguration configuration)

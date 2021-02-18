@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
+using AutoMapper.Configuration.Annotations;
 using Xunit;
 
 namespace CloudEngineering.CodeOps.Infrastructure.IntegrationTest.Vsts
@@ -15,7 +16,7 @@ namespace CloudEngineering.CodeOps.Infrastructure.IntegrationTest.Vsts
             _fixture = fixture;
         }
 
-        [Fact]
+        [Fact(Skip = "Move to CloudEngineering.CodeOps")]
         public async Task CanGetProjects()
         {
             //Arrange
