@@ -6,6 +6,7 @@ using System.IO;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System;
 
 namespace AzureDevOpsJanitor.Host.EventForwarder.Controllers
 {
@@ -30,11 +31,7 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Controllers
                 var json = JsonDocument.Parse(content).RootElement;
                 var message = new Message<string, IIntegrationEvent>()
                 {
-                    Value = new IntegrationEvent()
-                    {
-                        Type = nameof(JsonElement),
-                        Payload = json
-                    }
+                    Value = new IntegrationEvent(Guid.NewGuid(), nameof(JsonElement), json)
                 };
 
                 await _producer.ProduceAsync(topic, message);

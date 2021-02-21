@@ -6,14 +6,8 @@ namespace AzureDevOpsJanitor.Host.EventForwarder.Events
 {
     public sealed class ForwardContentEvent : IntegrationEvent
     {
-        public ForwardContentEvent(string type, JsonElement payload, Guid id, Guid correlationId, DateTime createDate, int schemaVersion = 1)
+        public ForwardContentEvent(Guid id, string type, JsonElement payload, Guid correlationId, DateTime createDate, int schemaVersion = 1) : base(id, type, payload, createDate, correlationId, schemaVersion)
         {
-            Type = type;
-            Payload = payload;
-            Id = id;
-            CorrelationId = correlationId;
-            CreationDate = createDate;
-            SchemaVersion = schemaVersion;
         }
     }
 }
