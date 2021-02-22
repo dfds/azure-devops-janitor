@@ -9,6 +9,9 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+- group: Developer-Automation
+
 steps:
 - task: DockerCompose@0
   displayName: 'Build azure-devops-janitor images'
