@@ -14,4 +14,4 @@ spec:
     skipFinalSnapshotBeforeDeletion: true
   writeConnectionSecretToRef:
     namespace: developerautomation-xavgy
-    name: aws-rdspostgresql-conn
+    name: azure-devops-janitor-rdspostgresql-conn
