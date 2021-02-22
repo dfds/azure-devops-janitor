@@ -18,6 +18,7 @@ steps:
     action: 'Run a Docker Compose command'
     dockerComposeCommand: 'build'
     arguments: '--build-arg PAT=$(System.AccessToken)'
+
 - task: ECRPushImage@1  
   displayName: 'Push azure-devops-janitor-api image to ECR'
   inputs:
@@ -27,6 +28,7 @@ steps:
     sourceImageName: 'azure-devops-janitor-api'
     repositoryName: 'dfds.developerautomation-xavgy.azure-devops-janitor'
     pushTag: 'azure-devops-janitor-api-$(Build.BuildId)'
+
 - task: ECRPushImage@1
   displayName: 'Push azure-devops-janitor-event-consumer image to ECR'
   inputs:
@@ -36,15 +38,6 @@ steps:
     sourceImageName: 'azure-devops-janitor-event-consumer'
     repositoryName: 'dfds.developerautomation-xavgy.azure-devops-janitor'
     pushTag: 'azure-devops-janitor-event-consumer-$(Build.BuildId)'
-- task: ECRPushImage@1
-  displayName: 'Push azure-devops-janitor-event-forwarder image to ECR'
-  inputs:
-    awsCredentials: 'DeveloperAutomation ECR'
-    regionName: 'eu-west-1'
-    imageSource: 'imagename'
-    sourceImageName: 'azure-devops-janitor-event-forwarder'
-    repositoryName: 'dfds.developerautomation-xavgy.azure-devops-janitor'
-    pushTag: 'azure-devops-janitor-event-forwarder-$(Build.BuildId)'
   
 # Replace token values in yaml files with pipeline variables
 - task: qetza.replacetokens.replacetokens-task.replacetokens@3
