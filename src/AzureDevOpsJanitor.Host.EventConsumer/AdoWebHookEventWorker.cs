@@ -9,22 +9,22 @@ using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Host.EventConsumer
 {
-    public class VstsWebHookEventWorker : KafkaConsumerService
+    public class AdoWebHookEventWorker : KafkaConsumerService
     {
-        public VstsWebHookEventWorker(ILogger<KafkaConsumerService> logger, IOptions<KafkaOptions> options, IMapper mapper, IFacade applicationFacade) : base(logger, options, new VstsWebHookConsumptionStrategy(mapper, applicationFacade))
+        public AdoWebHookEventWorker(ILogger<KafkaConsumerService> logger, IOptions<KafkaOptions> options, IMapper mapper, IFacade applicationFacade) : base(logger, options, new VstsWebHookConsumptionStrategy(mapper, applicationFacade))
         {
         }
 
         public override Task StartAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation("Starting: {0}", nameof(VstsWebHookEventWorker));
+            _logger.LogInformation("Starting: {0}", nameof(AdoWebHookEventWorker));
 
             return base.StartAsync(cancellationToken);
         }
 
         public override Task StopAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation("Stopping: {0}", nameof(VstsWebHookEventWorker));
+            _logger.LogInformation("Stopping: {0}", nameof(AdoWebHookEventWorker));
 
             return base.StopAsync(cancellationToken);
         }
