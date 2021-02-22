@@ -32,6 +32,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureDevOpsJanitor.Host.Eve
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".k8s", ".k8s", "{E6ADC65C-DC26-411D-9ADA-2124B1C87260}"
 	ProjectSection(SolutionItems) = preProject
+		k8s\ado_credentials.yaml = k8s\ado_credentials.yaml
 		k8s\api_deployment.yaml = k8s\api_deployment.yaml
 		k8s\aws_provider.yaml = k8s\aws_provider.yaml
 		k8s\eventconsumer_deployment.yaml = k8s\eventconsumer_deployment.yaml
@@ -40,7 +41,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".k8s", ".k8s", "{E6ADC65C-D
 		k8s\kafka_credentials.yaml = k8s\kafka_credentials.yaml
 		k8s\rds_instance.yaml = k8s\rds_instance.yaml
 		k8s\service.yaml = k8s\service.yaml
-		k8s\vsts_credentials.yaml = k8s\vsts_credentials.yaml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Host", "Host", "{FF970998-6D4B-4411-A956-79BC34A60177}"

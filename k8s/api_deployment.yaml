@@ -34,10 +34,10 @@ spec:
         - containerPort: 8080
           name: metrics
         env:
-          - name: Vsts__ClientAccessToken
+          - name: AdoClient__ClientAccessToken
             valueFrom:
               secretKeyRef:
-                name: vsts-credentials
+                name: ado-credentials
                 key: clientAccessToken
           - name: Kafka__Configuration__sasl.username
             valueFrom:

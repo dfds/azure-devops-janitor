@@ -29,10 +29,10 @@ spec:
       - name: azure-devops-janitor-event-consumer
         image: 642375522597.dkr.ecr.eu-west-1.amazonaws.com/dfds.developerautomation-xavgy.azure-devops-janitor:azure-devops-janitor-event-consumer-$(Build.BuildId)
         env:
-          - name: Vsts__ClientAccessToken
+          - name: AdoClient__ClientAccessToken
             valueFrom:
               secretKeyRef:
-                name: vsts-credentials
+                name: ado-credentials
                 key: clientAccessToken
           - name: Kafka__Configuration__sasl.username
             valueFrom:
