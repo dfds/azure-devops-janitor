@@ -45,7 +45,13 @@ steps:
     sourceImageName: 'azure-devops-janitor-event-forwarder'
     repositoryName: 'dfds.developerautomation-xavgy.azure-devops-janitor'
     pushTag: 'azure-devops-janitor-event-forwarder-$(Build.BuildId)'
-                      
+
+- task: PowerShell@2
+    displayName: 'Set token secret variable'
+    inputs:
+      targetType: 'inline'
+      script: 'Write-Host "##vso[task.setvariable variable=ADO_CLIENT_ACCESS_TOKEN][Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($(System.AccessToken)))"'
+                  
 # Replace token values in yaml files with pipeline variables
 - task: qetza.replacetokens.replacetokens-task.replacetokens@3
   displayName: 'Replace tokens in k8s manifests'
