@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using CloudEngineering.CodeOps.Abstractions.Events;
+﻿using CloudEngineering.CodeOps.Abstractions.Events;
 using CloudEngineering.CodeOps.Infrastructure.AzureDevOps;
 using CloudEngineering.CodeOps.Infrastructure.EntityFramework;
 using CloudEngineering.CodeOps.Infrastructure.Kafka;
@@ -10,7 +9,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Reflection;
 
 namespace CloudEngineering.CodeOps.Infrastructure
 {
@@ -18,8 +16,6 @@ namespace CloudEngineering.CodeOps.Infrastructure
     {
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
-
             services.AddMediator();
             services.AddEntityFramework(configuration);
             services.AddAzureDevOps(configuration);
@@ -35,7 +31,9 @@ namespace CloudEngineering.CodeOps.Infrastructure
 
         private static void AddAzureDevOps(this IServiceCollection services, IConfiguration configuration)
         {
-            services.Configure<AdoClientOptions>(configuration.GetSection(AdoClientOptions.Vsts));
+            services.AddAutoMapper(typeof(AdoClient).Assembly);
+
+            services.Configure<AdoClientOptions>(configuration.GetSection(AdoClientOptions.AdoClient));
 
             services.AddTransient<IAdoClient, AdoClient>();
         }

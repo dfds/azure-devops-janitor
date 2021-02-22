@@ -2,7 +2,7 @@
 using System.Net.Http;
 using Xunit;
 
-namespace CloudEngineering.CodeOps.Infrastructure.UnitTest.Vsts.Http.Request.Project
+namespace CloudEngineering.CodeOps.Infrastructure.UnitTest.Ado.Http.Request.Project
 {
     public class GetProjectsRequestTests
     {

@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="CloudEngineering.CodeOps.Abstractions" Version="1.0.0-CI-20210221-160031" />
+      <PackageReference Include="CloudEngineering.CodeOps.Abstractions" Version="1.0.0-CI-20210222-003854" />
     </ItemGroup>
 
 

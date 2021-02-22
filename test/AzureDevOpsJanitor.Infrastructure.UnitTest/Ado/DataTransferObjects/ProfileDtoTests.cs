@@ -4,7 +4,7 @@ using System.Text.Json;
 using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects.Profile;
 using Xunit;
 
-namespace CloudEngineering.CodeOps.Infrastructure.UnitTest.Vsts.Events
+namespace CloudEngineering.CodeOps.Infrastructure.UnitTest.Ado.Events
 {
     public class ProfileDtoTests
     {

@@ -2,7 +2,7 @@
 using System;
 using System.Reflection;
 
-namespace CloudEngineering.CodeOps.Infrastructure.IntegrationTest.Vsts
+namespace CloudEngineering.CodeOps.Infrastructure.IntegrationTest.Ado
 {
     public class ConfigurationFixture : IDisposable
     {

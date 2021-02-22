@@ -2,7 +2,7 @@
 using System.Net.Http;
 using Xunit;
 
-namespace CloudEngineering.CodeOps.Infrastructure.UnitTest.Vsts.Http.Request.Profile
+namespace CloudEngineering.CodeOps.Infrastructure.UnitTest.Ado.Http.Request.Profile
 {
     public class GetProfileRequestTests
     {

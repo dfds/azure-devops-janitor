@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects.Build;
 using Xunit;
 
-namespace CloudEngineering.CodeOps.Infrastructure.UnitTest.Vsts.Http.Request.Build.Definition
+namespace CloudEngineering.CodeOps.Infrastructure.UnitTest.Ado.Http.Request.Build.Definition
 {
     public class CreateDefinitionRequestTests
     {

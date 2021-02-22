@@ -2,16 +2,15 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
-using AutoMapper.Configuration.Annotations;
 using Xunit;
 
-namespace CloudEngineering.CodeOps.Infrastructure.IntegrationTest.Vsts
+namespace CloudEngineering.CodeOps.Infrastructure.IntegrationTest.Ado
 {
-    public class VstsRestClientTests : IClassFixture<ConfigurationFixture>
+    public class AdoClientTests : IClassFixture<ConfigurationFixture>
     {
         private readonly ConfigurationFixture _fixture;
 
-        public VstsRestClientTests(ConfigurationFixture fixture)
+        public AdoClientTests(ConfigurationFixture fixture)
         {
             _fixture = fixture;
         }
@@ -22,7 +21,7 @@ namespace CloudEngineering.CodeOps.Infrastructure.IntegrationTest.Vsts
             //Arrange
             var options = new AdoClientOptions()
             {
-                ClientSecret = _fixture.Configuration.GetValue<string>("Vsts:ClientAccessToken")
+                ClientSecret = _fixture.Configuration.GetValue<string>("AdoClient:ClientAccessToken")
             };
 
             var sut = new AdoClient(Options.Create(options));
