@@ -11,8 +11,3 @@ services:
     build:
       context: .
       dockerfile: src/AzureDevOpsJanitor.Host.EventConsumer/Dockerfile
-  azuredevopsjanitor.host.eventforwarder:
-    image: azure-devops-janitor-event-forwarder
-    build:
-      context: .
-      dockerfile: src/AzureDevOpsJanitor.Host.EventForwarder/Dockerfile
