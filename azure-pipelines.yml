@@ -9,6 +9,10 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+- name: accessToken
+  value: $(System.AccessToken)
+
 steps:
 - task: DockerCompose@0
   displayName: 'Build azure-devops-janitor images'
@@ -47,10 +51,10 @@ steps:
     pushTag: 'azure-devops-janitor-event-forwarder-$(Build.BuildId)'
 
 - task: PowerShell@2
-    displayName: 'Set token secret variable'
+    displayName: 'Base64 encode accessToken'
     inputs:
       targetType: 'inline'
-      script: 'Write-Host "##vso[task.setvariable variable=ADO_CLIENT_ACCESS_TOKEN][Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($(System.AccessToken)))"'
+      script: 'Write-Host "##vso[task.setvariable variable=accessToken][Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($(accessToken)))"'
                   
 # Replace token values in yaml files with pipeline variables
 - task: qetza.replacetokens.replacetokens-task.replacetokens@3
