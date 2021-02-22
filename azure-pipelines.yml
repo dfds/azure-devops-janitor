@@ -9,10 +9,6 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-variables:
-- name: ADO_CLIENT_ACCESS_TOKEN
-  value: $(System.AccessToken)
-
 steps:
 - task: DockerCompose@0
   displayName: 'Build azure-devops-janitor images'
@@ -50,7 +46,7 @@ steps:
     repositoryName: 'dfds.developerautomation-xavgy.azure-devops-janitor'
     pushTag: 'azure-devops-janitor-event-forwarder-$(Build.BuildId)'
 
-- bash: 'echo "##vso[task.setvariable variable=ADO_CLIENT_ACCESS_TOKEN][Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($(ADO_CLIENT_ACCESS_TOKEN)))"'
+- bash: 'echo "##vso[task.setvariable variable=ADO_CLIENT_ACCESS_TOKEN][Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($(System.AccessToken)))"'
   displayName: Set new variable value
   
 # Replace token values in yaml files with pipeline variables
