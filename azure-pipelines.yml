@@ -4,7 +4,16 @@
 # https://aka.ms/yaml
 
 trigger:
-- main
+  branches:
+    include:
+    - main
+    
+  paths:
+    # Changes to these files does not trigger a new build / release
+    exclude:
+    - README.md
+    - LICENSE
+    - azure-pipelines.yml
 
 pool:
   vmImage: 'ubuntu-latest'
