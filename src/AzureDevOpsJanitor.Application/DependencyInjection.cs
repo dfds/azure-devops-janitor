@@ -77,7 +77,7 @@ namespace AzureDevOpsJanitor.Application
 
                 if (string.IsNullOrEmpty(connectionString))
                 {
-                    return;
+                    throw new ApplicationFacadeException($"Could not find connection string with entry key: {nameof(ApplicationContext)}");
                 }
 
                 services.AddSingleton(factory =>
@@ -98,11 +98,6 @@ namespace AzureDevOpsJanitor.Application
                     }).Options;
 
                 using var context = new ApplicationContext(dbOptions, serviceProvider.GetService<IMediator>());
-
-                if (context.Database.EnsureCreated())
-                {
-                    return;
-                }
 
                 if (dbContextOptions.Value.EnableAutoMigrations)
                 {
