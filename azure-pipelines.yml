@@ -57,7 +57,7 @@ steps:
   inputs:
     rootDirectory: '$(Build.SourcesDirectory)/k8s/'
     targetFiles: '*.yaml'
-    tokenPrefix: '$('
+    tokenPrefix: '#('
     tokenSuffix: ')'
 
 # Apply Kubernetes manifests
