@@ -9,14 +9,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AzureDevOpsJanitor.Application.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20210212145955_v1")]
+    [Migration("20210223162902_v1")]
     partial class v1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "5.0.2");
+                .HasAnnotation("ProductVersion", "5.0.3");
 
             modelBuilder.Entity("ArtifactReleaseRoot", b =>
                 {
