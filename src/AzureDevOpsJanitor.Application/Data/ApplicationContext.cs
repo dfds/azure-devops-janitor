@@ -2,13 +2,12 @@
 using AzureDevOpsJanitor.Domain.Aggregates.Project;
 using AzureDevOpsJanitor.Domain.Aggregates.Release;
 using AzureDevOpsJanitor.Domain.ValueObjects;
+using CloudEngineering.CodeOps.Abstractions.Data;
 using CloudEngineering.CodeOps.Infrastructure.EntityFramework;
 using MediatR;
-using CloudEngineering.CodeOps.Abstractions.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
-using Microsoft.EntityFrameworkCore;
 
 namespace AzureDevOpsJanitor.Application.Data
 {

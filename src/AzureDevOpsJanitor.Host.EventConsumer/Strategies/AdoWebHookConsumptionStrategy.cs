@@ -13,9 +13,9 @@ using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Host.EventConsumer.Strategies
 {
-    public sealed class VstsWebHookConsumptionStrategy : ConsumtionStrategy
+    public sealed class AdoWebHookConsumptionStrategy : ConsumtionStrategy
     {
-        public VstsWebHookConsumptionStrategy(IMapper mapper, IFacade applicationFacade) : base(mapper, applicationFacade)
+        public AdoWebHookConsumptionStrategy(IMapper mapper, IFacade applicationFacade) : base(mapper, applicationFacade)
         {
 
         }

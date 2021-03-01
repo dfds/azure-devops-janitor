@@ -11,7 +11,7 @@ namespace AzureDevOpsJanitor.Host.EventConsumer
 {
     public class AdoWebHookEventWorker : KafkaConsumerService
     {
-        public AdoWebHookEventWorker(ILogger<KafkaConsumerService> logger, IOptions<KafkaOptions> options, IMapper mapper, IFacade applicationFacade) : base(logger, options, new VstsWebHookConsumptionStrategy(mapper, applicationFacade))
+        public AdoWebHookEventWorker(ILogger<KafkaConsumerService> logger, IOptions<KafkaOptions> options, IMapper mapper, IFacade applicationFacade) : base(logger, options, new AdoWebHookConsumptionStrategy(mapper, applicationFacade))
         {
         }
 
