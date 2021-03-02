@@ -26,7 +26,7 @@ namespace CloudEngineering.CodeOps.Infrastructure.UnitTest.Ado.Events
             //Arrange
             var sut = new BuildCompletedEvent()
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.NewGuid().ToString(),
                 EventType = "MyEventType",
                 PublisherId = "MyPublisherId",
                 Scope = "MyScope"
@@ -50,7 +50,7 @@ namespace CloudEngineering.CodeOps.Infrastructure.UnitTest.Ado.Events
 
             //Assert
             Assert.NotNull(sut);
-            Assert.Equal(Guid.Parse("3ededfb7-5b60-49d9-9c47-80bbf8f2dcb1"), sut.Id);
+            Assert.Equal("3ededfb7-5b60-49d9-9c47-80bbf8f2dcb1", sut.Id);
             Assert.Equal("MyPublisherId", sut.PublisherId);
             Assert.Equal("MyEventType", sut.EventType);
             Assert.Equal("MyScope", sut.Scope);

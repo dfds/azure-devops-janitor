@@ -1,9 +1,9 @@
-﻿using AutoMapper;
-using AzureDevOpsJanitor.Application.Behaviors;
+﻿using AzureDevOpsJanitor.Application.Behaviors;
 using AzureDevOpsJanitor.Application.Caching;
 using AzureDevOpsJanitor.Application.Commands.Build;
 using AzureDevOpsJanitor.Application.Commands.Profile;
 using AzureDevOpsJanitor.Application.Commands.Project;
+using AzureDevOpsJanitor.Application.Data;
 using AzureDevOpsJanitor.Application.Events.Build;
 using AzureDevOpsJanitor.Application.Repositories;
 using AzureDevOpsJanitor.Application.Services;
@@ -13,25 +13,23 @@ using AzureDevOpsJanitor.Domain.Events.Build;
 using AzureDevOpsJanitor.Domain.Repository;
 using AzureDevOpsJanitor.Domain.Services;
 using AzureDevOpsJanitor.Domain.ValueObjects;
-using CloudEngineering.CodeOps.Infrastructure;
-using MediatR;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+using AzureDevOpsJanitor.Infrastructure;
 using CloudEngineering.CodeOps.Abstractions.Commands;
+using CloudEngineering.CodeOps.Abstractions.Data;
 using CloudEngineering.CodeOps.Abstractions.Events;
 using CloudEngineering.CodeOps.Abstractions.Facade;
 using CloudEngineering.CodeOps.Abstractions.Repositories;
-using System.Collections.Generic;
-using System.Reflection;
-using AzureDevOpsJanitor.Application.Data;
+using CloudEngineering.CodeOps.Infrastructure;
 using CloudEngineering.CodeOps.Infrastructure.EntityFramework;
+using MediatR;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using CloudEngineering.CodeOps.Abstractions.Data;
-using CloudEngineering.CodeOps.Security.Policies.Handlers;
-using Microsoft.AspNetCore.Authorization;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace AzureDevOpsJanitor.Application
 {
@@ -43,25 +41,18 @@ namespace AzureDevOpsJanitor.Application
             services.AddLogging();
 
             //External dependencies
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddInfrastructure(configuration);
 
             //Application dependencies
-            services.AddAuthorization();
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddApplicationContext(configuration);
             services.AddBehaviors();
             services.AddCaching();
             services.AddCommandHandlers();
             services.AddEventHandlers();
+            services.AddFacade();
             services.AddRepositories();
             services.AddServices();
-            services.AddFacade();
-        }
-
-        private static void AddAuthorization(this IServiceCollection services)
-        {
-            services.AddSingleton<IAuthorizationHandler, AccessRequirementHandler>();
-            services.AddSingleton<IAuthorizationPolicyProvider, DefaultAuthorizationPolicyProvider>();
         }
 
         private static void AddApplicationContext(this IServiceCollection services, IConfiguration configuration)

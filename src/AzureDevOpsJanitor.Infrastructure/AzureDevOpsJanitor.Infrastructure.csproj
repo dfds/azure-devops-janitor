@@ -8,9 +8,10 @@
 
 	<ItemGroup>
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
-		<PackageReference Include="CloudEngineering.CodeOps.Infrastructure.AzureDevOps" Version="1.0.0-CI-20210301-132215" />
-		<PackageReference Include="CloudEngineering.CodeOps.Infrastructure.EntityFramework" Version="1.0.0-CI-20210301-132215" />
-		<PackageReference Include="CloudEngineering.CodeOps.Infrastructure.Kafka" Version="1.0.0-CI-20210301-132215" />
+		<PackageReference Include="CloudEngineering.CodeOps.Infrastructure.AzureDevOps" Version="1.0.0-CI-20210302-203159" />
+		<PackageReference Include="CloudEngineering.CodeOps.Infrastructure.EntityFramework" Version="1.0.0-CI-20210302-203159" />
+		<PackageReference Include="CloudEngineering.CodeOps.Infrastructure.Kafka" Version="1.0.0-CI-20210302-203159" />
+		<PackageReference Include="CloudEngineering.CodeOps.Security.Policies" Version="1.0.0-CI-20210302-203159" />
 	</ItemGroup>
 
 	<ItemGroup>
