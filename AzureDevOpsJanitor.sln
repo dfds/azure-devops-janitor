@@ -16,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E529C2
 		nuget.config = nuget.config
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{733FC4BD-E8FE-47FA-9A7D-162DB6AF8FAF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{733FC4BD-E8FE-47FA-9A7D-162DB6AF8FAF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureDevOpsJanitor.Domain.UnitTest", "test\AzureDevOpsJanitor.Domain.UnitTest\AzureDevOpsJanitor.Domain.UnitTest.csproj", "{A355B3E3-4B24-4187-898D-F6BB16B1381E}"
 EndProject
@@ -35,11 +35,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".k8s", ".k8s", "{E6ADC65C-D
 		k8s\service.yaml = k8s\service.yaml
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Host", "Host", "{FF970998-6D4B-4411-A956-79BC34A60177}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "host", "host", "{FF970998-6D4B-4411-A956-79BC34A60177}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{DC5FEE1F-E52D-41C6-8E86-E98C7811F42C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "api", "api", "{DC5FEE1F-E52D-41C6-8E86-E98C7811F42C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Worker", "Worker", "{AF06C2E6-BC82-4895-98EB-BADCCA4CC1CD}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "worker", "worker", "{AF06C2E6-BC82-4895-98EB-BADCCA4CC1CD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".docker", ".docker", "{3A7414AA-A994-4D00-930B-0F096039CFCE}"
 	ProjectSection(SolutionItems) = preProject
