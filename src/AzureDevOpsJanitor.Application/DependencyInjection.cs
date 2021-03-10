@@ -19,7 +19,6 @@ using CloudEngineering.CodeOps.Abstractions.Data;
 using CloudEngineering.CodeOps.Abstractions.Events;
 using CloudEngineering.CodeOps.Abstractions.Facade;
 using CloudEngineering.CodeOps.Abstractions.Repositories;
-using CloudEngineering.CodeOps.Infrastructure;
 using CloudEngineering.CodeOps.Infrastructure.EntityFramework;
 using MediatR;
 using Microsoft.Data.Sqlite;
@@ -94,9 +93,9 @@ namespace AzureDevOpsJanitor.Application
                 {
                     context.Database.Migrate();
                 }
-            });
+            }, ServiceLifetime.Transient, ServiceLifetime.Transient);
 
-            services.AddScoped<IUnitOfWork>(factory => factory.GetRequiredService<ApplicationContext>());
+            services.AddTransient<IUnitOfWork>(factory => factory.GetRequiredService<ApplicationContext>());
         }
 
         private static void AddBehaviors(this IServiceCollection services)
