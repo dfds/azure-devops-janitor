@@ -2,7 +2,6 @@
 using AzureDevOpsJanitor.Application.Commands.Build;
 using AzureDevOpsJanitor.Domain.Aggregates.Build;
 using AzureDevOpsJanitor.Host.Api.Models;
-using CloudEngineering.CodeOps.Abstractions.Facade;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
