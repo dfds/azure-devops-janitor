@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using AzureDevOpsJanitor.Application;
 using CloudEngineering.CodeOps.Abstractions.Aggregates;
 using CloudEngineering.CodeOps.Abstractions.Commands;
 using CloudEngineering.CodeOps.Abstractions.Events;
-using CloudEngineering.CodeOps.Abstractions.Facade;
 using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects;
 using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.Events;
 using CloudEngineering.CodeOps.Infrastructure.Kafka.Strategies;
@@ -15,7 +15,7 @@ namespace AzureDevOpsJanitor.Host.EventConsumer.Strategies
 {
     public sealed class AdoWebHookConsumptionStrategy : ConsumtionStrategy
     {
-        public AdoWebHookConsumptionStrategy(IMapper mapper, IFacade applicationFacade) : base(mapper, applicationFacade)
+        public AdoWebHookConsumptionStrategy(IMapper mapper, IApplicationFacade applicationFacade) : base(mapper, applicationFacade)
         {
 
         }

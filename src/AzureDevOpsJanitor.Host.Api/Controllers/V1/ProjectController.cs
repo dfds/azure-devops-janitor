@@ -1,4 +1,5 @@
-﻿using AzureDevOpsJanitor.Application.Commands.Project;
+﻿using AzureDevOpsJanitor.Application;
+using AzureDevOpsJanitor.Application.Commands.Project;
 using AzureDevOpsJanitor.Domain.Aggregates.Project;
 using CloudEngineering.CodeOps.Abstractions.Facade;
 using Microsoft.AspNetCore.Authorization;
@@ -11,12 +12,12 @@ namespace AzureDevOpsJanitor.Host.Api.Controllers.V1
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
+    [Authorize("dfds.all.read")]
     public sealed class ProjectController : ControllerBase
     {
-        private readonly IFacade _applicationFacade;
+        private readonly IApplicationFacade _applicationFacade;
 
-        public ProjectController(IFacade applicationFacade)
+        public ProjectController(IApplicationFacade applicationFacade)
         {
             _applicationFacade = applicationFacade ?? throw new ArgumentNullException(nameof(applicationFacade));
         }

@@ -2,7 +2,7 @@
 
 namespace AzureDevOpsJanitor.Application
 {
-    internal interface IApplicationFacade : IFacade
+    public interface IApplicationFacade : IFacade
     {
     }
 }

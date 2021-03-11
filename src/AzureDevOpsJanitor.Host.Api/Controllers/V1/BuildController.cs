@@ -1,4 +1,5 @@
-﻿using AzureDevOpsJanitor.Application.Commands.Build;
+﻿using AzureDevOpsJanitor.Application;
+using AzureDevOpsJanitor.Application.Commands.Build;
 using AzureDevOpsJanitor.Domain.Aggregates.Build;
 using AzureDevOpsJanitor.Host.Api.Models;
 using CloudEngineering.CodeOps.Abstractions.Facade;
@@ -12,12 +13,12 @@ namespace AzureDevOpsJanitor.Host.Api.Controllers.V1
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize("dfds.all.execute")]
+    [Authorize("dfds.all.read")]
     public sealed class BuildController : ControllerBase
     {
-        private readonly IFacade _applicationFacade;
+        private readonly IApplicationFacade _applicationFacade;
 
-        public BuildController(IFacade applicationFacade)
+        public BuildController(IApplicationFacade applicationFacade)
         {
             _applicationFacade = applicationFacade ?? throw new ArgumentNullException(nameof(applicationFacade));
         }

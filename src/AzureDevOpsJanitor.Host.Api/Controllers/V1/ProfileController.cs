@@ -1,4 +1,5 @@
-﻿using AzureDevOpsJanitor.Application.Commands.Profile;
+﻿using AzureDevOpsJanitor.Application;
+using AzureDevOpsJanitor.Application.Commands.Profile;
 using AzureDevOpsJanitor.Domain.ValueObjects;
 using CloudEngineering.CodeOps.Abstractions.Facade;
 using Microsoft.AspNetCore.Authorization;
@@ -10,12 +11,12 @@ namespace AzureDevOpsJanitor.Host.Api.Controllers.V1
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
+    [Authorize("dfds.all.read")]
     public sealed class ProfileController : ControllerBase
     {
-        private readonly IFacade _applicationFacade;
+        private readonly IApplicationFacade _applicationFacade;
 
-        public ProfileController(IFacade applicationFacade)
+        public ProfileController(IApplicationFacade applicationFacade)
         {
             _applicationFacade = applicationFacade ?? throw new ArgumentNullException(nameof(applicationFacade));
         }
