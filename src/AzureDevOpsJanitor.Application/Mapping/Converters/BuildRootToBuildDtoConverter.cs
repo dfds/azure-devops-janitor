@@ -13,7 +13,7 @@ namespace AzureDevOpsJanitor.Application.Mapping.Converters
     public class BuildRootToBuildDtoConverter : ITypeConverter<BuildRoot, BuildDto>, ITypeConverter<BuildDto, IAggregateRoot>
     {
         private const string CapabilityIdentifierRegEx = @"\w{0,22}-\w{5}";
-        
+
         public BuildDto Convert(BuildRoot source, BuildDto destination = default, ResolutionContext context = default)
         {
             throw new NotImplementedException();

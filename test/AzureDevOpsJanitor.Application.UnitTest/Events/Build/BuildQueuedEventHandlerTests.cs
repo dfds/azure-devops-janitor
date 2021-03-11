@@ -4,12 +4,11 @@ using AzureDevOpsJanitor.Domain.Aggregates.Project;
 using AzureDevOpsJanitor.Domain.Services;
 using AzureDevOpsJanitor.Domain.ValueObjects;
 using CloudEngineering.CodeOps.Infrastructure.AzureDevOps;
-using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects;
+using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects.Build;
 using Moq;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects.Build;
 using Xunit;
 
 namespace AzureDevOpsJanitor.Application.UnitTest.Events.Build

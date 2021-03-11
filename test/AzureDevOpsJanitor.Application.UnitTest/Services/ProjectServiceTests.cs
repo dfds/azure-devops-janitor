@@ -1,8 +1,8 @@
 ﻿using AzureDevOpsJanitor.Application.Services;
 using AzureDevOpsJanitor.Domain.Aggregates.Project;
 using AzureDevOpsJanitor.Domain.Repository;
-using Moq;
 using CloudEngineering.CodeOps.Abstractions.Data;
+using Moq;
 using System;
 using System.Threading;
 using System.Threading.Tasks;

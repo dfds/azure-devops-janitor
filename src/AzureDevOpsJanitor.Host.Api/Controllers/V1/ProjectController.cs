@@ -1,8 +1,8 @@
 ﻿using AzureDevOpsJanitor.Application.Commands.Project;
 using AzureDevOpsJanitor.Domain.Aggregates.Project;
+using CloudEngineering.CodeOps.Abstractions.Facade;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using CloudEngineering.CodeOps.Abstractions.Facade;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

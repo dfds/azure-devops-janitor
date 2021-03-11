@@ -1,8 +1,8 @@
 ﻿using AzureDevOpsJanitor.Application.Commands.Profile;
 using AzureDevOpsJanitor.Domain.ValueObjects;
+using CloudEngineering.CodeOps.Abstractions.Facade;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using CloudEngineering.CodeOps.Abstractions.Facade;
 using System;
 using System.Threading.Tasks;
 

@@ -1,13 +1,15 @@
 ﻿using AzureDevOpsJanitor.Domain.Aggregates.Build;
 using AzureDevOpsJanitor.Domain.Services;
+using CloudEngineering.CodeOps.Abstractions.Aggregates;
 using CloudEngineering.CodeOps.Abstractions.Commands;
+using MediatR;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Application.Commands.Build
 {
-    public sealed class CreateBuildCommandHandler : ICommandHandler<CreateBuildCommand, BuildRoot>
+    public sealed class CreateBuildCommandHandler : ICommandHandler<CreateBuildCommand, BuildRoot>, ICommandHandler<CreateBuildCommand, IAggregateRoot>
     {
         private readonly IBuildService _buildService;
 
@@ -23,6 +25,16 @@ namespace AzureDevOpsJanitor.Application.Commands.Build
             await _buildService.QueueAsync(build.Id, cancellationToken);
 
             return build;
+        }
+
+        async Task<IAggregateRoot> ICommandHandler<CreateBuildCommand, IAggregateRoot>.Handle(CreateBuildCommand request, CancellationToken cancellationToken)
+        {
+            return await Handle(request, cancellationToken);
+        }
+
+        async Task<IAggregateRoot> IRequestHandler<CreateBuildCommand, IAggregateRoot>.Handle(CreateBuildCommand request, CancellationToken cancellationToken)
+        {
+            return await Handle(request, cancellationToken);
         }
     }
 }

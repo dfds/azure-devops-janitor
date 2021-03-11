@@ -6,12 +6,11 @@ using AzureDevOpsJanitor.Domain.Events.Build;
 using AzureDevOpsJanitor.Domain.Services;
 using AzureDevOpsJanitor.Domain.ValueObjects;
 using CloudEngineering.CodeOps.Infrastructure.AzureDevOps;
-using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects;
+using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects.Build;
 using Moq;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects.Build;
 using Xunit;
 
 namespace AzureDevOpsJanitor.Application.UnitTest.Events.Build
@@ -44,7 +43,7 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Events.Build
             var mockMapper = new Mock<IMapper>();
             var mockVstsRestClient = new Mock<IAdoClient>();
             var mockProjectService = new Mock<IProjectService>();
-            var fakeVstsPayload = new BuildDto() 
+            var fakeVstsPayload = new BuildDto()
             {
                 Definition = new BuildDefinitionDto()
                 {
@@ -55,7 +54,7 @@ namespace AzureDevOpsJanitor.Application.UnitTest.Events.Build
                     Revision = 1
                 }
             };
-        
+
             var fakeProjectPayload = new ProjectRoot("foo");
 
             mockMapper.Setup(m => m.Map<BuildDto>(It.IsAny<BuildRoot>())).Returns(fakeVstsPayload);

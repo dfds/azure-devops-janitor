@@ -22,7 +22,7 @@ namespace AzureDevOpsJanitor.Application.Mapping.Profiles
 
             CreateMap<BuildRoot, BuildDto>()
             .ConvertUsing<BuildRootToBuildDtoConverter>();
-            
+
             CreateMap<BuildDto, IAggregateRoot>()
             .ConvertUsing<BuildRootToBuildDtoConverter>();
 

@@ -26,7 +26,7 @@ namespace AzureDevOpsJanitor.Application.Events.Build
         {
             var buildDto = _mapper.Map<BuildDto>(@event.Build);
             var project = await _projectService.GetAsync(@event.Build.ProjectId);
-            
+
             await _restClient.CreateBuildDefinition(project.Name, buildDto.Definition, cancellationToken: cancellationToken);
         }
     }

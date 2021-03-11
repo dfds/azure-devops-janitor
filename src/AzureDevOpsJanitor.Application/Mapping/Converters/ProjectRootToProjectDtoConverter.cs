@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using AzureDevOpsJanitor.Domain.Aggregates.Project;
-using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects;
 using CloudEngineering.CodeOps.Abstractions.Aggregates;
 using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects.Project;
 

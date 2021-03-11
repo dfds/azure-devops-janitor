@@ -2,11 +2,10 @@
 using AzureDevOpsJanitor.Application.Services;
 using AzureDevOpsJanitor.Domain.ValueObjects;
 using CloudEngineering.CodeOps.Infrastructure.AzureDevOps;
-using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects;
+using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects.Profile;
 using Moq;
 using System.Threading;
 using System.Threading.Tasks;
-using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects.Profile;
 using Xunit;
 
 namespace AzureDevOpsJanitor.Application.UnitTest.Services

@@ -1,8 +1,6 @@
-﻿using AzureDevOpsJanitor.Domain.Aggregates.Project;
-using AzureDevOpsJanitor.Domain.Aggregates.Release;
+﻿using AzureDevOpsJanitor.Domain.Aggregates.Release;
 using AzureDevOpsJanitor.Domain.Repository;
 using AzureDevOpsJanitor.Domain.Services;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;

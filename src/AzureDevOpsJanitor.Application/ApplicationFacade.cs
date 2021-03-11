@@ -1,14 +1,13 @@
-﻿using MediatR;
-using Microsoft.Extensions.Logging;
-using CloudEngineering.CodeOps.Abstractions.Facade;
+﻿using CloudEngineering.CodeOps.Abstractions.Facade;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AzureDevOpsJanitor.Application
 {
-    public sealed class ApplicationFacade : Facade
+    public sealed class ApplicationFacade : Facade, IApplicationFacade
     {
-        public ApplicationFacade(IMediator mediator, ILogger<ApplicationFacade> logger) : base(mediator, logger)
+        public ApplicationFacade(IServiceScopeFactory scopeFactory) : base(scopeFactory)
         {
-            
+
         }
     }
 }

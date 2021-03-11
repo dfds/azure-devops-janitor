@@ -14,9 +14,9 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Build
 #pragma warning disable IDE0052 // Remove unread private members
         private int _statusId;
 #pragma warning restore IDE0052 // Remove unread private members
-        
+
         private readonly List<Tag> _tags;
-        
+
         public string CapabilityIdentifier { get; init; }
 
         public Guid ProjectId { get; private set; }
@@ -52,13 +52,13 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Build
             ProjectId = projectId;
             Definition = definition;
 
-            if(tags != null)
-            { 
+            if (tags != null)
+            {
                 _tags = tags.ToList();
             }
 
-            if(!_tags.Any(o => o.Value == CapabilityIdentifier))
-            { 
+            if (!_tags.Any(o => o.Value == CapabilityIdentifier))
+            {
                 _tags.Add(new Tag(CapabilityIdentifier));
             }
         }

@@ -16,9 +16,8 @@ namespace AzureDevOpsJanitor.Host.EventConsumer
         Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder(args)
         .ConfigureServices((hostContext, services) =>
         {
-            services.AddHostedService<AdoWebHookEventWorker>();
-
-            DependencyInjection.AddApplication(services, hostContext.Configuration);
+            services.AddApplication(hostContext.Configuration);
+            services.AddHostedService<AdoEventWorker>();
         })
         .ConfigureLogging(logBuilder =>
         {

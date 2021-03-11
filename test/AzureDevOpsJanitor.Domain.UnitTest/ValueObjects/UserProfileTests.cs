@@ -1,6 +1,5 @@
 ﻿using AzureDevOpsJanitor.Domain.ValueObjects;
 using System.Collections.Generic;
-using System.Text.Json;
 using Xunit;
 
 namespace AzureDevOpsJanitor.Domain.UnitTest.ValueObjects

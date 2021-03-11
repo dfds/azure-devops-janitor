@@ -32,7 +32,7 @@ namespace AzureDevOpsJanitor.Application.Data
 
         public ApplicationContext(DbContextOptions options, IMediator mediator = default, IDictionary<Type, IEnumerable<IView>> seedData = default) : base(options)
         {
-            
+
         }
     }
 }
