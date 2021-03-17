@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using AzureDevOpsJanitor.Domain.Services;
 using AzureDevOpsJanitor.Domain.ValueObjects;
-using CloudEngineering.CodeOps.Infrastructure.AzureDevOps;
+using CloudEngineering.CodeOps.Infrastructure.Azure.DevOps;
 using System.Threading.Tasks;
 
 namespace AzureDevOpsJanitor.Application.Services

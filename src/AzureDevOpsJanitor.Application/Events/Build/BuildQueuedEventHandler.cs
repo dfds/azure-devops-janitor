@@ -2,8 +2,8 @@
 using AzureDevOpsJanitor.Domain.Events.Build;
 using AzureDevOpsJanitor.Domain.Services;
 using CloudEngineering.CodeOps.Abstractions.Events;
-using CloudEngineering.CodeOps.Infrastructure.AzureDevOps;
-using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects.Build;
+using CloudEngineering.CodeOps.Infrastructure.Azure.DevOps;
+using CloudEngineering.CodeOps.Infrastructure.Azure.DevOps.DataTransferObjects.Build;
 using System.Threading;
 using System.Threading.Tasks;
 

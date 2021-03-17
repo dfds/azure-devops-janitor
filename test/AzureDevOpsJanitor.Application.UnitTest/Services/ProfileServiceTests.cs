@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using AzureDevOpsJanitor.Application.Services;
 using AzureDevOpsJanitor.Domain.ValueObjects;
-using CloudEngineering.CodeOps.Infrastructure.AzureDevOps;
-using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects.Profile;
+using CloudEngineering.CodeOps.Infrastructure.Azure.DevOps;
+using CloudEngineering.CodeOps.Infrastructure.Azure.DevOps.DataTransferObjects.Profile;
 using Moq;
 using System.Threading;
 using System.Threading.Tasks;

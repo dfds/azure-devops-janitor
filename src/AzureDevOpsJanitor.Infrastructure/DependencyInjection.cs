@@ -1,4 +1,4 @@
-﻿using CloudEngineering.CodeOps.Infrastructure.AzureDevOps;
+﻿using CloudEngineering.CodeOps.Infrastructure.Azure.DevOps;
 using CloudEngineering.CodeOps.Infrastructure.Kafka;
 using CloudEngineering.CodeOps.Security.Policies;
 using Microsoft.Extensions.Configuration;

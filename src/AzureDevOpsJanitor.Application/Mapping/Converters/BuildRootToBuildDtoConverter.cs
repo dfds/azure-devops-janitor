@@ -2,7 +2,7 @@
 using AzureDevOpsJanitor.Domain.Aggregates.Build;
 using AzureDevOpsJanitor.Domain.ValueObjects;
 using CloudEngineering.CodeOps.Abstractions.Aggregates;
-using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects.Build;
+using CloudEngineering.CodeOps.Infrastructure.Azure.DevOps.DataTransferObjects.Build;
 using System;
 using System.Collections.Generic;
 using System.Linq;

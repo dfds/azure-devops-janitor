@@ -2,6 +2,7 @@
 using AzureDevOpsJanitor.Application.Data;
 using AzureDevOpsJanitor.Application.Repositories;
 using AzureDevOpsJanitor.Application.Services;
+using AzureDevOpsJanitor.Application.Strategies;
 using AzureDevOpsJanitor.Domain.Aggregates.Build;
 using AzureDevOpsJanitor.Domain.Aggregates.Project;
 using AzureDevOpsJanitor.Domain.Repository;
@@ -10,7 +11,9 @@ using AzureDevOpsJanitor.Infrastructure;
 using CloudEngineering.CodeOps.Abstractions.Data;
 using CloudEngineering.CodeOps.Abstractions.Facade;
 using CloudEngineering.CodeOps.Abstractions.Repositories;
+using CloudEngineering.CodeOps.Abstractions.Strategies;
 using CloudEngineering.CodeOps.Infrastructure.EntityFramework;
+using Confluent.Kafka;
 using MediatR;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
@@ -39,6 +42,7 @@ namespace AzureDevOpsJanitor.Application
             services.AddCaching();
             services.AddRepositories();
             services.AddServices();
+            services.AddStrategies();
             services.AddFacade();
         }
 
@@ -105,6 +109,11 @@ namespace AzureDevOpsJanitor.Application
             services.AddTransient<IBuildService, BuildService>();
             services.AddTransient<IProjectService, ProjectService>();
             services.AddTransient<IProfileService, ProfileService>();
+        }
+
+        private static void AddStrategies(this IServiceCollection services)
+        {
+            services.AddTransient<IStrategy<ConsumeResult<string, string>>, AdoWebHookConsumptionStrategy>();
         }
 
         private static void AddFacade(this IServiceCollection services)

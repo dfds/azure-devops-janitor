@@ -1,17 +1,16 @@
 ﻿using AutoMapper;
-using AzureDevOpsJanitor.Application;
 using CloudEngineering.CodeOps.Abstractions.Aggregates;
 using CloudEngineering.CodeOps.Abstractions.Commands;
 using CloudEngineering.CodeOps.Abstractions.Events;
-using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.DataTransferObjects;
-using CloudEngineering.CodeOps.Infrastructure.AzureDevOps.Events;
+using CloudEngineering.CodeOps.Infrastructure.Azure.DevOps.DataTransferObjects;
+using CloudEngineering.CodeOps.Infrastructure.Azure.DevOps.Events;
 using CloudEngineering.CodeOps.Infrastructure.Kafka.Strategies;
 using Confluent.Kafka;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AzureDevOpsJanitor.Host.EventConsumer.Strategies
+namespace AzureDevOpsJanitor.Application.Strategies
 {
     public sealed class AdoWebHookConsumptionStrategy : ConsumtionStrategy
     {
