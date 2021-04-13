@@ -19,6 +19,7 @@ spec:
         project: developerautomation
         department: cloudengineering
         app: azure-devops-janitor-api
+        backstage.io/kubernetes-id: azure-devops-janitor-api
     spec:
       priorityClassName: selfservice
       containers:
