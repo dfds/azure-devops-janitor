@@ -8,7 +8,7 @@ metadata:
     department: cloudengineering
     component: azure-devops-janitor
     app: azure-devops-janitor-api
-    backstage.io/kubernetes-id: developer-automation
+    'backstage.io/kubernetes-id': developer-automation
 spec:
   replicas: 1
   selector:
@@ -20,7 +20,7 @@ spec:
         project: developerautomation
         department: cloudengineering
         app: azure-devops-janitor-api
-        backstage.io/kubernetes-id: developer-automation
+        'backstage.io/kubernetes-id': developer-automation
     spec:
       priorityClassName: selfservice
       containers:
