@@ -3,8 +3,6 @@ kind: Component
 metadata:
   name: azure-devops-janitor
   description: Handles Azure DevOps setup
-  tags:
-    - janitor
   annotations:
     "backstage.io/kubernetes-id": developer-automation
 spec:
