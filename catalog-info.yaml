@@ -1,11 +1,14 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: azure-devops-janitor
+  name: azure-devops-janitor-api
   description: Handles Azure DevOps setup
-  annotations:    
+  tags:
+    - go
+  annotations:
     'backstage.io/kubernetes-id': developer-automation
 spec:
   type: service
   lifecycle: production
   owner: guest
+  
