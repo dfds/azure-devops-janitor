@@ -6,7 +6,7 @@ metadata:
   tags:
     - go
   annotations:
-    'backstage.io/kubernetes-label-selector': 'app=azure-devops-janitor-api'
+    'backstage.io/kubernetes-id': developer-automation
 spec:
   type: service
   lifecycle: production
