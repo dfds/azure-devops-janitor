@@ -18,6 +18,7 @@ spec:
       labels:
         project: developerautomation
         department: cloudengineering
+        component: azure-devops-janitor
         app: azure-devops-janitor-api
     spec:
       priorityClassName: selfservice
