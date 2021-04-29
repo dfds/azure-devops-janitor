@@ -5,6 +5,8 @@ metadata:
   namespace: developerautomation-xavgy
   annotations:
     traefik.frontend.rule.type: PathPrefixStrip
+  labels:
+    project: developerautomation    
 spec:
   rules:
     - host: api.hellman.oxygen.dfds.cloud
