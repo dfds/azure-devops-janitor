@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: azure-devops-janitor-api-2
+  name: azure-devops-janitor-api-3
   description: Handles Azure DevOps setup
   tags:
     - go
