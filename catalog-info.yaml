@@ -4,7 +4,7 @@ metadata:
   name: azure-devops-janitor-api
   description: Handles Azure DevOps setup
   tags:
-    - go
+    - net
   annotations:
     'backstage.io/kubernetes-label-selector': 'project=developerautomation'
 spec:
