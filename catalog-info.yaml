@@ -1,12 +1,12 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: azure-devops-janitor-api-3
+  name: azure-devops-janitor-api
   description: Handles Azure DevOps setup
   tags:
     - go
   annotations:
-    'backstage.io/kubernetes-label-selector': 'app=azure-devops-janitor-api-test'
+    'backstage.io/kubernetes-label-selector': 'project=developerautomation'
 spec:
   type: service
   lifecycle: production
