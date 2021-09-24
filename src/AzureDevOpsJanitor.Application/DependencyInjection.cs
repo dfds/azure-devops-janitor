@@ -15,7 +15,6 @@ using CloudEngineering.CodeOps.Abstractions.Strategies;
 using CloudEngineering.CodeOps.Infrastructure.EntityFramework;
 using Confluent.Kafka;
 using MediatR;
-using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
@@ -62,16 +61,7 @@ namespace AzureDevOpsJanitor.Application
                     throw new ApplicationFacadeException($"Could not find connection string with entry key: {nameof(ApplicationContext)}");
                 }
 
-                services.AddSingleton(factory =>
-                {
-                    var connection = new SqliteConnection(connectionString);
-
-                    connection.Open();
-
-                    return connection;
-                });
-
-                var dbOptions = options.UseSqlite(services.BuildServiceProvider().GetService<SqliteConnection>(),
+                var dbOptions = options.UseSqlite(connectionString,
                     sqliteOptions =>
                     {
                         sqliteOptions.MigrationsAssembly(callingAssemblyName);
@@ -87,7 +77,7 @@ namespace AzureDevOpsJanitor.Application
                 }
             });
 
-            services.AddScoped<IUnitOfWork>(factory => factory.GetRequiredService<ApplicationContext>());
+            services.AddTransient<IUnitOfWork>(factory => factory.GetRequiredService<ApplicationContext>());
         }
 
         private static void AddCaching(this IServiceCollection services)
