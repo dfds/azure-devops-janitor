@@ -5,6 +5,7 @@ using AzureDevOpsJanitor.Application.Services;
 using AzureDevOpsJanitor.Application.Strategies;
 using AzureDevOpsJanitor.Domain.Aggregates.Build;
 using AzureDevOpsJanitor.Domain.Aggregates.Project;
+using AzureDevOpsJanitor.Domain.Aggregates.Release;
 using AzureDevOpsJanitor.Domain.Repository;
 using AzureDevOpsJanitor.Domain.Services;
 using AzureDevOpsJanitor.Infrastructure;
@@ -92,6 +93,9 @@ namespace AzureDevOpsJanitor.Application
 
             services.AddTransient<IRepository<ProjectRoot>, ProjectRepository>();
             services.AddTransient<IProjectRepository, ProjectRepository>();
+
+            services.AddTransient<IRepository<ReleaseRoot>, ReleaseRepository>();
+            services.AddTransient<IReleaseRepository, ReleaseRepository>();
         }
 
         private static void AddServices(this IServiceCollection services)
@@ -99,6 +103,7 @@ namespace AzureDevOpsJanitor.Application
             services.AddTransient<IBuildService, BuildService>();
             services.AddTransient<IProjectService, ProjectService>();
             services.AddTransient<IProfileService, ProfileService>();
+            services.AddTransient<IReleaseService, ReleaseService>();
         }
 
         private static void AddStrategies(this IServiceCollection services)
@@ -108,7 +113,7 @@ namespace AzureDevOpsJanitor.Application
 
         private static void AddFacade(this IServiceCollection services)
         {
-            services.AddTransient<IFacade, ApplicationFacade>();
+            services.AddTransient<IApplicationFacade, ApplicationFacade>();
         }
     }
 }
