@@ -31,6 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".k8s", ".k8s", "{E6ADC65C-D
 		k8s\aws_provider.yaml = k8s\aws_provider.yaml
 		k8s\eventconsumer_deployment.yaml = k8s\eventconsumer_deployment.yaml
 		k8s\ingress.yaml = k8s\ingress.yaml
+		k8s\ingress_route.yaml = k8s\ingress_route.yaml
 		k8s\kafka_credentials.yaml = k8s\kafka_credentials.yaml
 		k8s\service.yaml = k8s\service.yaml
 	EndProjectSection

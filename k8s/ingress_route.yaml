@@ -1,0 +1,31 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  creationTimestamp: null
+  name: azure-devops-janitor-ingress
+  namespace: developerautomation-xavgy
+spec:
+  entryPoints: []
+  routes:
+  - kind: Rule
+    match: Host(`api.hellman.oxygen.dfds.cloud`) && PathPrefix(`/azuredevops`)
+    middlewares:
+    - name: api.hellman.oxygen.dfds.cloud-azuredevops
+      namespace: developerautomation-xavgy
+    priority: 0
+    services:
+    - kind: Service
+      name: azure-devops-janitor-service
+      namespace: developerautomation-xavgy
+      port: external
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  creationTimestamp: null
+  name: api.hellman.oxygen.dfds.cloud-azuredevops
+  namespace: developerautomation-xavgy
+spec:
+  stripPrefix:
+    prefixes:
+    - /azuredevops
