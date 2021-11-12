@@ -16,6 +16,7 @@ using CloudEngineering.CodeOps.Abstractions.Strategies;
 using CloudEngineering.CodeOps.Infrastructure.EntityFramework;
 using Confluent.Kafka;
 using MediatR;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
@@ -62,7 +63,17 @@ namespace AzureDevOpsJanitor.Application
                     throw new ApplicationFacadeException($"Could not find connection string with entry key: {nameof(ApplicationContext)}");
                 }
 
-                var dbOptions = options.UseSqlite(connectionString,
+                //We need to manually open the connection when running inmemory db. If/when swapping to RDS remove the connection and use conn string for dbOptions
+                services.AddSingleton(factory =>
+                {
+                    var connection = new SqliteConnection(connectionString);
+
+                    connection.Open();
+
+                    return connection;
+                });
+
+                var dbOptions = options.UseSqlite(services.BuildServiceProvider().GetService<SqliteConnection>(),
                     sqliteOptions =>
                     {
                         sqliteOptions.MigrationsAssembly(callingAssemblyName);
