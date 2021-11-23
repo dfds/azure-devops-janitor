@@ -28,6 +28,7 @@ namespace AzureDevOpsJanitor.Application.Strategies
                 var @event = JsonSerializer.Deserialize<IntegrationEvent>(payload);
                 var adoEvent = _mapper.Map<AdoEvent>(@event.Payload.Value);
                 var adoDto = _mapper.Map<AdoDto>(adoEvent);
+                //TODO: Currently only supports new builds. Add support for re-run of builds (update) in below maps
                 var aggregateRoot = _mapper.Map<IAggregateRoot>(adoDto);
                 var command = _mapper.Map<IAggregateRoot, ICommand<IAggregateRoot>>(aggregateRoot);
 

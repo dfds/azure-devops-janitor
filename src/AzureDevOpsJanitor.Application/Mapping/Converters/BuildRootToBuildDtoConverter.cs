@@ -12,7 +12,7 @@ namespace AzureDevOpsJanitor.Application.Mapping.Converters
 {
     public class BuildRootToBuildDtoConverter : ITypeConverter<BuildRoot, BuildDto>, ITypeConverter<BuildDto, IAggregateRoot>
     {
-        private const string CapabilityIdentifierRegEx = @"\w{0,22}-\w{5}";
+        private const string CapabilityIdentifierRegEx = @"capability_id=(\{){0,1}[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}(\}){0,1}";
 
         public BuildDto Convert(BuildRoot source, BuildDto destination = default, ResolutionContext context = default)
         {
@@ -22,9 +22,15 @@ namespace AzureDevOpsJanitor.Application.Mapping.Converters
         public IAggregateRoot Convert(BuildDto source, IAggregateRoot destination = default, ResolutionContext context = default)
         {
             var capabilityIdentifier = MatchCapabilityIdentifier(source.Tags);
+
+            if (capabilityIdentifier == string.Empty)
+            {
+                return null;
+            }
+
             var buildDef = new BuildDefinition(source.Definition.Name, string.Empty, source.Definition.Id);
             var buildRoot = new BuildRoot(source.Project.Id, capabilityIdentifier, buildDef, source.Tags?.Select(o => new Tag(o)));
-
+            
             return buildRoot;
         }
 
@@ -38,7 +44,7 @@ namespace AzureDevOpsJanitor.Application.Mapping.Converters
                 }
             }
 
-            throw new ArgumentException("Unable to match CapabilityIdentifier");
+            return string.Empty;
         }
     }
 }

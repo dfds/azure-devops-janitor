@@ -7,10 +7,10 @@
     </PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CloudEngineering.CodeOps.Infrastructure.Azure.DevOps" Version="1.0.0-CI-20211005-103557" />
-		<PackageReference Include="CloudEngineering.CodeOps.Infrastructure.EntityFramework" Version="1.0.0-CI-20211005-103557" />
-		<PackageReference Include="CloudEngineering.CodeOps.Infrastructure.Kafka" Version="1.0.0-CI-20211005-103557" />
-		<PackageReference Include="CloudEngineering.CodeOps.Security.Policies" Version="1.0.0-CI-20211005-103557" />
+		<PackageReference Include="CloudEngineering.CodeOps.Infrastructure.Azure.DevOps" Version="1.0.0-CI-20211123-120619" />
+		<PackageReference Include="CloudEngineering.CodeOps.Infrastructure.EntityFramework" Version="1.0.0-CI-20211123-120619" />
+		<PackageReference Include="CloudEngineering.CodeOps.Infrastructure.Kafka" Version="1.0.0-CI-20211123-120619" />
+		<PackageReference Include="CloudEngineering.CodeOps.Security.Policies" Version="1.0.0-CI-20211123-120619" />
 	</ItemGroup>
 
 	<ItemGroup>
