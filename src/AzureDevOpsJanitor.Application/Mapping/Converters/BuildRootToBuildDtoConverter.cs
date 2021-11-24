@@ -40,7 +40,7 @@ namespace AzureDevOpsJanitor.Application.Mapping.Converters
             {
                 if (Regex.IsMatch(tag, CapabilityIdentifierRegEx))
                 {
-                    return tag;
+                    return tag.Split("=").Last();
                 }
             }
 

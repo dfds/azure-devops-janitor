@@ -57,7 +57,7 @@ namespace AzureDevOpsJanitor.Domain.Aggregates.Build
                 _tags = tags.ToList();
             }
 
-            if (!_tags.Any(o => o.Value == CapabilityIdentifier))
+            if (!_tags.Any(o => o.Value.Contains(CapabilityIdentifier)))
             {
                 _tags.Add(new Tag(CapabilityIdentifier));
             }

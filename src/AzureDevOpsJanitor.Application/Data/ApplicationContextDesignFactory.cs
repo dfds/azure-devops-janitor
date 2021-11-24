@@ -1,5 +1,4 @@
 ﻿using AzureDevOpsJanitor.Application.Data;
-using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
@@ -9,12 +8,13 @@ namespace CloudEngineering.CodeOps.Infrastructure.EntityFramework
     {
         public ApplicationContext CreateDbContext(string[] args)
         {
-            var connection = new SqliteConnection("Filename=:memory:;");
+            const string connStr = "User ID=postgres;Password=local;Host=localhost;Port=5432;Database=postgres";
+            var connection = new Npgsql.NpgsqlConnection(connStr);
 
             connection.Open();
 
             var optionsBuilder = new DbContextOptionsBuilder<EntityContext>()
-                .UseSqlite(connection);
+                .UseNpgsql(connection);
 
             return new ApplicationContext(optionsBuilder.Options);
         }
