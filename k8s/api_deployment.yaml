@@ -31,7 +31,7 @@ spec:
         - containerPort: 8080
           name: metrics
         env:
-          - name: AdoClient__ClientAccessToken
+          - name: AdoClient__ClientSecret
             valueFrom:
               secretKeyRef:
                 name: ado-credentials
@@ -46,6 +46,28 @@ spec:
               secretKeyRef:
                 name: kafka-credentials
                 key: password
+          - name: ConnectionStrings__ApplicationContext_Host
+            valueFrom:
+                secretKeyRef:
+                name: azure-devops-janitor-rdspostgresql-conn
+                key: endpoint
+          - name: ConnectionStrings__ApplicationContext_Port
+            valueFrom:
+                secretKeyRef:
+                name: azure-devops-janitor-rdspostgresql-conn
+                key: port
+          - name: ConnectionStrings__ApplicationContext_User
+            valueFrom:
+                secretKeyRef:
+                name: azure-devops-janitor-rdspostgresql-conn
+                key: username
+          - name: ConnectionStrings__ApplicationContext_Password
+            valueFrom:
+                secretKeyRef:
+                name: azure-devops-janitor-rdspostgresql-conn
+                key: password
+          - name: ConnectionStrings__ApplicationContext
+            value: "User ID=$(ConnectionStrings__ApplicationContext_User);Password=$(ConnectionStrings__ApplicationContext_Password);Host=$(ConnectionStrings__ApplicationContext_Host);Port=$(ConnectionStrings__ApplicationContext_Port);Database=postgres"
         resources:
           requests:
             memory: "200Mi"
