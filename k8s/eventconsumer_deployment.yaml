@@ -42,22 +42,22 @@ spec:
                 key: password
           - name: ConnectionStrings__ApplicationContext_Host
             valueFrom:
-                secretKeyRef:
+              secretKeyRef:
                 name: azure-devops-janitor-rdspostgresql-conn
                 key: endpoint
           - name: ConnectionStrings__ApplicationContext_Port
             valueFrom:
-                secretKeyRef:
+              secretKeyRef:
                 name: azure-devops-janitor-rdspostgresql-conn
                 key: port
           - name: ConnectionStrings__ApplicationContext_User
             valueFrom:
-                secretKeyRef:
+              secretKeyRef:
                 name: azure-devops-janitor-rdspostgresql-conn
                 key: username
           - name: ConnectionStrings__ApplicationContext_Password
             valueFrom:
-                secretKeyRef:
+              secretKeyRef:
                 name: azure-devops-janitor-rdspostgresql-conn
                 key: password
           - name: ConnectionStrings__ApplicationContext
