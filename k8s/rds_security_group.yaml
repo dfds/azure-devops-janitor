@@ -1,0 +1,26 @@
+apiVersion: ec2.aws.crossplane.io/v1beta1
+kind: SecurityGroup
+metadata:
+  name: azure-devops-janitor-rds-security-group
+  namespace: developerautomation-xavgy
+  labels:
+    rdsinstance: azure-devops-janitor-rds
+    department: cloudengineering
+    project: developerautomation
+spec:
+  forProvider:
+    region: eu-west-1
+    tags:
+    - key: Name
+      value: azure-devops-janitor-rds-security-group
+    groupName: azure-devops-janitor-rds-security-group
+    description: Security Group for RDS
+    ingress: 
+    - fromPort: 5432
+      toPort: 5432
+      ipProtocol: tcp
+      ipRanges:
+      - cidrIp: 0.0.0.0/0
+        description: postgresql
+  providerConfigRef:
+    name: developerautomation-xavgy-provider-config
