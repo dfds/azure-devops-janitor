@@ -7,7 +7,7 @@ trigger:
   branches:
     include:
     - main
-    
+
   paths:
     # Changes to these files does not trigger a new build / release
     exclude:
@@ -22,6 +22,16 @@ variables:
 - group: Developer-Automation
 
 steps:
+# Apply Crossplane manifests
+- task: Kubernetes@1
+  displayName: 'Apply crossplane manifests'
+  inputs:
+    connectionType: Kubernetes Service Connection
+    kubernetesServiceEndpoint: 'Kubernetes-Developer-Automation-Deploy'
+    namespace: 'developerautomation-xavgy'
+    command: apply
+    arguments: '-f $(Build.SourcesDirectory)/crossplane/'
+
 - task: DockerCompose@0
   displayName: 'Build azure-devops-janitor images'
   inputs:
@@ -31,7 +41,7 @@ steps:
     dockerComposeCommand: 'build'
     arguments: '--build-arg PAT=$(System.AccessToken)'
 
-- task: ECRPushImage@1  
+- task: ECRPushImage@1
   displayName: 'Push azure-devops-janitor-api image to ECR'
   inputs:
     awsCredentials: 'DeveloperAutomation ECR'
@@ -50,7 +60,7 @@ steps:
     sourceImageName: 'azure-devops-janitor-event-consumer'
     repositoryName: 'dfds.developerautomation-xavgy.azure-devops-janitor'
     pushTag: 'azure-devops-janitor-event-consumer-$(Build.BuildId)'
-  
+
 # Replace token values in yaml files with pipeline variables
 - task: qetza.replacetokens.replacetokens-task.replacetokens@3
   displayName: 'Replace tokens in k8s manifests'
