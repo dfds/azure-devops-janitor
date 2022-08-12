@@ -8,6 +8,7 @@ metadata:
     department: cloudengineering
     project: developerautomation
 spec:
+  deletionPolicy: Orphan
   forProvider:
     region: eu-west-1
     tags:
@@ -15,7 +16,7 @@ spec:
       value: azure-devops-janitor-rds-security-group
     groupName: azure-devops-janitor-rds-security-group
     description: Security Group for RDS
-    ingress: 
+    ingress:
     - fromPort: 5432
       toPort: 5432
       ipProtocol: tcp

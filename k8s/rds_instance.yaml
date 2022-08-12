@@ -9,6 +9,7 @@ metadata:
     department: cloudengineering
     project: developerautomation
 spec:
+  deletionPolicy: Orphan
   providerConfigRef:
     name: developerautomation-xavgy-provider-config
   forProvider:
