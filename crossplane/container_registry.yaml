@@ -1,9 +1,9 @@
-apiVersion: xplane.dfds.cloud/v1alpha1
-kind: ContainerRegistryV1
-metadata:
-  namespace: developerautomation-xavgy
-  name: azure-devops-janitor-container-repo
-spec:
-  parameters:
-    name: dfds.developerautomation-xavgy.azure-devops-janitor
-    deletionPolicy: Orphan
+# apiVersion: xplane.dfds.cloud/v1alpha1
+# kind: ContainerRegistryV1
+# metadata:
+#   namespace: developerautomation-xavgy
+#   name: azure-devops-janitor-container-repo
+# spec:
+#   parameters:
+#     name: dfds.developerautomation-xavgy.azure-devops-janitor
+#     deletionPolicy: Orphan

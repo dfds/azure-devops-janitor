@@ -22,15 +22,15 @@ variables:
 - group: Developer-Automation
 
 steps:
-# Apply Crossplane manifests
-- task: Kubernetes@1
-  displayName: 'Apply crossplane manifests'
-  inputs:
-    connectionType: Kubernetes Service Connection
-    kubernetesServiceEndpoint: 'Kubernetes-Developer-Automation-Deploy'
-    namespace: 'developerautomation-xavgy'
-    command: apply
-    arguments: '-f $(Build.SourcesDirectory)/crossplane/'
+# Apply Crossplane manifests - Crossplane is Disabled
+# - task: Kubernetes@1
+#   displayName: 'Apply crossplane manifests'
+#   inputs:
+#     connectionType: Kubernetes Service Connection
+#     kubernetesServiceEndpoint: 'Kubernetes-Developer-Automation-Deploy'
+#     namespace: 'developerautomation-xavgy'
+#     command: apply
+#     arguments: '-f $(Build.SourcesDirectory)/crossplane/'
 
 - task: DockerCompose@0
   displayName: 'Build azure-devops-janitor images'
