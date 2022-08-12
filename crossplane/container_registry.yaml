@@ -6,3 +6,4 @@ metadata:
 spec:
   parameters:
     name: dfds.developerautomation-xavgy.azure-devops-janitor
+    deletionPolicy: Orphan
